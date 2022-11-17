@@ -60,15 +60,14 @@ services:
             context: ./infra/composer
         container_name: composer_AtHome
         volumes:
-        - './:/var/www'
-
+            - ${APP_FOLDER}:/var/www
     node:
         image: node
         build:
             context: ./infra/node
         container_name: node_AtHome
         volumes:
-            - './:/var/www'
+            - ${APP_FOLDER}:/var/www
 
 volumes:
     mongodb-data:

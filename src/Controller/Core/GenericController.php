@@ -11,7 +11,6 @@ class GenericController extends AbstractController
 {
     protected function getRenderResponse(string $file, array $variables = []): Response
     {
-        return new Response('<div>coucou</div>');
         return $this->render(
             'base/base.html.twig',
             [

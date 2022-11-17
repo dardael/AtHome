@@ -1,0 +1,5 @@
+/infra/logs/
+/node_modules/
+/infra/mongodb/database/
+/.idea/
+

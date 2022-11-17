@@ -68,7 +68,6 @@ services:
         container_name: node_AtHome
         volumes:
             - ${APP_FOLDER}:/var/www
-
 volumes:
     mongodb-data:
         name: mongodb-data

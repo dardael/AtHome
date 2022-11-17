@@ -4,4 +4,4 @@ FROM node:19
 WORKDIR /var/www
 
 EXPOSE 8080
-CMD [ "node", "server.js" ]
+CMD [ "node"]

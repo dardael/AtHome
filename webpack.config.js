@@ -21,7 +21,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.ts')
-    .addEntry('authenticatePage', './assets/authentification/components/authenticate.ts')
+    .addEntry('authenticatePage', './assets/authentification/components/authenticate.tsx')
 
 
     .copyFiles({from: './ressources/images', to: 'images/[path][name].[hash:8].[ext]'})
@@ -66,7 +66,7 @@ Encore
     .enableTypeScriptLoader()
 
     // uncomment if you use React
-    //.enableReactPreset()
+    .enableReactPreset()
 
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher

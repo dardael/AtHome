@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%;">
     <head>
-        <link rel="shortcut icon" type="image/png" href="{{ asset('build/images/garden.png') }}" alt="ACME logo"/>}
+        <link rel="shortcut icon" type="image/png" href="{{ asset('build/images/garden.png') }}" alt="ACME logo"/>
         <title>AtHome</title>
         <!-- ... -->
         {% block stylesheets %}
@@ -25,7 +25,7 @@
                 See note below about the "defer" attribute -->
         {% endblock %}
     </head>
-    <body>
+    <body style="height: -moz-available;height: -webkit-fill-available;height: fill-available; margin: 0;">
     	<script type="text/javascript">
 			window.atHome = {
 			{% if variables is defined and not(variables is empty) %}
@@ -33,9 +33,9 @@
 					{{name}} : {{value|json_encode(constant('JSON_PRETTY_PRINT'))|raw }}, 
 				{% endfor %}
 			{% endif%}
-			};
+			}
 		</script>
-    	<div id="root"></div>
+    	<div id="root" style="height: -moz-available;height: -webkit-fill-available;height: fill-available;"></div>
     </body>
     <!-- ... -->
 </html>

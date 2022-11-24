@@ -21,7 +21,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.ts')
-    .addEntry('authenticatePage', './assets/authentification/components/authenticate.tsx')
+    .addEntry('authenticatePage', './assets/authentification/pages/authenticate.tsx')
 
 
     .copyFiles({from: './ressources/images', to: 'images/[path][name].[hash:8].[ext]'})

@@ -31,7 +31,7 @@ services:
             - MONGO_INITDB_ROOT_USERNAME=dardael
             - MONGO_INITDB_ROOT_PASSWORD=aty30ITE
         volumes:
-            - mongodb-data:/data/db
+            - mongodb-data-AtHome:/data/db
         ports:
             - 27018:27018
         restart: unless-stopped
@@ -47,7 +47,7 @@ services:
             - ME_CONFIG_BASICAUTH_USERNAME=admin
             - ME_CONFIG_BASICAUTH_PASSWORD=aty30ITE
         volumes:
-            - mongodb-data:/data/db
+            - mongodb-data-AtHome:/data/db
         depends_on:
             - mongodb
         ports:
@@ -69,5 +69,5 @@ services:
         volumes:
             - ${APP_FOLDER}:/var/www
 volumes:
-    mongodb-data:
-        name: mongodb-data
+    mongodb-data-AtHome:
+        name: mongodb-data-AtHome

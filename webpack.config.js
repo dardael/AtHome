@@ -24,7 +24,7 @@ Encore
     .addEntry('authenticatePage', './assets/authentification/pages/authenticate.tsx')
 
 
-    .copyFiles({from: './ressources/images', to: 'images/[path][name].[hash:8].[ext]'})
+    .copyFiles({from: './assets/ressources/images', to: 'images/[path][name].[hash:8].[ext]'})
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

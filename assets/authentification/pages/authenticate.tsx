@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client';
 import {Form, Input, Button} from "antd";
 import Theme from '../../core/theme/theme'
 import Background from "../components/background";
-import CenteredForm from "../../core/components/centeredForm";
+import CenteredForm from "../../core/components/form/centeredForm";
+import TextInput from "../../core/components/form/items/textInput";
 
 document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById('root');
@@ -13,13 +14,12 @@ document.addEventListener("DOMContentLoaded", function() {
             <Background>
                 <CenteredForm>
                     <>
-                        <Form.Item
+                        <TextInput
                             label="Identifiant"
                             name="username"
-                            rules={[{required: true, message: 'Renseignez votre identifiant'}]}
-                        >
-                            <Input/>
-                        </Form.Item>
+                            required
+                            message= 'Renseignez votre identifiant'
+                        />
                         <Form.Item
                             label="Mot de passe"
                             name="password"

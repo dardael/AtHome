@@ -6,6 +6,7 @@ import Background from "../components/background";
 import CenteredForm from "../../core/components/form/centeredForm";
 import TextInput from "../../core/components/form/items/textInput";
 import PasswordInput from "../../core/components/form/items/passwordInput";
+import Link from "../../core/components/link";
 
 document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById('root');
@@ -27,9 +28,13 @@ document.addEventListener("DOMContentLoaded", function() {
                             required
                             message= 'Renseignez votre mot de passe'
                         />
-                        <Form.Item wrapperCol={{offset: 8, span: 16}}>
-                            <Button type="primary" htmlType="submit">
-                                Connexion
+                        <Form.Item>
+                            <Link
+                                target="/account/creation"
+                                label="Créer un compte"
+                            />
+                            <Button type="primary" htmlType="submit" style={{float: 'right', marginRight: '20px'}}>
+                                Se connecter
                             </Button>
                         </Form.Item>
                     </>

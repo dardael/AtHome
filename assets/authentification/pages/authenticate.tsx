@@ -5,6 +5,7 @@ import Theme from '../../core/theme/theme'
 import Background from "../components/background";
 import CenteredForm from "../../core/components/form/centeredForm";
 import TextInput from "../../core/components/form/items/textInput";
+import PasswordInput from "../../core/components/form/items/passwordInput";
 
 document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById('root');
@@ -20,13 +21,12 @@ document.addEventListener("DOMContentLoaded", function() {
                             required
                             message= 'Renseignez votre identifiant'
                         />
-                        <Form.Item
+                        <PasswordInput
                             label="Mot de passe"
                             name="password"
-                            rules={[{required: true, message: 'Renseignez votre mot de passe'}]}
-                        >
-                            <Input.Password/>
-                        </Form.Item>
+                            required
+                            message= 'Renseignez votre mot de passe'
+                        />
                         <Form.Item wrapperCol={{offset: 8, span: 16}}>
                             <Button type="primary" htmlType="submit">
                                 Connexion

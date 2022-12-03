@@ -1,19 +1,15 @@
 import React from "react";
 import { createRoot } from 'react-dom/client';
-import {Col, Form, Input, Row, Button} from "antd";
+import {Form, Input, Button} from "antd";
 import Theme from '../../core/theme/theme'
-const imageSrc = require('/assets/ressources/images/frogBackground.jpg')
+import Background from "../components/background";
 
 document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById('root');
     const root = createRoot(container!);
     root.render(
         <Theme>
-            <div style={{
-                backgroundImage: `url(${imageSrc})`,
-                backgroundSize: '100% 100%',
-                height: '100%'
-            }}>
+            <Background>
                 <Form
                     labelWrap
                     layout="vertical"
@@ -46,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </Button>
                     </Form.Item>
                 </Form>
-            </div>
+            </Background>
         </Theme>
     );
 })

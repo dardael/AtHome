@@ -2,8 +2,8 @@ import React from "react";
 import {Input} from "antd";
 import FormInput from "./formInput";
 
-const TextInput: React.FunctionComponent<{ label: string, name: string, required: boolean, message?: string }>
-    = ({label, name, required = false, message = null}) => {
+const TextInput: React.FunctionComponent<{ label: string, name: string, required: boolean, message?: string, type?: string}>
+    = ({label, name, required = false, message = null, type = null}) => {
     return <>
         <FormInput
             label={label}
@@ -11,7 +11,7 @@ const TextInput: React.FunctionComponent<{ label: string, name: string, required
             required={required}
             message= {message}
         >
-            <Input/>
+            <Input type={type}/>
         </FormInput>
     </>
 }

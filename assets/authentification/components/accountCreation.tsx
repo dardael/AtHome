@@ -28,6 +28,7 @@ const AccountCreation:React.FunctionComponent<{}> = ({}) => {
                 name="email"
                 required
                 message= 'Renseignez votre Email'
+                type='email'
             />
             <PasswordInput
                 label="Mot de passe"

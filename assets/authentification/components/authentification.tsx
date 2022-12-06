@@ -23,6 +23,7 @@ const Authentification:React.FunctionComponent<{fromAccountCreation?:boolean}> =
                 name="email"
                 required
                 message= 'Renseignez votre Email'
+                type='email'
             />
             <PasswordInput
                 label="Mot de passe"

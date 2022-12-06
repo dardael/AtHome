@@ -7,6 +7,7 @@ use App\Controller\Core\GenericController;
 use App\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use SebastianBergmann\CodeCoverage\Report\Xml\Report;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -19,7 +20,7 @@ class IdentificationController extends GenericController
     {
         return $this->getRenderResponse(
             'authenticatePage',
-            []
+            ['fromAccountCreation' => $request->query->has('fromAccountCreation')]
         );
     }
 
@@ -27,8 +28,7 @@ class IdentificationController extends GenericController
     public function getAccountCreationPage(Request $request): Response
     {
         return $this->getRenderResponse(
-            'accountCreationPage',
-            []
+            'accountCreationPage'
         );
     }
 
@@ -45,8 +45,17 @@ class IdentificationController extends GenericController
         $user->setPassword(
             $passwordHasher->hashPassword($user, $request->request->get('password'))
         );
+
+        $existingUser = $documentManager->getRepository(User::class)
+            ->findOneBy(['email' => $user->getUserIdentifier()]);
+        if ($existingUser) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => 'Un utilisateur avec cet mail existe déjà'
+            ]);
+        }
         $documentManager->persist($user);
         $documentManager->flush();
-        return new Response();
+        return new JsonResponse(['success' => true]);
     }
 }

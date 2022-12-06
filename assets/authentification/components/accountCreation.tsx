@@ -1,16 +1,27 @@
 import React from "react";
-import {Button, Form} from "antd";
+import {Button, Form, message} from "antd";
 import TextInput from "../../core/components/form/items/textInput";
 import PasswordInput from "../../core/components/form/items/passwordInput";
 import AthForm from "../../core/components/form/form";
 import axios from "axios";
 
 const AccountCreation:React.FunctionComponent<{}> = ({}) => {
+    const [messageApi, contextHolder] = message.useMessage();
     const createAccount = (values, formData) => {
-        axios.post('/account/create', formData).then(() => {window.location.href='/'})
+        axios.post('/account/create', formData).then((response) => {
+            console.log(response)
+            if (!response.data.success) {
+                messageApi.warning(response.data.message);
+                return;
+            }
+            window.location.href = '/?fromAccountCreation=1';
+        }).catch((response) => {
+            messageApi.error(response.message)
+        });
     };
 
     return <>
+        {contextHolder}
         <AthForm onFinish={createAccount}>
             <TextInput
                 label="Email"

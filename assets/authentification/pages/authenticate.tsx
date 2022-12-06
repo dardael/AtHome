@@ -1,6 +1,5 @@
 import React from "react";
 import { createRoot } from 'react-dom/client';
-import {Form, Input, Button} from "antd";
 import Theme from '../../core/theme/theme'
 import Background from "../components/background";
 import CenteredLayout from "../../core/components/centeredLayout";
@@ -13,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <Theme>
             <Background>
                 <CenteredLayout>
-                    <Authentification/>
+                    <Authentification fromAccountCreation={atHome.fromAccountCreation}/>
                 </CenteredLayout>
             </Background>
         </Theme>

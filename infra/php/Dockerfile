@@ -25,3 +25,7 @@ RUN apk add libressl-dev \
     && docker-php-ext-enable mongodb \
     && echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongodb.ini
 
+RUN apk add shadow
+RUN groupmod -g 1000 www-data
+RUN usermod -g www-data -u 1000 www-data
+USER www-data

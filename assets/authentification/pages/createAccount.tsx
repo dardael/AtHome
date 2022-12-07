@@ -4,7 +4,6 @@ import Theme from '../../core/theme/theme'
 import Background from "../components/background";
 import AccountCreation from "../components/accountCreation";
 import CenteredLayout from "../../core/components/centeredLayout";
-
 document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById('root');
     const root = createRoot(container!);
@@ -12,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <Theme>
             <Background>
                 <CenteredLayout>
-                    <AccountCreation/>
+                    <AccountCreation userAlreadyExists={atHome.userAlreadyExists}/>
                 </CenteredLayout>
             </Background>
         </Theme>

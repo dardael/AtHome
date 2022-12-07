@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <Theme>
             <Background>
                 <CenteredLayout>
-                    <Authentification fromAccountCreation={atHome.fromAccountCreation}/>
+                    <Authentification fromAccountCreation={atHome.fromAccountCreation} hasLoggingError={atHome.hasLoggingError}/>
                 </CenteredLayout>
             </Background>
         </Theme>

@@ -5,29 +5,36 @@ import PasswordInput from "../../core/components/form/items/passwordInput";
 import Link from "../../core/components/link";
 import AthForm from "../../core/components/form/form";
 
-const Authentification:React.FunctionComponent<{fromAccountCreation?:boolean}> = ({fromAccountCreation = false}) => {
+const Authentification:React.FunctionComponent<{fromAccountCreation?:boolean, hasLoggingError?:boolean}> = ({fromAccountCreation = false, hasLoggingError = false}) => {
     const [messageApi, contextHolder] = message.useMessage();
+    console.log(hasLoggingError)
     useEffect(() => {
-        if(fromAccountCreation) {
+        if (fromAccountCreation) {
             messageApi.open({
                 type: 'success',
                 content: 'Votre compte a été créé avec succés',
             });
         }
+        if (hasLoggingError) {
+            messageApi.open({
+                type: 'error',
+                content: 'Email ou mot de passe incorrect',
+            });
+        }
     }, []);
     return <>
         {contextHolder}
-        <AthForm>
+        <AthForm action={'/authenticate'} method={'POST'}>
             <TextInput
                 label="Email"
-                name="email"
+                name="_username"
                 required
                 message= 'Renseignez votre Email'
                 type='email'
             />
             <PasswordInput
                 label="Mot de passe"
-                name="password"
+                name="_password"
                 required
                 message= 'Renseignez votre mot de passe'
             />

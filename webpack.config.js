@@ -23,6 +23,7 @@ Encore
     .addEntry('app', './assets/app.ts')
     .addEntry('authenticatePage', './assets/authentification/pages/authenticate.tsx')
     .addEntry('accountCreationPage', './assets/authentification/pages/createAccount.tsx')
+    .addEntry('homePage', './assets/home/pages/home.tsx')
 
 
     .copyFiles({from: './assets/ressources/images', to: 'images/[path][name].[hash:8].[ext]'})

@@ -11,7 +11,7 @@ const PasswordInput: React.FunctionComponent<{ label: string, name: string, requ
             required={required}
             message= {message}
         >
-            <Input.Password/>
+            <Input.Password name={name}/>
         </FormInput>
     </>
 }

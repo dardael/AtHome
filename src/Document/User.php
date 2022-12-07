@@ -17,8 +17,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $email;
     #[MongoDB\Field(type: 'string')]
     private string $password;
-    #[MongoDB\Field(type: 'string')]
-    private string $role;
+    //#[MongoDB\Field(type: 'string')]
+    private string $role = 'ROLE_USER';
 
     public function getRoles(): array
     {

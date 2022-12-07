@@ -1,28 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Button, Form, message} from "antd";
 import TextInput from "../../core/components/form/items/textInput";
 import PasswordInput from "../../core/components/form/items/passwordInput";
 import AthForm from "../../core/components/form/form";
-import axios from "axios";
 
-const AccountCreation:React.FunctionComponent<{}> = ({}) => {
+const AccountCreation:React.FunctionComponent<{}> = ({userAlreadyExists}) => {
     const [messageApi, contextHolder] = message.useMessage();
-    const createAccount = (values, formData) => {
-        axios.post('/account/create', formData).then((response) => {
-            console.log(response)
-            if (!response.data.success) {
-                messageApi.warning(response.data.message);
-                return;
-            }
-            window.location.href = '/?fromAccountCreation=1';
-        }).catch((response) => {
-            messageApi.error(response.message)
-        });
-    };
-
+    useEffect(() => {
+        if (userAlreadyExists) {
+            messageApi.open({
+                type: 'error',
+                content: 'Un compte avec cet email existe déjà',
+            });
+        }
+    }, []);
     return <>
         {contextHolder}
-        <AthForm onFinish={createAccount}>
+        <AthForm action='/account/create' method='GET'>
             <TextInput
                 label="Email"
                 name="email"
@@ -51,3 +45,4 @@ const AccountCreation:React.FunctionComponent<{}> = ({}) => {
     </>
 }
 export default AccountCreation;
+

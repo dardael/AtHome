@@ -11,7 +11,7 @@ const TextInput: React.FunctionComponent<{ label: string, name: string, required
             required={required}
             message= {message}
         >
-            <Input type={type}/>
+            <Input type={type} name={name}/>
         </FormInput>
     </>
 }

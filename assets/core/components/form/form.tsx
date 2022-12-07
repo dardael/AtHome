@@ -1,22 +1,36 @@
-import React from "react";
+import React, {useRef} from "react";
 import {Form} from "antd";
 
-const AthForm: React.FunctionComponent<{children, onFinish}> = ({children, onFinish = null}) => {
-    const completeOnFinish = (values) => {
-        const formData = new FormData();
-        for ( let key in values ) {
-            formData.append(key, values[key]);
-        }
-        onFinish(values, formData);
+const AthForm: React.FunctionComponent<{children, action, method}> = ({children, action, method='GET'}) => {
+    let parentForm: HTMLFormElement | null;
+    const [antForm] = Form.useForm();
+    const completeOnFinish = () => {
+        parentForm?.submit();
     }
+    const completeOnFinishFailed = () => {
+    }
+    const onSubmit = (e) => {
+        e.preventDefault();
+        antForm?.submit();
+    }
+
     return <>
-        <Form
-            labelWrap
-            layout="vertical"
-            onFinish={completeOnFinish}
-        >
-            {children}
-        </Form>
+        <form action={action} method={method} ref={node => { parentForm = node; }} onSubmit={onSubmit}>
+            <Form
+                form={antForm}
+                labelWrap
+                layout="vertical"
+                onFinish={completeOnFinish}
+                onFinishFailed={completeOnFinishFailed}
+                component={'div'}
+            >
+                {children}
+            </Form>
+        </form>
     </>
 }
 export default AthForm;
+function useRef<T>(arg0: null) {
+    throw new Error("Function not implemented.");
+}
+

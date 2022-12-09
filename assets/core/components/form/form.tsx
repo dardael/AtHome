@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import {Form} from "antd";
 
 const AthForm: React.FunctionComponent<{children, action, method}> = ({children, action, method='GET'}) => {
@@ -30,7 +30,4 @@ const AthForm: React.FunctionComponent<{children, action, method}> = ({children,
     </>
 }
 export default AthForm;
-function useRef<T>(arg0: null) {
-    throw new Error("Function not implemented.");
-}
 

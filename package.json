@@ -24,6 +24,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@types/react": "^18.0.26",
         "antd": "^5.0.1",
         "axios": "^1.2.0",
         "prop-types": "^15.8.1",

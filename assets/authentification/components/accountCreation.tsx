@@ -4,7 +4,7 @@ import TextInput from "../../core/components/form/items/textInput";
 import PasswordInput from "../../core/components/form/items/passwordInput";
 import AthForm from "../../core/components/form/form";
 
-const AccountCreation:React.FunctionComponent<{}> = ({userAlreadyExists}) => {
+const AccountCreation:React.FunctionComponent<{userAlreadyExists?: boolean}> = ({userAlreadyExists}) => {
     const [messageApi, contextHolder] = message.useMessage();
     useEffect(() => {
         if (userAlreadyExists) {

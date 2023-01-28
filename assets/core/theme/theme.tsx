@@ -1,4 +1,4 @@
-import {Button, ConfigProvider} from "antd";
+import {Button, ConfigProvider, theme} from "antd";
 import React from "react";
 
 const Theme:React.FunctionComponent<{children}> = ({children}) => {

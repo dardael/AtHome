@@ -2,6 +2,8 @@ import {Avatar, Button, Dropdown, Layout, Menu} from "antd";
 import { UserOutlined } from '@ant-design/icons';
 import React from "react";
 import type { MenuProps } from 'antd';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTree} from "@fortawesome/free-solid-svg-icons";
 
 const MainLayout:React.FunctionComponent<{}> = () => {
     const { Header, Content, Footer, Sider } = Layout;
@@ -35,7 +37,7 @@ const MainLayout:React.FunctionComponent<{}> = () => {
 
     const menuItems: MenuProps['items'] = [
         getItem('Extérieur', 'outdoor', null, [
-            getItem('Espace vert', 'greenSpace'),
+            getItem('Espace vert', 'greenSpace', <FontAwesomeIcon icon={faTree} />),
         ], 'group'),
         getItem('Intérieur', 'indoor', null, [
         ], 'group'),

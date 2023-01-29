@@ -1,11 +1,11 @@
-import {Avatar, Button, Dropdown, Layout, Menu} from "antd";
+import {Avatar, Dropdown, Layout, Menu} from "antd";
 import { UserOutlined } from '@ant-design/icons';
-import React from "react";
+import React, {ReactNode} from "react";
 import type { MenuProps } from 'antd';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTree, faBookAtlas} from "@fortawesome/free-solid-svg-icons";
 
-const MainLayout:React.FunctionComponent<{}> = () => {
+const MainLayout:React.FunctionComponent<{children: ReactNode}> = ({children}) => {
     const { Header, Content, Footer, Sider } = Layout;
     type MenuItem = Required<MenuProps>['items'][number];
 
@@ -55,8 +55,9 @@ const MainLayout:React.FunctionComponent<{}> = () => {
                 <Sider theme={'dark'} collapsible>
                     <Menu theme = {'dark'} defaultOpenKeys = {['greenSpace']} defaultSelectedKeys={['encyclopedia']} mode="inline" items={menuItems} ></Menu>
                 </Sider>
-                <Content></Content>
-                <Footer></Footer>
+                <Content>
+                    {children}
+                </Content>
             </Layout>
         </Layout>
     </>

@@ -3,7 +3,7 @@ import { UserOutlined } from '@ant-design/icons';
 import React from "react";
 import type { MenuProps } from 'antd';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faTree} from "@fortawesome/free-solid-svg-icons";
+import {faTree, faBookAtlas} from "@fortawesome/free-solid-svg-icons";
 
 const MainLayout:React.FunctionComponent<{}> = () => {
     const { Header, Content, Footer, Sider } = Layout;
@@ -37,7 +37,9 @@ const MainLayout:React.FunctionComponent<{}> = () => {
 
     const menuItems: MenuProps['items'] = [
         getItem('Extérieur', 'outdoor', null, [
-            getItem('Espace vert', 'greenSpace', <FontAwesomeIcon icon={faTree} />),
+            getItem('Espace vert', 'greenSpace', <FontAwesomeIcon icon={faTree} />,[
+                getItem('Encyclopédie', 'encyclopedia', <FontAwesomeIcon icon={faBookAtlas} />)
+            ]),
         ], 'group'),
         getItem('Intérieur', 'indoor', null, [
         ], 'group'),
@@ -50,8 +52,8 @@ const MainLayout:React.FunctionComponent<{}> = () => {
                 </Dropdown>
             </Header>
             <Layout>
-                <Sider theme={'dark'} collapsible style={{backgroundColor: '#00b96b'}}>
-                    <Menu defaultSelectedKeys={['greenSpace']} mode="inline" items={menuItems} style={{backgroundColor: '#00b96b'}}></Menu>
+                <Sider theme={'dark'} collapsible>
+                    <Menu theme = {'dark'} defaultOpenKeys = {['greenSpace']} defaultSelectedKeys={['encyclopedia']} mode="inline" items={menuItems} ></Menu>
                 </Sider>
                 <Content></Content>
                 <Footer></Footer>

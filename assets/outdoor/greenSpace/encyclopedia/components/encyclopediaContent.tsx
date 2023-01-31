@@ -15,29 +15,29 @@ import { PlusOutlined } from "@ant-design/icons";
 import {faDroplet, faSun, faTree} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import TextArea from "antd/lib/input/TextArea";
+import axios from "axios";
 
 const EncyclopediaContent:React.FunctionComponent<{}>
     = ({}) => {
     const { Option } = Select;
-
+    const [plantForm] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
         setIsModalOpen(true);
     };
+
     const addPlant = () => {
+        plantForm.submit();
+    }
+    const savePlant = async (plant) => {
+        await axios.post('/green-space/encyclopedia/plant/save', plant);
         setIsModalOpen(false);
     };
     const closeModal = () => {
         setIsModalOpen(false);
     };
-    const normFile = (e: any) => {
-        console.log('Upload event:', e);
-        if (Array.isArray(e)) {
-            return e;
-        }
-        return e?.fileList;
-    };
+
     return <>
         <LayoutWithToolbar toolbar={
             <Button onClick={showModal} size={'large'} type="primary" icon={<PlusOutlined />}  style={{float: 'right'}}>
@@ -45,8 +45,8 @@ const EncyclopediaContent:React.FunctionComponent<{}>
             </Button>
         }>
             <>
-            <Modal forceRender centered title="Ajouter une plante" open={isModalOpen} onOk={addPlant} onCancel={closeModal} cancelText={'Annuler'} okText={'Ajouter'}>
-                <Form labelWrap layout="vertical" style={{paddingTop:'20px'}}>
+            <Modal destroyOnClose forceRender centered title="Ajouter une plante" open={isModalOpen} onOk={addPlant} onCancel={closeModal} cancelText={'Annuler'} okText={'Ajouter'}>
+                <Form form={plantForm} preserve={false} onFinish={savePlant} labelWrap layout="vertical" style={{paddingTop:'20px'}}>
                     <Row gutter={[40,0]}>
                         <Col md={24} >
                             <Form.Item name='name' label={'Nom'} required>

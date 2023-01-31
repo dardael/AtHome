@@ -19,6 +19,8 @@ import axios from "axios";
 import {Plant} from "../entity/Plant";
 import {Foliage} from "../entity/Foliage";
 import {Type} from "../entity/Type";
+import {Unit} from "../entity/Unit";
+import {Month} from "../entity/Month";
 
 const EncyclopediaContent:React.FunctionComponent<{}>
     = ({}) => {
@@ -98,18 +100,9 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                         <Col md={12}>
                             <Form.Item name='pruningPeriods' label={'Périodes de taille'} required>
                                 <Select allowClear mode={'multiple'}>
-                                    <Option value="january">Janvier</Option>
-                                    <Option value="february">Février</Option>
-                                    <Option value="march">Mars</Option>
-                                    <Option value="april">Avril</Option>
-                                    <Option value="may">Mai</Option>
-                                    <Option value="june">Juin</Option>
-                                    <Option value="july">Juillet</Option>
-                                    <Option value="august">Aout</Option>
-                                    <Option value="september">Septembre</Option>
-                                    <Option value="october">Octobre</Option>
-                                    <Option value="november">Novembre</Option>
-                                    <Option value="december">Décembre</Option>
+                                    {Month.getLabels().map((label) =>
+                                        <Option key={label.key} value={label.key}>{label.label}</Option>
+                                    )}
                                 </Select>
                             </Form.Item>
                         </Col>
@@ -136,8 +129,9 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                                     </Form.Item>
                                     <Form.Item name={['size', 'unit']}>
                                         <Select defaultValue="m" allowClear={false}>
-                                            <Option value="cm">cm</Option>
-                                            <Option value="m">m</Option>
+                                            {Unit.getLabels().map((label) =>
+                                                <Option key={label.key} value={label.key}>{label.label}</Option>
+                                            )}
                                         </Select>
                                     </Form.Item>
                                 </Input.Group>

@@ -16,6 +16,7 @@ import {faDroplet, faSun, faTree} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import TextArea from "antd/lib/input/TextArea";
 import axios from "axios";
+import {Plant} from "../entity/Plant";
 
 const EncyclopediaContent:React.FunctionComponent<{}>
     = ({}) => {
@@ -30,7 +31,7 @@ const EncyclopediaContent:React.FunctionComponent<{}>
     const addPlant = () => {
         plantForm.submit();
     }
-    const savePlant = async (plant) => {
+    const savePlant = async (plant: Plant) => {
         await axios.post('/green-space/encyclopedia/plant/save', plant);
         setIsModalOpen(false);
     };
@@ -83,7 +84,7 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                         </Col>
                         <Col md={12}>
                             <Form.Item name='watering' label={'Arrosage'} required>
-                                <Rate allowHalf count={3} character={<FontAwesomeIcon icon={faDroplet}/>}  style={{color:'#0e7aff'}}/>
+                                <Rate count={3} character={<FontAwesomeIcon icon={faDroplet}/>}  style={{color:'#0e7aff'}}/>
                             </Form.Item>
                         </Col>
                     </Row>

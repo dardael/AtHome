@@ -18,6 +18,7 @@ import TextArea from "antd/lib/input/TextArea";
 import axios from "axios";
 import {Plant} from "../entity/Plant";
 import {Foliage} from "../entity/Foliage";
+import {Type} from "../entity/Type";
 
 const EncyclopediaContent:React.FunctionComponent<{}>
     = ({}) => {
@@ -60,11 +61,9 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                         <Col md={12}>
                             <Form.Item name='type' label={'Type'} required>
                                 <Select allowClear>
-                                    <Option value="tree">Arbre</Option>
-                                    <Option value="shrub">Arbuste</Option>
-                                    <Option value="ornamentalPlant">Plante ornementale</Option>
-                                    <Option value="aromatic">Aromatique</Option>
-                                    <Option value="pondPlant">Plante de bassin</Option>
+                                    {Type.getLabels().map((label) =>
+                                        <Option key={label.key} value={label.key}>{label.label}</Option>
+                                    )}
                                 </Select>
                             </Form.Item>
                         </Col>

@@ -17,6 +17,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import TextArea from "antd/lib/input/TextArea";
 import axios from "axios";
 import {Plant} from "../entity/Plant";
+import {Foliage} from "../entity/Foliage";
 
 const EncyclopediaContent:React.FunctionComponent<{}>
     = ({}) => {
@@ -70,8 +71,9 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                         <Col md={12}>
                             <Form.Item name={'foliage'} label={'Feuillage'} required>
                                 <Select allowClear>
-                                    <Option value="deciduous">Caduc</Option>
-                                    <Option value="persistent">Persistant</Option>
+                                    {Foliage.getLabels().map((label) =>
+                                        <Option key={label.key} value={label.key}>{label.label}</Option>
+                                    )}
                                 </Select>
                             </Form.Item>
                         </Col>

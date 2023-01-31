@@ -14,6 +14,7 @@ import {
 import { PlusOutlined } from "@ant-design/icons";
 import {faDroplet, faSun, faTree} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import TextArea from "antd/lib/input/TextArea";
 
 const EncyclopediaContent:React.FunctionComponent<{}>
     = ({}) => {
@@ -138,6 +139,13 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                                         </Select>
                                     </Form.Item>
                                 </Input.Group>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={24}>
+                            <Form.Item name='description' label={'Description'}>
+                                <TextArea></TextArea>
                             </Form.Item>
                         </Col>
                     </Row>

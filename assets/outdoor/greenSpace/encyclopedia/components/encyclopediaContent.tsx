@@ -87,12 +87,32 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                         </Col>
                     </Row>
                     <Row gutter={[40,0]}>
-                        <Col md={8}>
+                        <Col md={12}>
                             <Form.Item name='rusticity' label={'Rusticité'} required>
                                 <InputNumber addonAfter="°C"></InputNumber>
                             </Form.Item>
                         </Col>
-                        <Col md={16}>
+                        <Col md={12}>
+                            <Form.Item name='pruningPeriods' label={'Périodes de taille'} required>
+                                <Select allowClear mode={'multiple'}>
+                                    <Option value="january">Janvier</Option>
+                                    <Option value="february">Février</Option>
+                                    <Option value="march">Mars</Option>
+                                    <Option value="april">Avril</Option>
+                                    <Option value="may">Mai</Option>
+                                    <Option value="june">Juin</Option>
+                                    <Option value="july">Juillet</Option>
+                                    <Option value="august">Aout</Option>
+                                    <Option value="september">Septembre</Option>
+                                    <Option value="october">Octobre</Option>
+                                    <Option value="november">Novembre</Option>
+                                    <Option value="december">Décembre</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={24}>
                             <Form.Item name='size' label={'Envergure'} required>
                                 <Input.Group compact>
                                     <Form.Item name={['size', 'min']}>

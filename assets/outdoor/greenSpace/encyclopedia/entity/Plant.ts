@@ -1,9 +1,9 @@
-import {Size} from "./Size";
-import {Type} from "./Type";
-import {Foliage} from "./Foliage";
-import {Sunshine} from "./Sunshine";
-import {Watering} from "./Watering";
-import {Month} from "./Month";
+import {Size} from "./plant/Size";
+import {Type} from "./plant/Type";
+import {Foliage} from "./plant/Foliage";
+import {Sunshine} from "./plant/Sunshine";
+import {Watering} from "./plant/Watering";
+import {Month} from "./plant/Month";
 
 export interface Plant {
     name: string,

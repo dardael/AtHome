@@ -17,10 +17,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import TextArea from "antd/lib/input/TextArea";
 import axios from "axios";
 import {Plant} from "../entity/Plant";
-import {Foliage} from "../entity/Foliage";
-import {Type} from "../entity/Type";
-import {Unit} from "../entity/Unit";
-import {Month} from "../entity/Month";
+import {Foliage} from "../entity/plant/Foliage";
+import {Type} from "../entity/plant/Type";
+import {Unit} from "../entity/plant/Unit";
+import {Month} from "../entity/plant/Month";
 
 const EncyclopediaContent:React.FunctionComponent<{}>
     = ({}) => {

@@ -36,7 +36,7 @@ const EncyclopediaContent:React.FunctionComponent<{}>
         plantForm.submit();
     }
     const savePlant = async (plant: Plant) => {
-        await axios.post('/green-space/encyclopedia/plant/save', plant);
+        await axios.post('/outdoor/green-space/encyclopedia/plant/save', plant);
         setIsModalOpen(false);
     };
     const closeModal = () => {

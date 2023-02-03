@@ -7,6 +7,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 #[MongoDB\EmbeddedDocument]
 class Size
 {
+    #[MongoDB\id(type: 'string', strategy: 'UUID')]
+    private string $id;
     #[MongoDB\Field(type: 'float')]
     private float $min;
     #[MongoDB\Field(type: 'float')]

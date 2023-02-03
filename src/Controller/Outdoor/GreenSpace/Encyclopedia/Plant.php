@@ -3,13 +3,14 @@ declare(strict_types = 1);
 namespace App\Controller\Outdoor\GreenSpace\Encyclopedia;
 
 use App\Controller\Core\GenericController;
+use App\Document\Outdoor\GreenSpace\Encyclopedia\Encyclopedia;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Foliage;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Month;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Size;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Sunshine;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Unit;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Watering;
-use App\Repository\Outdoor\GreenSpace\Encyclopedia\PlantRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,7 @@ class Plant extends GenericController
     #[Route('/outdoor/green-space/encyclopedia/plant/save')]
     public function save(
         Request $request,
-        PlantRepository $plantRepository,
+        DocumentManager $documentManager,
     ): Response {
         $newPlant = $this->getDecodedRequest($request);
         $plantDocument = new PlantDocument();
@@ -33,13 +34,22 @@ class Plant extends GenericController
         $plantDocument->setName($newPlant->name);
         $plantDocument->setDescription($newPlant->description);
         $plantDocument->setFoliage(Foliage::from($newPlant->foliage));
-        $plantDocument->setPruningPeriods(array_map(
-            fn($pruningPeriod) => Month::from($pruningPeriod),
-            $newPlant->pruningPeriods
-        ));
-        $plantDocument->setSunshine(Sunshine::from((string) $newPlant->sunshine));
+        $plantDocument->setPruningPeriods(
+            array_map(
+                fn($pruningPeriod) => Month::from($pruningPeriod),
+                $newPlant->pruningPeriods
+            )
+        );
+        $plantDocument->setSunshine(
+            Sunshine::from((string) $newPlant->sunshine)
+        );
         $plantDocument->setWatering(Watering::from($newPlant->watering));
-        $plantRepository->save($plantDocument);
+
+        $encyclopedia = $documentManager->getRepository(Encyclopedia::class)
+            ->findOneBy(['type' => 'PLANT']);
+        $encyclopedia->addElement($plantDocument);
+        $documentManager->persist($encyclopedia);
+        $documentManager->flush();
         return new JsonResponse(['success' => true]);
     }
 }

@@ -15,6 +15,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 #[MongoDB\EmbeddedDocument]
 class Plant
 {
+    #[MongoDB\id(type: 'string', strategy: 'UUID')]
+    private string $id;
     #[MongoDB\Field(type: 'string')]
     private string $name;
     #[MongoDB\Field(type: 'string', enumType: Type::class)]

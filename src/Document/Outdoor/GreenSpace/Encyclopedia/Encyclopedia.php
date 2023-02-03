@@ -28,11 +28,8 @@ class Encyclopedia
         $this->elements[] = $plant;
     }
 
-    /**
-     * @param string $type
-     */
-    public function setType(string $type): void
+    public function getElements():iterable
     {
-        $this->type = $type;
+        return $this->elements;
     }
 }

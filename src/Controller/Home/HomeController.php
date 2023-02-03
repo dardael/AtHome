@@ -13,8 +13,6 @@ class HomeController extends GenericController
     public function display(
         Request $request
     ): Response {
-        return $this->getRenderResponse(
-            'homePage',
-        );
+        return $this->redirectToRoute('outdoor_greenSpace_encyclopedia');
     }
 }

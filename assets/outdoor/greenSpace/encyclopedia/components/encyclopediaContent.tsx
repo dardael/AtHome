@@ -21,6 +21,8 @@ import {Foliage} from "../entity/plant/Foliage";
 import {Type} from "../entity/plant/Type";
 import {Unit} from "../entity/plant/Unit";
 import {Month} from "../entity/plant/Month";
+import {Sunshine} from "../entity/plant/Sunshine";
+import {Watering} from "../entity/plant/Watering";
 
 const EncyclopediaContent:React.FunctionComponent<{}>
     = ({}) => {
@@ -54,15 +56,15 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                 <Form form={plantForm} preserve={false} onFinish={savePlant} labelWrap layout="vertical" style={{paddingTop:'20px'}}>
                     <Row gutter={[40,0]}>
                         <Col md={24} >
-                            <Form.Item name='name' label={'Nom'} required>
+                            <Form.Item name='name' label={'Nom'} rules={[{ required: true, message: 'Renseignez un nom' }]}>
                                 <Input/>
                             </Form.Item>
                         </Col>
                     </Row>
                     <Row gutter={[40,0]}>
                         <Col md={12}>
-                            <Form.Item name='type' label={'Type'} required>
-                                <Select allowClear>
+                            <Form.Item name='type' label={'Type'} initialValue={Type.ORNAMENTAL_PLANT}>
+                                <Select value={Type.ORNAMENTAL_PLANT}>
                                     {Type.getLabels().map((label) =>
                                         <Option key={label.key} value={label.key}>{label.label}</Option>
                                     )}
@@ -70,8 +72,8 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                             </Form.Item>
                         </Col>
                         <Col md={12}>
-                            <Form.Item name={'foliage'} label={'Feuillage'} required>
-                                <Select allowClear>
+                            <Form.Item name={'foliage'} label={'Feuillage'} initialValue={Foliage.DECIDUOUS}>
+                                <Select value={Foliage.DECIDUOUS}>
                                     {Foliage.getLabels().map((label) =>
                                         <Option key={label.key} value={label.key}>{label.label}</Option>
                                     )}
@@ -81,24 +83,24 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                     </Row>
                     <Row gutter={[40,0]}>
                         <Col md={12}>
-                            <Form.Item name='sunshine' label={'Ensoleillement'} required>
+                            <Form.Item name='sunshine' label={'Ensoleillement'} initialValue={Sunshine.SHADOW}>
                                 <Rate allowHalf count={1} character={<FontAwesomeIcon icon={faSun} />}/>
                             </Form.Item>
                         </Col>
                         <Col md={12}>
-                            <Form.Item name='watering' label={'Arrosage'} required>
+                            <Form.Item name='watering' label={'Arrosage'} initialValue={Watering.NO}>
                                 <Rate count={3} character={<FontAwesomeIcon icon={faDroplet}/>}  style={{color:'#0e7aff'}}/>
                             </Form.Item>
                         </Col>
                     </Row>
                     <Row gutter={[40,0]}>
                         <Col md={12}>
-                            <Form.Item name='rusticity' label={'Rusticité'} required>
-                                <InputNumber addonAfter="°C"></InputNumber>
+                            <Form.Item name='rusticity' label={'Rusticité'} initialValue={0}>
+                                <InputNumber addonAfter="°C" value={0}></InputNumber>
                             </Form.Item>
                         </Col>
                         <Col md={12}>
-                            <Form.Item name='pruningPeriods' label={'Périodes de taille'} required>
+                            <Form.Item name='pruningPeriods' label={'Périodes de taille'} initialValue={[]}>
                                 <Select allowClear mode={'multiple'}>
                                     {Month.getLabels().map((label) =>
                                         <Option key={label.key} value={label.key}>{label.label}</Option>
@@ -109,10 +111,10 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                     </Row>
                     <Row>
                         <Col md={24}>
-                            <Form.Item name='size' label={'Envergure'} required>
+                            <Form.Item name='size' label={'Envergure'} initialValue={{min:0,max:0,unit:Unit.CENTIMETER}}>
                                 <Input.Group compact>
                                     <Form.Item name={['size', 'min']}>
-                                        <InputNumber precision={2} min={0} placeholder={'Minimum'} />
+                                        <InputNumber value={0} precision={2} min={0} placeholder={'Minimum'} />
                                     </Form.Item>
                                     <Input
                                         style={{
@@ -125,10 +127,10 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                                         disabled
                                     />
                                     <Form.Item name={['size', 'max']}>
-                                        <InputNumber precision={2} min={0} placeholder={'Maximum'} />
+                                        <InputNumber value={0} precision={2} min={0} placeholder={'Maximum'} />
                                     </Form.Item>
                                     <Form.Item name={['size', 'unit']}>
-                                        <Select defaultValue="m" allowClear={false}>
+                                        <Select value={Unit.METER}>
                                             {Unit.getLabels().map((label) =>
                                                 <Option key={label.key} value={label.key}>{label.label}</Option>
                                             )}
@@ -140,7 +142,7 @@ const EncyclopediaContent:React.FunctionComponent<{}>
                     </Row>
                     <Row>
                         <Col md={24}>
-                            <Form.Item name='description' label={'Description'}>
+                            <Form.Item name='description' label={'Description'} initialValue={''}>
                                 <TextArea></TextArea>
                             </Form.Item>
                         </Col>

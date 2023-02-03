@@ -25,7 +25,7 @@ class Plant
     private Foliage $foliage;
     #[MongoDB\Field(type: 'string', enumType: Sunshine::class)]
     private Sunshine $sunshine;
-    #[MongoDB\Field(type: 'string', enumType: Watering::class)]
+    #[MongoDB\Field(type: 'int', enumType: Watering::class)]
     private Watering $watering;
     #[MongoDB\Field(type: 'float')]
     private float $rusticity;

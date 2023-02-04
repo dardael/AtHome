@@ -18,7 +18,7 @@ class Encyclopedia extends GenericController
         $elements = $encyclopedia->getElements();
         return $this->getRenderResponse(
             'homePage',
-            ['plants' => json_encode($elements)]
+            ['plants' => $this->serializer->serialize($elements, 'json')]
         );
     }
 }

@@ -30,6 +30,6 @@ class Encyclopedia
 
     public function getElements():iterable
     {
-        return $this->elements;
+        return iterator_to_array($this->elements);
     }
 }

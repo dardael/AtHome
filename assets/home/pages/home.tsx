@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
     root.render(
         <Theme>
            <MainLayout>
-               <EncyclopediaContent></EncyclopediaContent>
+               <EncyclopediaContent initialPlants={JSON.parse(atHome.plants)}></EncyclopediaContent>
            </MainLayout>
         </Theme>
     );

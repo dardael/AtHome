@@ -3,7 +3,7 @@ declare(strict_types = 1);
 namespace App\Controller\Outdoor\GreenSpace\Encyclopedia;
 
 use App\Controller\Core\GenericController;
-use App\Document\Outdoor\GreenSpace\Encyclopedia\Encyclopedia;
+use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant as PlantDocument;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Foliage;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Month;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Size;
@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant as PlantDocument;
 
 class Plant extends GenericController
 {
@@ -45,7 +44,8 @@ class Plant extends GenericController
         );
         $plantDocument->setWatering(Watering::from($newPlant->watering));
 
-        $encyclopedia = $documentManager->getRepository(Encyclopedia::class)
+        $encyclopedia = $documentManager->getRepository(
+            \App\Document\Outdoor\GreenSpace\Encyclopedia::class)
             ->findOneBy(['type' => 'PLANT']);
         $encyclopedia->addElement($plantDocument);
         $documentManager->persist($encyclopedia);

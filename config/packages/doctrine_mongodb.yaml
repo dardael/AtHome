@@ -16,7 +16,7 @@ doctrine_mongodb:
                 App:
                     is_bundle: false
                     type: attribute
-                    dir: '%kernel.project_dir%/src/Document'
+                    dir: 'src/Document/'
                     prefix: 'App\Document'
                     alias: App
 

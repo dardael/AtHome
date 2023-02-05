@@ -48,6 +48,12 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
         setIsModalOpen(false);
     };
 
+    const deletePlant = (plant: Plant) => {
+        setPlants(plants.filter((displayedPlant: Plant) =>
+            displayedPlant.id !== plant.id));
+        axios.post('/outdoor/green-space/encyclopedia/plant/delete/' + plant.id);
+    }
+
     return <>
         <LayoutWithToolbar toolbar={
             <Button onClick={showModal} size={'large'} type="primary" icon={<PlusOutlined />}  style={{float: 'right'}}>
@@ -58,7 +64,7 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
                 <Row justify={"start"} gutter={[16,16]} style={{marginLeft:"unset", marginRight:'unset'}}>
                     {plants.map((plant, index) => {
                         return <Col key={plant.id} flex={'auto 300px'} style={{ height:350 }}
-                        ><PlantCard initialPlant={plant}></PlantCard></Col>
+                        ><PlantCard initialPlant={plant} onDelete={deletePlant}></PlantCard></Col>
                     })}
                 </Row>
             <Modal destroyOnClose forceRender centered title="Ajouter une plante" open={isModalOpen} onOk={addPlant} onCancel={closeModal} cancelText={'Annuler'} okText={'Ajouter'}>

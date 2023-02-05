@@ -3,16 +3,17 @@ import {Plant} from "../entity/Plant";
 import {Avatar, Button, Card, Dropdown, Tooltip} from "antd";
 import type { MenuProps } from 'antd';
 import Meta from "antd/es/card/Meta";
-import { EditOutlined, EllipsisOutlined, SettingOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 
-const PlantCard:React.FunctionComponent<{initialPlant: Plant}>
-    = ({initialPlant}) =>{
+const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function}>
+    = ({initialPlant, onDelete}) =>{
     const actions: MenuProps['items'] = [{
         key: 0,
-        label: ('Editer')
+        label: ('Editer'),
     }, {
         key: 1,
-        label: ('Supprimer')
+        label: ('Supprimer'),
+        onClick: () => onDelete(initialPlant),
     }];
     return <>
         <Card

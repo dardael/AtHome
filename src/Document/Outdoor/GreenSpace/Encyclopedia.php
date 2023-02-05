@@ -28,6 +28,14 @@ class Encyclopedia
         $this->elements[] = $plant;
     }
 
+    public function removeElement(string $plantId): void
+    {
+        $this->elements = array_filter(
+            iterator_to_array($this->elements),
+            fn(Plant $plant)=> $plant->getId() !== $plantId
+        );
+    }
+
     public function getElements():iterable
     {
         return iterator_to_array($this->elements);

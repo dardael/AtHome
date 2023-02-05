@@ -52,4 +52,18 @@ class Plant extends GenericController
         $documentManager->flush();
         return new JsonResponse(['success' => true]);
     }
+
+    #[Route('/outdoor/green-space/encyclopedia/plant/delete/{plantId}')]
+    public function delete(
+        string $plantId,
+        DocumentManager $documentManager,
+    ): Response {
+        $encyclopedia = $documentManager->getRepository(
+            \App\Document\Outdoor\GreenSpace\Encyclopedia::class)
+            ->findOneBy(['type' => 'PLANT']);
+        $encyclopedia->removeElement($plantId);
+        $documentManager->persist($encyclopedia);
+        $documentManager->flush();
+        return new JsonResponse(['success' => true]);
+    }
 }

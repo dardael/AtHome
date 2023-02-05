@@ -31,6 +31,7 @@ class Plant extends GenericController
         $size->setUnit(Unit::from($newPlant->size->unit));
         $plantDocument->setSize($size);
         $plantDocument->setName($newPlant->name);
+        $plantDocument->setScientificName($newPlant->scientificName);
         $plantDocument->setDescription($newPlant->description);
         $plantDocument->setFoliage(Foliage::from($newPlant->foliage));
         $plantDocument->setPruningPeriods(
@@ -43,7 +44,6 @@ class Plant extends GenericController
             Sunshine::from((string) $newPlant->sunshine)
         );
         $plantDocument->setWatering(Watering::from($newPlant->watering));
-
         $encyclopedia = $documentManager->getRepository(
             \App\Document\Outdoor\GreenSpace\Encyclopedia::class)
             ->findOneBy(['type' => 'PLANT']);

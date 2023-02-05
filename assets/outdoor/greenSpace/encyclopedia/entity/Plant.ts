@@ -9,6 +9,7 @@ export interface Plant {
 
     id?: string,
     name: string,
+    scientificName?: string,
     type: Type,
     foliage: Foliage,
     sunshine: Sunshine,

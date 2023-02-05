@@ -40,14 +40,14 @@ const PlantCard:React.FunctionComponent<{initialPlant: Plant}>
                 avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                 title={initialPlant.name}
                 description={
-                    <Tooltip title={initialPlant.description}>
+                    <Tooltip title={initialPlant.scientificName}>
                         <span style={{height:40,
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
                             width: 200,
                             display: 'block'
-                        }}>{initialPlant.description}</span>
+                        }}>{initialPlant.scientificName}</span>
                     </Tooltip>
                 }
             />

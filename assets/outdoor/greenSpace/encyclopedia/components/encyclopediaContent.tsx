@@ -69,6 +69,13 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
                         </Col>
                     </Row>
                     <Row gutter={[40,0]}>
+                        <Col md={24} >
+                            <Form.Item name='scientificName' label={'Nom scientifique'}>
+                                <Input/>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={[40,0]}>
                         <Col md={12}>
                             <Form.Item name='type' label={'Type'} initialValue={Type.ORNAMENTAL_PLANT}>
                                 <Select value={Type.ORNAMENTAL_PLANT}>

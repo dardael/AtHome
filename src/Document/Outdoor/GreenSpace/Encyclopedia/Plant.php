@@ -19,6 +19,8 @@ class Plant
     private string $id;
     #[MongoDB\Field(type: 'string')]
     private string $name;
+    #[MongoDB\Field(type: 'string')]
+    private ?string $scientificName;
     #[MongoDB\Field(type: 'string', enumType: Type::class)]
     private Type $type;
     #[MongoDB\Field(type: 'string', enumType: Foliage::class)]
@@ -129,6 +131,16 @@ class Plant
     public function setDescription(string $description): void
     {
         $this->description = $description;
+    }
+
+    public function getScientificName(): ?string
+    {
+        return $this->scientificName;
+    }
+
+    public function setScientificName(?string $scientificName): void
+    {
+        $this->scientificName = $scientificName;
     }
 
     public function getId(): string

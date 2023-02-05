@@ -6,6 +6,8 @@ import {Watering} from "./plant/Watering";
 import {Month} from "./plant/Month";
 
 export interface Plant {
+
+    id?: string,
     name: string,
     type: Type,
     foliage: Foliage,

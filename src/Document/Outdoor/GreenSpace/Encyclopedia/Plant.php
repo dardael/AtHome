@@ -130,4 +130,9 @@ class Plant
     {
         $this->description = $description;
     }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
 }

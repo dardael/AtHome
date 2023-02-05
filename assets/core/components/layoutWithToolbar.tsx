@@ -10,7 +10,7 @@ const LayoutWithToolbar:React.FunctionComponent<{children: React.ReactNode, tool
             <Header style={{backgroundColor: 'transparent', paddingTop: '12px'}}>
                     {toolbar}
             </Header>
-            <Content>
+            <Content style={{padding:"25px"}}>
                 {children}
             </Content>
         </Layout>

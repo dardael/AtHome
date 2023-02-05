@@ -23,10 +23,10 @@ import {Unit} from "../entity/plant/Unit";
 import {Month} from "../entity/plant/Month";
 import {Sunshine} from "../entity/plant/Sunshine";
 import {Watering} from "../entity/plant/Watering";
+import PlantCard from "./plantCard";
 
 const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
     = ({initialPlants}) => {
-    console.log(initialPlants);
     const { Option } = Select;
     const [plantForm] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,10 +53,12 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
             </Button>
         }>
             <>
-                {initialPlants.map(plant=>{
-                    console.log(plant)
-                    return <div>{plant.name}</div>
-                })}
+                <Row justify={"start"} gutter={[16,16]} style={{marginLeft:"unset", marginRight:'unset'}}>
+                    {initialPlants.map((plant, index) => {
+                        return <Col key={plant.id} flex={'auto 300px'} style={{ height:350 }}
+                        ><PlantCard initialPlant={plant}></PlantCard></Col>
+                    })}
+                </Row>
             <Modal destroyOnClose forceRender centered title="Ajouter une plante" open={isModalOpen} onOk={addPlant} onCancel={closeModal} cancelText={'Annuler'} okText={'Ajouter'}>
                 <Form form={plantForm} preserve={false} onFinish={savePlant} labelWrap layout="vertical" style={{paddingTop:'20px'}}>
                     <Row gutter={[40,0]}>

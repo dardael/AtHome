@@ -30,6 +30,7 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
     const { Option } = Select;
     const [plantForm] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [plants, setPlants] = useState(initialPlants);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -40,6 +41,7 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
     }
     const savePlant = async (plant: Plant) => {
         await axios.post('/outdoor/green-space/encyclopedia/plant/save', plant);
+        setPlants(plants.concat([plant]))
         setIsModalOpen(false);
     };
     const closeModal = () => {
@@ -54,7 +56,7 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
         }>
             <>
                 <Row justify={"start"} gutter={[16,16]} style={{marginLeft:"unset", marginRight:'unset'}}>
-                    {initialPlants.map((plant, index) => {
+                    {plants.map((plant, index) => {
                         return <Col key={plant.id} flex={'auto 300px'} style={{ height:350 }}
                         ><PlantCard initialPlant={plant}></PlantCard></Col>
                     })}

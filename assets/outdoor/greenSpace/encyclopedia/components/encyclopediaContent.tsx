@@ -40,7 +40,7 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
         }>
             <>
                 <Row justify={"start"} gutter={[16,16]} style={{marginLeft:"unset", marginRight:'unset'}}>
-                    {plants.map((plant, index) => {
+                    {plants.map((plant) => {
                         return <Col key={plant.id} flex={'auto 300px'} style={{ height:350 }}
                         ><PlantCard initialPlant={plant} onDelete={deletePlant}></PlantCard></Col>
                     })}

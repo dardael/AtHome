@@ -3,11 +3,13 @@ declare(strict_types = 1);
 namespace App\Controller\Outdoor\GreenSpace\Encyclopedia;
 
 use App\Controller\Core\GenericController;
+use App\Document\Outdoor\GreenSpace\Encyclopedia;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant as PlantDocument;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Foliage;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Month;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Size;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Sunshine;
+use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Type;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Unit;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Watering;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -25,6 +27,7 @@ class Plant extends GenericController
     ): Response {
         $newPlant = $this->getDecodedRequest($request);
         $plantDocument = new PlantDocument();
+        $plantDocument->setId($newPlant->id ?? null);
         $size = new Size();
         $size->setMax($newPlant->size->max);
         $size->setMin($newPlant->size->min);
@@ -44,13 +47,15 @@ class Plant extends GenericController
             Sunshine::from((string) $newPlant->sunshine)
         );
         $plantDocument->setWatering(Watering::from($newPlant->watering));
+        $plantDocument->setRusticity($newPlant->rusticity);
+        $plantDocument->setType(Type::from($newPlant->type));
         $encyclopedia = $documentManager->getRepository(
-            \App\Document\Outdoor\GreenSpace\Encyclopedia::class)
+            Encyclopedia::class)
             ->findOneBy(['type' => 'PLANT']);
-        $encyclopedia->addElement($plantDocument);
+        $encyclopedia->setElement($plantDocument);
         $documentManager->persist($encyclopedia);
         $documentManager->flush();
-        return new JsonResponse(['success' => true]);
+        return new JsonResponse(['plantId' => $plantDocument->getId()]);
     }
 
     #[Route('/outdoor/green-space/encyclopedia/plant/delete/{plantId}')]
@@ -59,7 +64,7 @@ class Plant extends GenericController
         DocumentManager $documentManager,
     ): Response {
         $encyclopedia = $documentManager->getRepository(
-            \App\Document\Outdoor\GreenSpace\Encyclopedia::class)
+            Encyclopedia::class)
             ->findOneBy(['type' => 'PLANT']);
         $encyclopedia->removeElement($plantId);
         $documentManager->persist($encyclopedia);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Col,
     Form,
@@ -21,22 +21,28 @@ import {Month} from "../entity/plant/Month";
 import {Sunshine} from "../entity/plant/Sunshine";
 import {Watering} from "../entity/plant/Watering";
 
-const PlantModal:React.FunctionComponent<{onSave: Function, onCancel: Function, mustShow: boolean}>
-    = ({onSave, onCancel, mustShow}) => {
+const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCancel: Function, mustShow: boolean}>
+    = ({plant, onSave, onCancel, mustShow}) => {
     const { Option } = Select;
     const [plantForm] = Form.useForm();
-
+    useEffect(() => {
+        plantForm.resetFields();
+    })
     const addPlant = () => {
         plantForm.submit();
     }
-    const savePlant = async (plant: Plant) => {
-        await axios.post('/outdoor/green-space/encyclopedia/plant/save', plant);
-        onSave(plant);
+    const savePlant = async (savedPlant: Plant) => {
+        if (plant) {
+            savedPlant.id = plant.id;
+        }
+        const response = await axios.post('/outdoor/green-space/encyclopedia/plant/save', savedPlant);
+        savedPlant.id = response.data.plantId;
+        onSave(savedPlant);
     };
 
     return <>
             <Modal
-                destroyOnClose
+                destroyOnClose={true}
                 forceRender
                 centered
                 title="Ajouter une plante"
@@ -49,22 +55,22 @@ const PlantModal:React.FunctionComponent<{onSave: Function, onCancel: Function, 
                 <Form form={plantForm} preserve={false} onFinish={savePlant} labelWrap layout="vertical" style={{paddingTop:'20px'}}>
                     <Row gutter={[40,0]}>
                         <Col md={24} >
-                            <Form.Item name='name' label={'Nom'} rules={[{ required: true, message: 'Renseignez un nom' }]}>
+                            <Form.Item initialValue={plant ? plant.name : ''} name='name' label={'Nom'} rules={[{ required: true, message: 'Renseignez un nom' }]}>
                                 <Input/>
                             </Form.Item>
                         </Col>
                     </Row>
                     <Row gutter={[40,0]}>
                         <Col md={24} >
-                            <Form.Item name='scientificName' label={'Nom scientifique'}>
+                            <Form.Item initialValue={plant ? plant.scientificName : ''} name='scientificName' label={'Nom scientifique'}>
                                 <Input/>
                             </Form.Item>
                         </Col>
                     </Row>
                     <Row gutter={[40,0]}>
                         <Col md={12}>
-                            <Form.Item name='type' label={'Type'} initialValue={Type.ORNAMENTAL_PLANT}>
-                                <Select value={Type.ORNAMENTAL_PLANT}>
+                            <Form.Item name='type' label={'Type'} initialValue={plant ? plant.type : Type.ORNAMENTAL_PLANT}>
+                                <Select value={plant ? plant.type : Type.ORNAMENTAL_PLANT}>
                                     {Type.getLabels().map((label) =>
                                         <Option key={label.key} value={label.key}>{label.label}</Option>
                                     )}
@@ -72,8 +78,8 @@ const PlantModal:React.FunctionComponent<{onSave: Function, onCancel: Function, 
                             </Form.Item>
                         </Col>
                         <Col md={12}>
-                            <Form.Item name={'foliage'} label={'Feuillage'} initialValue={Foliage.DECIDUOUS}>
-                                <Select value={Foliage.DECIDUOUS}>
+                            <Form.Item name={'foliage'} label={'Feuillage'} initialValue={plant ? plant.foliage : Foliage.DECIDUOUS}>
+                                <Select value={plant ? plant.foliage : Foliage.DECIDUOUS}>
                                     {Foliage.getLabels().map((label) =>
                                         <Option key={label.key} value={label.key}>{label.label}</Option>
                                     )}
@@ -83,25 +89,25 @@ const PlantModal:React.FunctionComponent<{onSave: Function, onCancel: Function, 
                     </Row>
                     <Row gutter={[40,0]}>
                         <Col md={12}>
-                            <Form.Item name='sunshine' label={'Ensoleillement'} initialValue={Sunshine.SHADOW}>
+                            <Form.Item name='sunshine' label={'Ensoleillement'} initialValue={plant ? plant.sunshine : Sunshine.SHADOW}>
                                 <Rate allowHalf count={1} character={<FontAwesomeIcon icon={faSun} />}/>
                             </Form.Item>
                         </Col>
                         <Col md={12}>
-                            <Form.Item name='watering' label={'Arrosage'} initialValue={Watering.NO}>
+                            <Form.Item name='watering' label={'Arrosage'} initialValue={plant ? plant.watering : Watering.NO}>
                                 <Rate count={3} character={<FontAwesomeIcon icon={faDroplet}/>}  style={{color:'#0e7aff'}}/>
                             </Form.Item>
                         </Col>
                     </Row>
                     <Row gutter={[40,0]}>
                         <Col md={12}>
-                            <Form.Item name='rusticity' label={'Rusticité'} initialValue={0}>
-                                <InputNumber addonAfter="°C" value={0}></InputNumber>
+                            <Form.Item name='rusticity' label={'Rusticité'} initialValue={plant ? plant.rusticity : 0}>
+                                <InputNumber addonAfter="°C" value={plant ? plant.rusticity : 0}></InputNumber>
                             </Form.Item>
                         </Col>
                         <Col md={12}>
-                            <Form.Item name='pruningPeriods' label={'Périodes de taille'} initialValue={[]}>
-                                <Select allowClear mode={'multiple'}>
+                            <Form.Item name='pruningPeriods' label={'Périodes de taille'} initialValue={plant ? plant.pruningPeriods : []}>
+                                <Select allowClear mode={'multiple'} value={plant ? plant.pruningPeriods : []}>
                                     {Month.getLabels().map((label) =>
                                         <Option key={label.key} value={label.key}>{label.label}</Option>
                                     )}
@@ -111,10 +117,10 @@ const PlantModal:React.FunctionComponent<{onSave: Function, onCancel: Function, 
                     </Row>
                     <Row>
                         <Col md={24}>
-                            <Form.Item name='size' label={'Envergure'} initialValue={{min:0,max:0,unit:Unit.CENTIMETER}}>
+                            <Form.Item name='size' label={'Envergure'} initialValue={plant ? plant.size : {min:0,max:0,unit:Unit.CENTIMETER}}>
                                 <Input.Group compact>
-                                    <Form.Item name={['size', 'min']}>
-                                        <InputNumber value={0} precision={2} min={0} placeholder={'Minimum'} />
+                                    <Form.Item name={['size', 'min']} initialValue={plant ? plant.size.min : 0}>
+                                        <InputNumber value={plant ? plant.size.min : 0} precision={2} min={0} placeholder={'Minimum'} />
                                     </Form.Item>
                                     <Input
                                         style={{
@@ -126,11 +132,11 @@ const PlantModal:React.FunctionComponent<{onSave: Function, onCancel: Function, 
                                         placeholder="~"
                                         disabled
                                     />
-                                    <Form.Item name={['size', 'max']}>
-                                        <InputNumber value={0} precision={2} min={0} placeholder={'Maximum'} />
+                                    <Form.Item name={['size', 'max']} initialValue={plant ? plant.size.max : 0}>
+                                        <InputNumber value={plant ? plant.size.max : 0} precision={2} min={0} placeholder={'Maximum'} />
                                     </Form.Item>
-                                    <Form.Item name={['size', 'unit']}>
-                                        <Select value={Unit.METER}>
+                                    <Form.Item name={['size', 'unit']} initialValue={plant ? plant.size.unit : Unit.CENTIMETER}>
+                                        <Select value={plant ? plant.size.unit : Unit.CENTIMETER}>
                                             {Unit.getLabels().map((label) =>
                                                 <Option key={label.key} value={label.key}>{label.label}</Option>
                                             )}
@@ -142,7 +148,7 @@ const PlantModal:React.FunctionComponent<{onSave: Function, onCancel: Function, 
                     </Row>
                     <Row>
                         <Col md={24}>
-                            <Form.Item name='description' label={'Description'} initialValue={''}>
+                            <Form.Item name='description' label={'Description'} initialValue={plant ? plant.description : ''}>
                                 <TextArea></TextArea>
                             </Form.Item>
                         </Col>

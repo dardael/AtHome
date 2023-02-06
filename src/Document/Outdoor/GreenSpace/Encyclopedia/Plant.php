@@ -16,7 +16,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class Plant
 {
     #[MongoDB\id(type: 'string', strategy: 'UUID')]
-    private string $id;
+    private ?string $id;
     #[MongoDB\Field(type: 'string')]
     private string $name;
     #[MongoDB\Field(type: 'string')]
@@ -143,8 +143,13 @@ class Plant
         $this->scientificName = $scientificName;
     }
 
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(?string $id): void
+    {
+        $this->id = $id;
     }
 }

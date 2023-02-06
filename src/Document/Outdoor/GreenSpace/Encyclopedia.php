@@ -23,8 +23,21 @@ class Encyclopedia
     {
         $this->elements = new ArrayCollection();
     }
-    public function addElement(Plant $plant): void
+
+    public function setElement(Plant $plant): void
     {
+        if ($plant->getId()) {
+            $updatedElements = [];
+            foreach ($this->elements as $element) {
+                if ($element->getId() === $plant->getId()) {
+                    $updatedElements[] = $plant;
+                    continue;
+                }
+                $updatedElements[] = $element;
+            }
+            $this->elements = $updatedElements;
+            return;
+        }
         $this->elements[] = $plant;
     }
 

@@ -5,11 +5,12 @@ import type { MenuProps } from 'antd';
 import Meta from "antd/es/card/Meta";
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 
-const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function}>
-    = ({initialPlant, onDelete}) =>{
+const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function, onEdit: Function}>
+    = ({initialPlant, onDelete, onEdit}) =>{
     const actions: MenuProps['items'] = [{
         key: 0,
         label: ('Editer'),
+        onClick: () => onEdit(initialPlant),
     }, {
         key: 1,
         label: ('Supprimer'),

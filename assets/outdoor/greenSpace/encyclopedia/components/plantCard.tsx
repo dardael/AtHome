@@ -1,6 +1,6 @@
 import React from "react";
 import {Plant} from "../entity/Plant";
-import {Avatar, Button, Card, Dropdown, Rate, Tooltip} from "antd";
+import {Avatar, Button, Card, Dropdown, InputNumber, Rate, Tooltip} from "antd";
 import type { MenuProps } from 'antd';
 import Meta from "antd/es/card/Meta";
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
@@ -8,6 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSun} from "@fortawesome/free-solid-svg-icons";
 import SunshineRate from "./sunshineRate";
 import WateringRate from "./wateringRate";
+import {faSnowflake} from "@fortawesome/free-regular-svg-icons";
 
 const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function, onEdit: Function}>
     = ({initialPlant, onDelete, onEdit}) =>{
@@ -37,7 +38,11 @@ const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function
             }
             actions={[
                 <SunshineRate disabled={true} value={Number(initialPlant.sunshine)} />,
-                <WateringRate disabled={true} value={Number(initialPlant.watering)} />
+                <WateringRate disabled={true} value={Number(initialPlant.watering)} />,
+                <>
+                    <FontAwesomeIcon icon={faSnowflake} style={{height:20, marginTop:6}}/>
+                    <span style={{verticalAlign:'text-bottom'}}> {Number(initialPlant.rusticity)}°C</span>
+                </>,
             ]}
             style={{height:'100%', width:300}}
         >

@@ -3,7 +3,7 @@ import {
     Col,
     Form,
     Input,
-    InputNumber,
+    InputNumber, message,
     Modal,
     Rate,
     Row,
@@ -25,6 +25,7 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
     = ({plant, onSave, onCancel, mustShow}) => {
     const { Option } = Select;
     const [plantForm] = Form.useForm();
+    const [messageApi, contextHolder] = message.useMessage();
     useEffect(() => {
         plantForm.resetFields();
     })
@@ -36,11 +37,18 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
             savedPlant.id = plant.id;
         }
         const response = await axios.post('/outdoor/green-space/encyclopedia/plant/save', savedPlant);
+        messageApi.open({
+            type: 'success',
+            content: !plant
+                ? ('La plante "' + savedPlant.name + '" a été correctement ajoutée à l\'encyclopédie.')
+                : ('La plante "' + savedPlant.name + '" a été modifiée.'),
+        });
         savedPlant.id = response.data.plantId;
         onSave(savedPlant);
     };
 
     return <>
+            {contextHolder}
             <Modal
                 destroyOnClose={true}
                 forceRender

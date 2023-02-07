@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import LayoutWithToolbar from "../../../../core/components/layoutWithToolbar";
 import {
     Button,
-    Col,
+    Col, message,
     Row,
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -13,6 +13,8 @@ import PlantModal from "./plantModal";
 
 const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
     = ({initialPlants}) => {
+    const [messageApi, contextHolder] = message.useMessage();
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editedPlant, setEditedPlant] = useState(null);
     const [plants, setPlants] = useState(initialPlants);
@@ -36,10 +38,14 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
             ));
         }
     };
-    const deletePlant = (plant: Plant) => {
+    const deletePlant = async (plant: Plant) => {
         setPlants(plants.filter((displayedPlant: Plant) =>
             displayedPlant.id !== plant.id));
-        axios.post('/outdoor/green-space/encyclopedia/plant/delete/' + plant.id);
+        await axios.post('/outdoor/green-space/encyclopedia/plant/delete/' + plant.id);
+        messageApi.open({
+            type: 'success',
+            content: 'La plante "' + plant.name + '" a été correctement supprimée de l\'encyclopédie.'
+        });
     }
 
     const openEditPlantModal = (plant:Plant) => {
@@ -48,6 +54,7 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
     }
 
     return <>
+        {contextHolder}
         <LayoutWithToolbar toolbar={
             <Button onClick={showModal} size={'large'} type="primary" icon={<PlusOutlined />}  style={{float: 'right'}}>
                 Ajouter

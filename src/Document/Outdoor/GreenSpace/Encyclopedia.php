@@ -12,45 +12,65 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 #[MongoDB\Document]
 class Encyclopedia
 {
-    #[MongoDB\Id(type: 'string', strategy: 'UUID')]
-    private string $id;
+    #[MongoDB\Id]
+    private $id;
     #[MongoDB\field(type: 'string')]
     private string $type;
-    #[MongoDB\EmbedMany(targetDocument: Plant::class)]
-    private iterable $elements;
+    #[MongoDB\ReferenceMany(targetDocument: Plant::class, cascade: 'all', orphanRemoval: true, mappedBy: "encyclopedia")]
+        private ArrayCollection $plants;
 
     public function __construct()
     {
-        $this->elements = new ArrayCollection();
+        $this->plants = new ArrayCollection();
     }
 
-    public function setElement(Plant $plant): void
+    public function setPlant(Plant $plant): void
     {
         if ($plant->getId()) {
-            $updatedElements = [];
-            foreach ($this->elements as $element) {
-                if ($element->getId() === $plant->getId()) {
-                    $updatedElements[] = $plant;
+            $updatedPlants = new ArrayCollection();
+            foreach ($this->plants as $currentPlant) {
+                if ($currentPlant->getId() === $plant->getId()) {
+                    $updatedPlants[] = $plant;
                     continue;
                 }
-                $updatedElements[] = $element;
+                $updatedPlants[] = $currentPlant;
             }
-            $this->elements = $updatedElements;
+            $this->plants = $updatedPlants;
             return;
         }
-        $this->elements[] = $plant;
+        $this->plants[] = $plant;
     }
 
-    public function removeElement(string $plantId): void
+    public function getPlants():ArrayCollection
     {
-        $this->elements = array_filter(
-            iterator_to_array($this->elements),
-            fn(Plant $plant)=> $plant->getId() !== $plantId
-        );
+        return $this->plants;
     }
 
-    public function getElements():iterable
+    public function setPlants(ArrayCollection $plants): void
     {
-        return iterator_to_array($this->elements);
+        $this->plants = $plants;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): void
+    {
+        $this->type = $type;
     }
 }

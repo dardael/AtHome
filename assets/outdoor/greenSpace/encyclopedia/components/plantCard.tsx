@@ -1,14 +1,17 @@
 import React from "react";
 import {Plant} from "../entity/Plant";
-import {Avatar, Button, Card, Dropdown, InputNumber, Rate, Tooltip} from "antd";
+import {Avatar, Button, Card, Dropdown, Tooltip} from "antd";
 import type { MenuProps } from 'antd';
 import Meta from "antd/es/card/Meta";
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { EllipsisOutlined } from '@ant-design/icons';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSun} from "@fortawesome/free-solid-svg-icons";
 import SunshineRate from "./sunshineRate";
 import WateringRate from "./wateringRate";
 import {faSnowflake} from "@fortawesome/free-regular-svg-icons";
+import {Foliage} from "../entity/plant/Foliage";
+const leaf = require('/assets/ressources/images/icones/leaf.png')
+const autumn = require('/assets/ressources/images/icones/autumn.png')
+
 
 const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function, onEdit: Function}>
     = ({initialPlant, onDelete, onEdit}) =>{
@@ -47,7 +50,9 @@ const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function
             style={{height:'100%', width:300}}
         >
             <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                avatar={<Avatar src={initialPlant.foliage === Foliage.PERSISTENT
+                    ? leaf
+                    : autumn} />}
                 title={initialPlant.name}
                 description={
                     <Tooltip title={initialPlant.scientificName}>

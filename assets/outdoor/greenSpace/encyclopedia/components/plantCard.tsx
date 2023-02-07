@@ -1,9 +1,12 @@
 import React from "react";
 import {Plant} from "../entity/Plant";
-import {Avatar, Button, Card, Dropdown, Tooltip} from "antd";
+import {Avatar, Button, Card, Dropdown, Rate, Tooltip} from "antd";
 import type { MenuProps } from 'antd';
 import Meta from "antd/es/card/Meta";
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSun} from "@fortawesome/free-solid-svg-icons";
+import SunshineRate from "./sunshineRate";
 
 const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function, onEdit: Function}>
     = ({initialPlant, onDelete, onEdit}) =>{
@@ -32,9 +35,7 @@ const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function
             </>
             }
             actions={[
-                <SettingOutlined key="setting" />,
-                <EditOutlined key="edit" />,
-                <EllipsisOutlined key="ellipsis" />,
+                <SunshineRate disabled={true} value={Number(initialPlant.sunshine)} />
             ]}
             style={{height:'100%', width:300}}
         >

@@ -20,6 +20,7 @@ import {Unit} from "../entity/plant/Unit";
 import {Month} from "../entity/plant/Month";
 import {Sunshine} from "../entity/plant/Sunshine";
 import {Watering} from "../entity/plant/Watering";
+import SunshineRate from "./sunshineRate";
 
 const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCancel: Function, mustShow: boolean}>
     = ({plant, onSave, onCancel, mustShow}) => {
@@ -97,8 +98,8 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
                     </Row>
                     <Row gutter={[40,0]}>
                         <Col md={12}>
-                            <Form.Item name='sunshine' label={'Ensoleillement'} initialValue={plant ? plant.sunshine : Sunshine.SHADOW}>
-                                <Rate allowHalf count={1} character={<FontAwesomeIcon icon={faSun} />}/>
+                            <Form.Item name='sunshine' label={'Ensoleillement'} initialValue={Number(plant ? plant.sunshine : Sunshine.SHADOW)}>
+                                <SunshineRate/>
                             </Form.Item>
                         </Col>
                         <Col md={12}>

@@ -7,6 +7,7 @@ import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/ico
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSun} from "@fortawesome/free-solid-svg-icons";
 import SunshineRate from "./sunshineRate";
+import WateringRate from "./wateringRate";
 
 const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function, onEdit: Function}>
     = ({initialPlant, onDelete, onEdit}) =>{
@@ -35,7 +36,8 @@ const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function
             </>
             }
             actions={[
-                <SunshineRate disabled={true} value={Number(initialPlant.sunshine)} />
+                <SunshineRate disabled={true} value={Number(initialPlant.sunshine)} />,
+                <WateringRate disabled={true} value={Number(initialPlant.watering)} />
             ]}
             style={{height:'100%', width:300}}
         >

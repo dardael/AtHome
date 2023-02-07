@@ -21,6 +21,7 @@ import {Month} from "../entity/plant/Month";
 import {Sunshine} from "../entity/plant/Sunshine";
 import {Watering} from "../entity/plant/Watering";
 import SunshineRate from "./sunshineRate";
+import WateringRate from "./wateringRate";
 
 const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCancel: Function, mustShow: boolean}>
     = ({plant, onSave, onCancel, mustShow}) => {
@@ -104,7 +105,7 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
                         </Col>
                         <Col md={12}>
                             <Form.Item name='watering' label={'Arrosage'} initialValue={plant ? plant.watering : Watering.NO}>
-                                <Rate count={3} character={<FontAwesomeIcon icon={faDroplet}/>}  style={{color:'#0e7aff'}}/>
+                                <WateringRate/>
                             </Form.Item>
                         </Col>
                     </Row>

@@ -7,7 +7,7 @@ import {
     Modal,
     Rate,
     Row,
-    Select
+    Select, Upload
 } from "antd";
 import {faDroplet, faSun, faTree} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -22,6 +22,7 @@ import {Sunshine} from "../entity/plant/Sunshine";
 import {Watering} from "../entity/plant/Watering";
 import SunshineRate from "./sunshineRate";
 import WateringRate from "./wateringRate";
+import { PlusOutlined } from "@ant-design/icons";
 
 const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCancel: Function, mustShow: boolean}>
     = ({plant, onSave, onCancel, mustShow}) => {
@@ -38,7 +39,12 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
         if (plant) {
             savedPlant.id = plant.id;
         }
-        const response = await axios.post('/outdoor/green-space/encyclopedia/plant/save', savedPlant);
+        const response = await axios.post('/outdoor/green-space/encyclopedia/plant/save', savedPlant,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
         messageApi.open({
             type: 'success',
             content: !plant
@@ -47,6 +53,12 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
         });
         savedPlant.id = response.data.plantId;
         onSave(savedPlant);
+    };
+    const getImageValue = (e: any) => {
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e?.fileList;
     };
 
     return <>
@@ -74,6 +86,19 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
                         <Col md={24} >
                             <Form.Item initialValue={plant ? plant.scientificName : ''} name='scientificName' label={'Nom scientifique'}>
                                 <Input/>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={24}>
+                            <Form.Item name={'photo'} label={'Photo'} valuePropName="file"
+                                       getValueFromEvent={getImageValue}>
+                                <Upload listType="picture-card"  maxCount={1}>
+                                    <div>
+                                        <PlusOutlined />
+                                        <div style={{ marginTop: 8 }}>Image</div>
+                                    </div>
+                                </Upload>
                             </Form.Item>
                         </Col>
                     </Row>

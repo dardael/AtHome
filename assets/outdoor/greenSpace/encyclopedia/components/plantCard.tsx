@@ -30,7 +30,7 @@ const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function
             <>
                 <img
                     alt="example"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                    src={'/outdoor/green-space/encyclopedia/plant/'+ initialPlant.id  +'/photo/get'}
                 />
                 <Dropdown menu={{items: actions}} trigger={['click']} placement="topRight">
                     <Button shape="circle" style={{

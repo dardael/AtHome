@@ -53,4 +53,9 @@ class Encyclopedia
     {
         return iterator_to_array($this->elements);
     }
+
+    public function setElements(iterable $elements): void
+    {
+        $this->elements = $elements;
+    }
 }

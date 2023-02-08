@@ -9,8 +9,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 #[MongoDB\File(bucketName: 'plantPhoto')]
 class Photo
 {
-    #[MongoDB\Id(type: 'string', strategy: 'UUID')]
-    private string $id;
+    #[MongoDB\Id]
+    private $id;
 
     #[MongoDB\File\Filename]
     private string $name;

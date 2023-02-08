@@ -14,12 +14,14 @@ use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Sunshine;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Type;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Unit;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Watering;
+use App\Kernel;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Repository\UploadOptions;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 class Plant extends GenericController
@@ -96,19 +98,34 @@ class Plant extends GenericController
     public function getPhoto(
         string $plantId,
         DocumentManager $documentManager,
-    ): BinaryFileResponse {
+        Kernel $kernel
+    ): Response {
         $repository = $documentManager->getRepository(Photo::class);
         $file = $repository->findOneBy(['metadata.plantId' => $plantId]);
-        if(!$file) {
-            new BinaryFileResponse('');
-        }
-        $stream = fopen('tmp/' . $file->getName(), 'w+');
-        try {
-            $repository->downloadToStream($file->getId(), $stream);
-        }
-        finally {
-                fclose($stream);
+        if (!$file) {
+            $content = file_get_contents($kernel->getProjectDir() . '/src/Ressources/Images/defaultPlant.png');
+            $filename = 'defaultPlant.png';
+        } else {
+            try {
+                $stream = $repository->openDownloadStream($file->getId());
+                try {
+                    $content = stream_get_contents($stream);
+                    $filename = $file->getName();
+                } finally {
+                    fclose($stream);
+                }
+            } catch (\Exception $e) {
+                $content = file_get_contents($kernel->getProjectDir() . '/src/Ressources/Images/defaultPlant.png');
+                $filename = 'defaultPlant.png';
             }
-        return new BinaryFileResponse('tmp/' . $file->getName());
+        }
+        $response = new Response($content);
+        $disposition = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
     }
 }

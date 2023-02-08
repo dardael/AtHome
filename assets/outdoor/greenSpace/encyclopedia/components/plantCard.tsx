@@ -31,6 +31,7 @@ const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function
                 <img
                     alt="example"
                     src={'/outdoor/green-space/encyclopedia/plant/'+ initialPlant.id  +'/photo/get'}
+                    style={{height: 180, width: 300}}
                 />
                 <Dropdown menu={{items: actions}} trigger={['click']} placement="topRight">
                     <Button shape="circle" style={{

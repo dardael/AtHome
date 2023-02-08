@@ -5,8 +5,9 @@ WORKDIR /var/www
 CMD composer install ;  php-fpm
 EXPOSE 9000
 
+RUN apk add --update linux-headers
 # XDebug extension
-RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
+RUN apk --update --no-cache add pcre-dev ${PHPIZE_DEPS} \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && echo 'xdebug.mode=develop,debug,profile,trace,coverage' >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini \

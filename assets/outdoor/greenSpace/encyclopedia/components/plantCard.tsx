@@ -29,8 +29,8 @@ const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function
             cover={
             <>
                 <img
-                    alt="example"
-                    src={'/outdoor/green-space/encyclopedia/plant/'+ initialPlant.id  +'/photo/get'}
+                    key={Date.now()}
+                    src={`${'/outdoor/green-space/encyclopedia/plant/'+ initialPlant.id  +'/photo/get'}?${new Date().getTime()}`}
                     style={{height: 180, width: 300}}
                 />
                 <Dropdown menu={{items: actions}} trigger={['click']} placement="topRight">

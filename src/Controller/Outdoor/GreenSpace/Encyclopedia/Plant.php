@@ -90,7 +90,13 @@ class Plant extends GenericController
             ->findOneBy(['type' => 'PLANT']);
         $encyclopedia->removeElement($plantId);
         $documentManager->persist($encyclopedia);
+        $photo = $documentManager->getRepository(Photo::class)
+            ->findOneBy(['metadata.plantId' => $plantId]);
+        if($photo) {
+            $documentManager->remove($photo);
+        }
         $documentManager->flush();
+
         return new JsonResponse(['success' => true]);
     }
 

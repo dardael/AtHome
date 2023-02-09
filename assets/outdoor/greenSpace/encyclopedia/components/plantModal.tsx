@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Col,
     Form,
@@ -93,7 +93,11 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
                         <Col md={24}>
                             <Form.Item name={'photo'} label={'Photo'} valuePropName="file"
                                        getValueFromEvent={getImageValue}>
-                                <Upload listType="picture-card"  maxCount={1}>
+                                <Upload defaultFileList={plant ? [{
+                                    uid: '1',
+                                    name: 'photo.png',
+                                    url: '/outdoor/green-space/encyclopedia/plant/' + plant.id + '/photo/get'
+                                }] : null} listType="picture-card" maxCount={1}>
                                     <div>
                                         <PlusOutlined />
                                         <div style={{ marginTop: 8 }}>Image</div>

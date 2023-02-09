@@ -17,7 +17,6 @@ use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Watering;
 use App\Kernel;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Repository\UploadOptions;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,8 +30,14 @@ class Plant extends GenericController
         Request $request,
         DocumentManager $documentManager,
     ): Response {
-        $plantDocument = new PlantDocument();
-        $plantDocument->setId($request->request->get('id') ?? null);
+        $plantId = $request->request->get('id') ?? null;
+        if ($plantId) {
+            $plantDocument = $documentManager->getRepository(PlantDocument::class)
+                ->find($plantId);
+            $plantDocument->setPhoto(null);
+        } else {
+            $plantDocument = new PlantDocument();
+        }
         $size = $request->request->all('size');
         $sizeDocument = new Size();
         $sizeDocument->setMax((float) $size['max']);
@@ -58,10 +63,11 @@ class Plant extends GenericController
         $encyclopedia = $documentManager->getRepository(
             Encyclopedia::class)
             ->findOneBy(['type' => 'PLANT']);
-        $encyclopedia->setElement($plantDocument);
+        $photo = $_FILES['photo'] ?? null;
+        $plantDocument->setEncyclopedia($encyclopedia);
+        $encyclopedia->setPlant($plantDocument);
         $documentManager->persist($encyclopedia);
         $documentManager->flush();
-        $photo = $_FILES['photo'] ?? null;
         if($photo) {
             $uploadOptions = new UploadOptions();
             $uploadOptions->metadata = new PhotoMetadata();
@@ -70,11 +76,13 @@ class Plant extends GenericController
             $repository = $documentManager->getRepository(
                 PlantDocument\Photo::class
             );
-            $repository->uploadFromFile(
+            $file = $repository->uploadFromFile(
                 $photo['tmp_name'][0]['originFileObj'],
                 $photo['name'][0]['originFileObj'],
                 $uploadOptions
             );
+            $plantDocument->setPhoto($file);
+            $documentManager->flush();
         }
 
         return new JsonResponse(['plantId' => $plantDocument->getId()]);
@@ -85,16 +93,10 @@ class Plant extends GenericController
         string $plantId,
         DocumentManager $documentManager,
     ): Response {
-        $encyclopedia = $documentManager->getRepository(
-            Encyclopedia::class)
-            ->findOneBy(['type' => 'PLANT']);
-        $encyclopedia->removeElement($plantId);
-        $documentManager->persist($encyclopedia);
-        $photo = $documentManager->getRepository(Photo::class)
-            ->findOneBy(['metadata.plantId' => $plantId]);
-        if($photo) {
-            $documentManager->remove($photo);
-        }
+        $plant = $documentManager->getRepository(
+            PlantDocument::class)
+            ->find($plantId);
+        $documentManager->remove($plant);
         $documentManager->flush();
 
         return new JsonResponse(['success' => true]);

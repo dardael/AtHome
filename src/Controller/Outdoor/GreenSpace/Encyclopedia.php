@@ -12,13 +12,12 @@ class Encyclopedia extends GenericController
 {
     #[Route('/outdoor/green-space/encyclopedia/display', name: 'outdoor_greenSpace_encyclopedia')]
     public function display(DocumentManager $documentManager): Response {
-        $encyclopedia = $documentManager
+        $plants = iterator_to_array($documentManager
             ->getRepository(EncyclopediaDocument::class)
-            ->findOneBy(['type' => 'PLANT']);
-        $elements = $encyclopedia->getPlants();
+            ->findOneBy(['type' => 'PLANT'])->getPlants());
         return $this->getRenderResponse(
             'homePage',
-            ['plants' => $this->serializer->serialize($elements, 'json')]
+            ['plants' => $this->serializer->serialize($plants, 'json')]
         );
     }
 }

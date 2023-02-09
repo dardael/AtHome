@@ -16,46 +16,61 @@ class Encyclopedia
     private $id;
     #[MongoDB\field(type: 'string')]
     private string $type;
-    #[MongoDB\ReferenceMany(targetDocument: Plant::class, cascade: 'all', orphanRemoval: true)]
-    private iterable $plants;
+    #[MongoDB\ReferenceMany(targetDocument: Plant::class, cascade: 'all', orphanRemoval: true, mappedBy: "encyclopedia")]
+        private ArrayCollection $plants;
 
     public function __construct()
     {
         $this->plants = new ArrayCollection();
     }
 
-    public function setElement(Plant $plant): void
+    public function setPlant(Plant $plant): void
     {
         if ($plant->getId()) {
-            $updatedElements = [];
-            foreach ($this->plants as $element) {
-                if ($element->getId() === $plant->getId()) {
-                    $updatedElements[] = $plant;
+            $updatedPlants = new ArrayCollection();
+            foreach ($this->plants as $currentPlant) {
+                if ($currentPlant->getId() === $plant->getId()) {
+                    $updatedPlants[] = $plant;
                     continue;
                 }
-                $updatedElements[] = $element;
+                $updatedPlants[] = $currentPlant;
             }
-            $this->plants = $updatedElements;
+            $this->plants = $updatedPlants;
             return;
         }
         $this->plants[] = $plant;
     }
 
-    public function removeElement(string $plantId): void
+    public function getPlants():ArrayCollection
     {
-        $this->plants = array_filter(
-            iterator_to_array($this->plants),
-            fn(Plant $plant)=> $plant->getId() !== $plantId
-        );
+        return $this->plants;
     }
 
-    public function getPlants():iterable
-    {
-        return iterator_to_array($this->plants);
-    }
-
-    public function setPlants(iterable $plants): void
+    public function setPlants(ArrayCollection $plants): void
     {
         $this->plants = $plants;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): void
+    {
+        $this->type = $type;
     }
 }

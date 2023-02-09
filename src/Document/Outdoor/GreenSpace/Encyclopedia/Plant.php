@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Document\Outdoor\GreenSpace\Encyclopedia;
 
+use App\Document\Outdoor\GreenSpace\Encyclopedia;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Photo;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Size;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Foliage;
@@ -12,6 +13,7 @@ use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Sunshine;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Type;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Watering;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[MongoDB\Document]
 class Plant
@@ -40,9 +42,22 @@ class Plant
     private string $description;
     #[MongoDB\ReferenceOne(targetDocument: Photo::class, cascade: 'all', orphanRemoval: true)]
     private ?Photo $photo;
+    #[Ignore]
+    #[MongoDB\ReferenceOne(targetDocument: Encyclopedia::class, inversedBy:"plants")]
+    private ?Encyclopedia $encyclopedia;
 
     public function __construct()
     {
+    }
+
+    public function getEncyclopedia(): ?Encyclopedia
+    {
+        return $this->encyclopedia;
+    }
+
+    public function setEncyclopedia(?Encyclopedia $encyclopedia): void
+    {
+        $this->encyclopedia = $encyclopedia;
     }
 
     public function getPhoto(): ?Photo

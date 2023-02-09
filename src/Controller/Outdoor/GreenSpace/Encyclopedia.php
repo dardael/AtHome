@@ -15,7 +15,7 @@ class Encyclopedia extends GenericController
         $encyclopedia = $documentManager
             ->getRepository(EncyclopediaDocument::class)
             ->findOneBy(['type' => 'PLANT']);
-        $elements = $encyclopedia->getElements();
+        $elements = $encyclopedia->getPlants();
         return $this->getRenderResponse(
             'homePage',
             ['plants' => $this->serializer->serialize($elements, 'json')]

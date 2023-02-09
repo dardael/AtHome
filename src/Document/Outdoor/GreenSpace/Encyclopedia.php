@@ -12,50 +12,50 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 #[MongoDB\Document]
 class Encyclopedia
 {
-    #[MongoDB\Id(type: 'string', strategy: 'UUID')]
-    private string $id;
+    #[MongoDB\Id]
+    private $id;
     #[MongoDB\field(type: 'string')]
     private string $type;
-    #[MongoDB\EmbedMany(targetDocument: Plant::class)]
-    private iterable $elements;
+    #[MongoDB\ReferenceMany(targetDocument: Plant::class, cascade: 'all', orphanRemoval: true)]
+    private iterable $plants;
 
     public function __construct()
     {
-        $this->elements = new ArrayCollection();
+        $this->plants = new ArrayCollection();
     }
 
     public function setElement(Plant $plant): void
     {
         if ($plant->getId()) {
             $updatedElements = [];
-            foreach ($this->elements as $element) {
+            foreach ($this->plants as $element) {
                 if ($element->getId() === $plant->getId()) {
                     $updatedElements[] = $plant;
                     continue;
                 }
                 $updatedElements[] = $element;
             }
-            $this->elements = $updatedElements;
+            $this->plants = $updatedElements;
             return;
         }
-        $this->elements[] = $plant;
+        $this->plants[] = $plant;
     }
 
     public function removeElement(string $plantId): void
     {
-        $this->elements = array_filter(
-            iterator_to_array($this->elements),
+        $this->plants = array_filter(
+            iterator_to_array($this->plants),
             fn(Plant $plant)=> $plant->getId() !== $plantId
         );
     }
 
-    public function getElements():iterable
+    public function getPlants():iterable
     {
-        return iterator_to_array($this->elements);
+        return iterator_to_array($this->plants);
     }
 
-    public function setElements(iterable $elements): void
+    public function setPlants(iterable $plants): void
     {
-        $this->elements = $elements;
+        $this->plants = $plants;
     }
 }

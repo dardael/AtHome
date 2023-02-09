@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Document\Outdoor\GreenSpace\Encyclopedia;
 
+use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Photo;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Size;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Foliage;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Month;
@@ -12,11 +13,11 @@ use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Type;
 use App\Document\Outdoor\GreenSpace\Encyclopedia\Plant\Watering;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
-#[MongoDB\EmbeddedDocument]
+#[MongoDB\Document]
 class Plant
 {
-    #[MongoDB\id(type: 'string', strategy: 'UUID')]
-    private ?string $id;
+    #[MongoDB\id]
+    private $id;
     #[MongoDB\Field(type: 'string')]
     private string $name;
     #[MongoDB\Field(type: 'string')]
@@ -37,7 +38,21 @@ class Plant
     private Size $size;
     #[MongoDB\Field(type: 'string')]
     private string $description;
+    #[MongoDB\ReferenceOne(targetDocument: Photo::class, cascade: 'all', orphanRemoval: true)]
+    private ?Photo $photo;
 
+    public function __construct()
+    {
+    }
+
+    public function getPhoto(): ?Photo
+    {
+        return $this->photo;
+    }
+    public function setPhoto(?Photo $photo): void
+    {
+        $this->photo = $photo;
+    }
     public function getName(): string
     {
         return $this->name;
@@ -143,12 +158,12 @@ class Plant
         $this->scientificName = $scientificName;
     }
 
-    public function getId(): ?string
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId(?string $id): void
+    public function setId($id): void
     {
         $this->id = $id;
     }

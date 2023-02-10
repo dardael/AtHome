@@ -30,7 +30,8 @@ class Plant extends GenericController
         Request $request,
         DocumentManager $documentManager,
     ): Response {
-        $plantId = $request->request->get('id') ?? null;
+        $plantToSave = $request->request->all();
+        $plantId = $plantToSave['id'] ?? null;
         if ($plantId) {
             $plantDocument = $documentManager->getRepository(PlantDocument::class)
                 ->find($plantId);
@@ -38,28 +39,28 @@ class Plant extends GenericController
         } else {
             $plantDocument = new PlantDocument();
         }
-        $size = $request->request->all('size');
+        $size = $plantToSave['size'];
         $sizeDocument = new Size();
         $sizeDocument->setMax((float) $size['max']);
         $sizeDocument->setMin((float) $size['min']);
         $sizeDocument->setUnit(Unit::from($size['unit']));
         $plantDocument->setSize($sizeDocument);
-        $plantDocument->setName($request->request->get('name'));
-        $plantDocument->setScientificName($request->request->get('scientificName'));
-        $plantDocument->setDescription($request->request->get('description'));
-        $plantDocument->setFoliage(Foliage::from($request->request->get('foliage')));
+        $plantDocument->setName($plantToSave['name']);
+        $plantDocument->setScientificName($plantToSave['scientificName']);
+        $plantDocument->setDescription($plantToSave['description']);
+        $plantDocument->setFoliage(Foliage::from($plantToSave['foliage']));
         $plantDocument->setPruningPeriods(
             array_map(
                 fn($pruningPeriod) => Month::from($pruningPeriod),
-                $request->request->get('pruningPeriods') ?: []
+                $plantToSave['pruningPeriods'] ?? []
             )
         );
         $plantDocument->setSunshine(
-            Sunshine::from((string) $request->request->get('sunshine'))
+            Sunshine::from((string) $plantToSave['sunshine'])
         );
-        $plantDocument->setWatering(Watering::from((int) $request->request->get('watering')));
-        $plantDocument->setRusticity((int) $request->request->get('rusticity'));
-        $plantDocument->setType(Type::from($request->request->get('type')));
+        $plantDocument->setWatering(Watering::from((int) $plantToSave['watering']));
+        $plantDocument->setRusticity((int) $plantToSave['rusticity']);
+        $plantDocument->setType(Type::from($plantToSave['type']));
         $encyclopedia = $documentManager->getRepository(
             Encyclopedia::class)
             ->findOneBy(['type' => 'PLANT']);

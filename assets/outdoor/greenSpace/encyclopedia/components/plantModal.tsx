@@ -90,7 +90,7 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
                         </Col>
                     </Row>
                     <Row>
-                        <Col md={24}>
+                        <Col md={12}>
                             <Form.Item name={'photo'} label={'Photo'} valuePropName="file"
                                        getValueFromEvent={getImageValue}>
                                 <Upload defaultFileList={plant ? [{
@@ -103,6 +103,35 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
                                         <div style={{ marginTop: 8 }}>Image</div>
                                     </div>
                                 </Upload>
+                            </Form.Item>
+                        </Col>
+                        <Col md={12}>
+                            <Form.Item name='size' label={'Envergure'} initialValue={plant ? plant.size : {min:0,max:0,unit:Unit.CENTIMETER}}>
+                                <Input.Group compact>
+                                    <Form.Item name={['size', 'min']} initialValue={plant ? plant.size.min : 0}>
+                                        <InputNumber style={{width: 60}} value={plant ? plant.size.min : 0} precision={2} min={0} placeholder={'Minimum'} />
+                                    </Form.Item>
+                                    <Input
+                                        style={{
+                                            width: 30,
+                                            borderLeft: 0,
+                                            borderRight: 0,
+                                            pointerEvents: 'none',
+                                        }}
+                                        placeholder="~"
+                                        disabled
+                                    />
+                                    <Form.Item name={['size', 'max']} initialValue={plant ? plant.size.max : 0}>
+                                        <InputNumber style={{width: 60}} value={plant ? plant.size.max : 0} precision={2} min={0} placeholder={'Maximum'} />
+                                    </Form.Item>
+                                    <Form.Item name={['size', 'unit']} initialValue={plant ? plant.size.unit : Unit.CENTIMETER}>
+                                        <Select value={plant ? plant.size.unit : Unit.CENTIMETER}>
+                                            {Unit.getLabels().map((label) =>
+                                                <Option key={label.key} value={label.key}>{label.label}</Option>
+                                            )}
+                                        </Select>
+                                    </Form.Item>
+                                </Input.Group>
                             </Form.Item>
                         </Col>
                     </Row>
@@ -151,37 +180,6 @@ const PlantModal:React.FunctionComponent<{plant?: Plant, onSave: Function, onCan
                                         <Option key={label.key} value={label.key}>{label.label}</Option>
                                     )}
                                 </Select>
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={24}>
-                            <Form.Item name='size' label={'Envergure'} initialValue={plant ? plant.size : {min:0,max:0,unit:Unit.CENTIMETER}}>
-                                <Input.Group compact>
-                                    <Form.Item name={['size', 'min']} initialValue={plant ? plant.size.min : 0}>
-                                        <InputNumber value={plant ? plant.size.min : 0} precision={2} min={0} placeholder={'Minimum'} />
-                                    </Form.Item>
-                                    <Input
-                                        style={{
-                                            width: 30,
-                                            borderLeft: 0,
-                                            borderRight: 0,
-                                            pointerEvents: 'none',
-                                        }}
-                                        placeholder="~"
-                                        disabled
-                                    />
-                                    <Form.Item name={['size', 'max']} initialValue={plant ? plant.size.max : 0}>
-                                        <InputNumber value={plant ? plant.size.max : 0} precision={2} min={0} placeholder={'Maximum'} />
-                                    </Form.Item>
-                                    <Form.Item name={['size', 'unit']} initialValue={plant ? plant.size.unit : Unit.CENTIMETER}>
-                                        <Select value={plant ? plant.size.unit : Unit.CENTIMETER}>
-                                            {Unit.getLabels().map((label) =>
-                                                <Option key={label.key} value={label.key}>{label.label}</Option>
-                                            )}
-                                        </Select>
-                                    </Form.Item>
-                                </Input.Group>
                             </Form.Item>
                         </Col>
                     </Row>

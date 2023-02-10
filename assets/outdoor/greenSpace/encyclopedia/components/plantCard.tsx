@@ -31,7 +31,7 @@ const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function
                 <img
                     key={Date.now()}
                     src={`${'/outdoor/green-space/encyclopedia/plant/'+ initialPlant.id  +'/photo/get'}?${new Date().getTime()}`}
-                    style={{height: 180, width: 300}}
+                    style={{height: 180, width: 270, padding: 1}}
                 />
                 <Dropdown menu={{items: actions}} trigger={['click']} placement="topRight">
                     <Button shape="circle" style={{
@@ -48,7 +48,7 @@ const PlantCard:React.FunctionComponent<{initialPlant: Plant, onDelete: Function
                     <span style={{verticalAlign:'text-bottom'}}> {Number(initialPlant.rusticity)}°C</span>
                 </>,
             ]}
-            style={{height:'100%', width:300}}
+            style={{height:'100%', width:270}}
         >
             <Meta
                 avatar={<Avatar src={initialPlant.foliage === Foliage.PERSISTENT

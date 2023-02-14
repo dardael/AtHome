@@ -17,7 +17,6 @@ const PlantsSorter:React.FunctionComponent<{onSort: Function, plants: Plant[], s
         const sortedPlants = newSortType === 'ASC'
             ? plantSorter.sortByNameAsc()
             : plantSorter.sortByNameDesc();
-        console.log(sortedPlants)
         onSort(sortedPlants);
         setSortType(newSortType)
     }

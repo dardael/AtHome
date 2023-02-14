@@ -7,7 +7,6 @@ import AthForm from "../../core/components/form/form";
 
 const Authentification:React.FunctionComponent<{fromAccountCreation?:boolean, hasLoggingError?:boolean}> = ({fromAccountCreation = false, hasLoggingError = false}) => {
     const [messageApi, contextHolder] = message.useMessage();
-    console.log(hasLoggingError)
     useEffect(() => {
         if (fromAccountCreation) {
             messageApi.open({

@@ -4,10 +4,10 @@ export enum Foliage {
 }
 
 export namespace Foliage {
-    export function getLabels(): {key: Foliage, label: string}[] {
+    export function getLabels(): {key: Foliage; label: string}[] {
         return [
             {key: Foliage.DECIDUOUS, label: 'Caduc'},
-            {key: Foliage.PERSISTENT, label: 'Persistant'}
-        ]
+            {key: Foliage.PERSISTENT, label: 'Persistant'},
+        ];
     }
 }

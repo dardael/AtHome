@@ -4,10 +4,10 @@ export enum Unit {
 }
 
 export namespace Unit {
-    export function getLabels(): {key: Unit, label: string}[] {
+    export function getLabels(): {key: Unit; label: string}[] {
         return [
             {key: Unit.METER, label: 'm'},
-            {key: Unit.CENTIMETER, label: 'cm'}
-        ]
+            {key: Unit.CENTIMETER, label: 'cm'},
+        ];
     }
 }

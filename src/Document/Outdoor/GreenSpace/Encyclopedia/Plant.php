@@ -40,10 +40,21 @@ class Plant
     private Size $size;
     #[MongoDB\Field(type: 'string')]
     private string $description;
-    #[MongoDB\ReferenceOne(targetDocument: Photo::class, cascade: 'all', orphanRemoval: true)]
+    #[
+        MongoDB\ReferenceOne(
+            targetDocument: Photo::class,
+            cascade: 'all',
+            orphanRemoval: true
+        )
+    ]
     private ?Photo $photo;
     #[Ignore]
-    #[MongoDB\ReferenceOne(targetDocument: Encyclopedia::class, inversedBy:"plants")]
+    #[
+        MongoDB\ReferenceOne(
+            targetDocument: Encyclopedia::class,
+            inversedBy: 'plants'
+        )
+    ]
     private ?Encyclopedia $encyclopedia;
 
     public function __construct()
@@ -139,7 +150,8 @@ class Plant
     public function setPruningPeriods(array $pruningPeriods): void
     {
         $this->pruningPeriods = array_map(
-            fn(Month $pruningPeriod) => $pruningPeriod->value, $pruningPeriods
+            fn(Month $pruningPeriod) => $pruningPeriod->value,
+            $pruningPeriods
         );
     }
 

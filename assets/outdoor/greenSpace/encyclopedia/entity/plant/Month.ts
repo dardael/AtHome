@@ -13,7 +13,7 @@ export enum Month {
     DECEMBER = 'december',
 }
 export namespace Month {
-    export function getLabels(): {key: Month, label: string}[] {
+    export function getLabels(): {key: Month; label: string}[] {
         return [
             {key: Month.JANUARY, label: 'Janvier'},
             {key: Month.FEBRUARY, label: 'Février'},
@@ -26,8 +26,7 @@ export namespace Month {
             {key: Month.SEPTEMBER, label: 'Septembre'},
             {key: Month.OCTOBER, label: 'Octobre'},
             {key: Month.NOVEMBER, label: 'Novembre'},
-            {key: Month.DECEMBER, label: 'Décembre'}
-        ]
+            {key: Month.DECEMBER, label: 'Décembre'},
+        ];
     }
 }
-

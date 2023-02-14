@@ -27,7 +27,8 @@ class Photo
     #[MongoDB\File\Metadata(targetDocument: PhotoMetadata::class)]
     private PhotoMetadata $metadata;
 
-    public function __construct(){
+    public function __construct()
+    {
     }
 
     public function getId()

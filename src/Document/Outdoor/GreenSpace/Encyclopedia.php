@@ -16,8 +16,15 @@ class Encyclopedia
     private $id;
     #[MongoDB\field(type: 'string')]
     private string $type;
-    #[MongoDB\ReferenceMany(targetDocument: Plant::class, cascade: 'all', orphanRemoval: true, mappedBy: "encyclopedia")]
-        private ArrayCollection $plants;
+    #[
+        MongoDB\ReferenceMany(
+            targetDocument: Plant::class,
+            cascade: 'all',
+            orphanRemoval: true,
+            mappedBy: 'encyclopedia'
+        )
+    ]
+    private ArrayCollection $plants;
 
     public function __construct()
     {
@@ -41,7 +48,7 @@ class Encyclopedia
         $this->plants[] = $plant;
     }
 
-    public function getPlants():ArrayCollection
+    public function getPlants(): ArrayCollection
     {
         return $this->plants;
     }

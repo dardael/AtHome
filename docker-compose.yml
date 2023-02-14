@@ -12,7 +12,7 @@ services:
             - php
             - mongo-express
         ports:
-            - "80:80"
+            - '80:80'
 
     php:
         container_name: php-fpm_AtHome
@@ -25,7 +25,7 @@ services:
             - ${APP_FOLDER}:/var/www
 
     mongodb:
-        image : mongo
+        image: mongo
         container_name: mongodb_AtHome
         environment:
             - MONGO_INITDB_ROOT_USERNAME=dardael
@@ -33,7 +33,7 @@ services:
         volumes:
             - mongodb-data-AtHome:/data/db
         ports:
-            - "27017:27017"
+            - '27017:27017'
         restart: unless-stopped
 
     mongo-express:
@@ -51,7 +51,7 @@ services:
         depends_on:
             - mongodb
         ports:
-            - "8081:8081"
+            - '8081:8081'
         restart: unless-stopped
 
     composer:

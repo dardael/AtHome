@@ -1,33 +1,44 @@
-import React from "react";
-import {Form} from "antd";
+import React from 'react';
+import {Form} from 'antd';
 
-const AthForm: React.FunctionComponent<{children, action, method}> = ({children, action, method='GET'}) => {
+const AthForm: React.FunctionComponent<{children; action; method}> = ({
+    children,
+    action,
+    method = 'GET',
+}) => {
     let parentForm: HTMLFormElement | null;
     const [antForm] = Form.useForm();
     const completeOnFinish = () => {
         parentForm?.submit();
-    }
-    const completeOnFinishFailed = () => {
-    }
+    };
+    const completeOnFinishFailed = () => {};
     const onSubmit = (e) => {
         e.preventDefault();
         antForm?.submit();
-    }
+    };
 
-    return <>
-        <form action={action} method={method} ref={node => { parentForm = node; }} onSubmit={onSubmit}>
-            <Form
-                form={antForm}
-                labelWrap
-                layout="vertical"
-                onFinish={completeOnFinish}
-                onFinishFailed={completeOnFinishFailed}
-                component={'div'}
+    return (
+        <>
+            <form
+                action={action}
+                method={method}
+                ref={(node) => {
+                    parentForm = node;
+                }}
+                onSubmit={onSubmit}
             >
-                {children}
-            </Form>
-        </form>
-    </>
-}
+                <Form
+                    form={antForm}
+                    labelWrap
+                    layout='vertical'
+                    onFinish={completeOnFinish}
+                    onFinishFailed={completeOnFinishFailed}
+                    component={'div'}
+                >
+                    {children}
+                </Form>
+            </form>
+        </>
+    );
+};
 export default AthForm;
-

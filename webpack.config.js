@@ -21,12 +21,20 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.ts')
-    .addEntry('authenticatePage', './assets/authentification/pages/authenticate.tsx')
-    .addEntry('accountCreationPage', './assets/authentification/pages/createAccount.tsx')
+    .addEntry(
+        'authenticatePage',
+        './assets/authentification/pages/authenticate.tsx'
+    )
+    .addEntry(
+        'accountCreationPage',
+        './assets/authentification/pages/createAccount.tsx'
+    )
     .addEntry('homePage', './assets/home/pages/home.tsx')
 
-
-    .copyFiles({from: './assets/ressources/images', to: 'images/[path][name].[hash:8].[ext]'})
+    .copyFiles({
+        from: './assets/ressources/images',
+        to: 'images/[path][name].[hash:8].[ext]',
+    })
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -72,10 +80,9 @@ Encore
 
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
-    .enableIntegrityHashes(Encore.isProduction())
+    .enableIntegrityHashes(Encore.isProduction());
 
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
-;
+// uncomment if you're having problems with a jQuery plugin
+//.autoProvidejQuery()
 
 module.exports = Encore.getWebpackConfig();

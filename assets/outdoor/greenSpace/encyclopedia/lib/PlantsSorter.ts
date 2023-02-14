@@ -1,4 +1,4 @@
-import {Plant} from "../entity/Plant";
+import {Plant} from '../entity/Plant';
 
 class PlantsSorter {
     plants: Plant[];
@@ -7,14 +7,14 @@ class PlantsSorter {
     }
 
     sortByNameAsc(): Plant[] {
-        return this.plants.sort(
-            (aPlant, anotherPlant) => aPlant.name > anotherPlant.name ? 1 : -1
+        return this.plants.sort((aPlant, anotherPlant) =>
+            aPlant.name > anotherPlant.name ? 1 : -1
         );
     }
 
     sortByNameDesc(): Plant[] {
-        return this.plants.sort(
-            (aPlant, anotherPlant) => aPlant.name > anotherPlant.name ? -1 : 1
+        return this.plants.sort((aPlant, anotherPlant) =>
+            aPlant.name > anotherPlant.name ? -1 : 1
         );
     }
 }

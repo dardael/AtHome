@@ -1,1 +1,1 @@
-declare var atHome : any;
+declare var atHome: any;

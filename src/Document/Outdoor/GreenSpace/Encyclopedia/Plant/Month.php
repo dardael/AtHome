@@ -17,4 +17,3 @@ enum Month: string
     case NOVEMBER = 'november';
     case DECEMBER = 'december';
 }
-

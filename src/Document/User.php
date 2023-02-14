@@ -22,7 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-       return [$this->role];
+        return [$this->role];
     }
 
     public function eraseCredentials()
@@ -54,5 +54,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->role = $role;
     }
-
 }

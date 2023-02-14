@@ -1,1 +1,69 @@
-{"packages":[],"notify-batch":"https:\/\/packagist.org\/downloads\/","providers-url":"\/p\/%package%$%hash%.json","metadata-url":"\/p2\/%package%.json","metadata-changes-url":"https:\/\/packagist.org\/metadata\/changes.json","search":"https:\/\/packagist.org\/search.json?q=%query%&type=%type%","list":"https:\/\/packagist.org\/packages\/list.json","security-advisories":{"metadata":true,"api-url":"https:\/\/packagist.org\/api\/security-advisories\/","query-all":true},"providers-api":"https:\/\/packagist.org\/providers\/%package%.json","warning":"Support for Composer 1 is deprecated and some packages will not be available. You should upgrade to Composer 2. See https:\/\/blog.packagist.com\/deprecating-composer-1-support\/","warning-versions":"<1.99","info":"\u001b[37;44m#StandWith\u001b[30;43mUkraine\u001b[0m","provider-includes":{"p\/provider-2013$%hash%.json":{"sha256":"eba110371d4c11aee52247591377920b5cb0273da9986fcd016ab25b3ac7c024"},"p\/provider-2014$%hash%.json":{"sha256":"7b4654b0a7e2efda145da1cb5cfbcf26a7e6bd60f622e7e6fdbc3c0d14cf7f95"},"p\/provider-2015$%hash%.json":{"sha256":"1b912c53361084c36d0b201ba3fb70e4ea085cc7d557ce42c83a405989bf832a"},"p\/provider-2016$%hash%.json":{"sha256":"2c80e1d489b27810ece42ca8d3c4afcd008e2ad0d1ed79d4aefad4db75a49b0e"},"p\/provider-2017$%hash%.json":{"sha256":"69a4a65a76f8e7bbfe7e696b54bce51c62e501ac179623f67412e00aedba2b28"},"p\/provider-2018$%hash%.json":{"sha256":"399bf31a689ec8164f1344f042e2748427abbb34de0929aec532b3778626ade3"},"p\/provider-2019$%hash%.json":{"sha256":"5fc818a12f626d4846b18b1718ccb9e23200ab53168c0b19627c71cb39b7f518"},"p\/provider-2020$%hash%.json":{"sha256":"bc176b2834ae47c8b7433e613e0f874edfffddd3e8877240a611e368f4e7c25f"},"p\/provider-2021$%hash%.json":{"sha256":"59014056df899fcc4bcf87007b2b358ee059b06c98a58c70e888188b686941e9"},"p\/provider-2022$%hash%.json":{"sha256":"ab4ef85f2ade5da1b8eed8037d9dcd50b7a20a54fb214755e15a9b652d4d51e3"},"p\/provider-2022-04$%hash%.json":{"sha256":"bd40611077e66fd1b57821bc2b45e7904572fb15162cc180bbc8ea2768bf400c"},"p\/provider-2022-07$%hash%.json":{"sha256":"9fa8c2ca9c412baf818daddb5cd05c6c2518e46fd48ea6f1506fef621c41302b"},"p\/provider-2022-10$%hash%.json":{"sha256":"468ad933115ea60897350d935e72dc7d7d4d2e9c1dd81e733d03da5103a577eb"},"p\/provider-2023-01$%hash%.json":{"sha256":"fc705ac783421af8e19e62938ccb45d092a16dbc67e8a46e29ba59ea37317008"},"p\/provider-archived$%hash%.json":{"sha256":"3001e2ced6908ad5bc546110121799ffea46355328b445b1d9ad2be79e95d854"},"p\/provider-latest$%hash%.json":{"sha256":"4e35730cb8fd0f60a049892ee748a91d6beeab67d284c268c34d6443a2877db0"}},"last-modified":"Sat, 04 Feb 2023 09:32:57 GMT"}
+{
+    "packages": [],
+    "notify-batch": "https://packagist.org/downloads/",
+    "providers-url": "/p/%package%$%hash%.json",
+    "metadata-url": "/p2/%package%.json",
+    "metadata-changes-url": "https://packagist.org/metadata/changes.json",
+    "search": "https://packagist.org/search.json?q=%query%&type=%type%",
+    "list": "https://packagist.org/packages/list.json",
+    "security-advisories": {
+        "metadata": true,
+        "api-url": "https://packagist.org/api/security-advisories/",
+        "query-all": true
+    },
+    "providers-api": "https://packagist.org/providers/%package%.json",
+    "warning": "Support for Composer 1 is deprecated and some packages will not be available. You should upgrade to Composer 2. See https://blog.packagist.com/deprecating-composer-1-support/",
+    "warning-versions": "<1.99",
+    "info": "\u001b[37;44m#StandWith\u001b[30;43mUkraine\u001b[0m",
+    "provider-includes": {
+        "p/provider-2013$%hash%.json": {
+            "sha256": "eba110371d4c11aee52247591377920b5cb0273da9986fcd016ab25b3ac7c024"
+        },
+        "p/provider-2014$%hash%.json": {
+            "sha256": "7b4654b0a7e2efda145da1cb5cfbcf26a7e6bd60f622e7e6fdbc3c0d14cf7f95"
+        },
+        "p/provider-2015$%hash%.json": {
+            "sha256": "1b912c53361084c36d0b201ba3fb70e4ea085cc7d557ce42c83a405989bf832a"
+        },
+        "p/provider-2016$%hash%.json": {
+            "sha256": "2c80e1d489b27810ece42ca8d3c4afcd008e2ad0d1ed79d4aefad4db75a49b0e"
+        },
+        "p/provider-2017$%hash%.json": {
+            "sha256": "69a4a65a76f8e7bbfe7e696b54bce51c62e501ac179623f67412e00aedba2b28"
+        },
+        "p/provider-2018$%hash%.json": {
+            "sha256": "399bf31a689ec8164f1344f042e2748427abbb34de0929aec532b3778626ade3"
+        },
+        "p/provider-2019$%hash%.json": {
+            "sha256": "5fc818a12f626d4846b18b1718ccb9e23200ab53168c0b19627c71cb39b7f518"
+        },
+        "p/provider-2020$%hash%.json": {
+            "sha256": "bc176b2834ae47c8b7433e613e0f874edfffddd3e8877240a611e368f4e7c25f"
+        },
+        "p/provider-2021$%hash%.json": {
+            "sha256": "59014056df899fcc4bcf87007b2b358ee059b06c98a58c70e888188b686941e9"
+        },
+        "p/provider-2022$%hash%.json": {
+            "sha256": "ab4ef85f2ade5da1b8eed8037d9dcd50b7a20a54fb214755e15a9b652d4d51e3"
+        },
+        "p/provider-2022-04$%hash%.json": {
+            "sha256": "bd40611077e66fd1b57821bc2b45e7904572fb15162cc180bbc8ea2768bf400c"
+        },
+        "p/provider-2022-07$%hash%.json": {
+            "sha256": "9fa8c2ca9c412baf818daddb5cd05c6c2518e46fd48ea6f1506fef621c41302b"
+        },
+        "p/provider-2022-10$%hash%.json": {
+            "sha256": "468ad933115ea60897350d935e72dc7d7d4d2e9c1dd81e733d03da5103a577eb"
+        },
+        "p/provider-2023-01$%hash%.json": {
+            "sha256": "fc705ac783421af8e19e62938ccb45d092a16dbc67e8a46e29ba59ea37317008"
+        },
+        "p/provider-archived$%hash%.json": {
+            "sha256": "3001e2ced6908ad5bc546110121799ffea46355328b445b1d9ad2be79e95d854"
+        },
+        "p/provider-latest$%hash%.json": {
+            "sha256": "4e35730cb8fd0f60a049892ee748a91d6beeab67d284c268c34d6443a2877db0"
+        }
+    },
+    "last-modified": "Sat, 04 Feb 2023 09:32:57 GMT"
+}

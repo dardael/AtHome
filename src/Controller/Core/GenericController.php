@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Controller\Core;
 
@@ -15,18 +15,17 @@ class GenericController extends AbstractController
     {
     }
 
-    protected function getRenderResponse(string $file, array $variables = []): Response
-    {
-        return $this->render(
-            'base/base.html.twig',
-            [
-                'files' => [$file],
-                'variables' => $variables,
-            ]
-        );
+    protected function getRenderResponse(
+        string $file,
+        array $variables = []
+    ): Response {
+        return $this->render('base/base.html.twig', [
+            'files' => [$file],
+            'variables' => $variables,
+        ]);
     }
 
-    protected function getDecodedRequest(Request $request):\stdClass
+    protected function getDecodedRequest(Request $request): \stdClass
     {
         return json_decode($request->getContent());
     }

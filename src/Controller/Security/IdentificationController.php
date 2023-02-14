@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 namespace App\Controller\Security;
 
 use App\Controller\Core\GenericController;
@@ -24,26 +24,29 @@ class IdentificationController extends GenericController
             return $this->redirectToRoute('home');
         }
 
-        return $this->getRenderResponse(
-            'authenticatePage',
-            [
-                'fromAccountCreation' => $request->query->has('fromAccountCreation'),
-                'hasLoggingError' => !empty($authenticationUtils->getLastAuthenticationError()?->getMessage()),
-            ]
-        );
+        return $this->getRenderResponse('authenticatePage', [
+            'fromAccountCreation' => $request->query->has(
+                'fromAccountCreation'
+            ),
+            'hasLoggingError' => !empty(
+                $authenticationUtils
+                    ->getLastAuthenticationError()
+                    ?->getMessage()
+            ),
+        ]);
     }
 
     #[Route('/authenticate', name: 'authenticate')]
-    public function authenticate(): void {
+    public function authenticate(): void
+    {
     }
 
     #[Route('/account/creation', name: 'account_creation')]
     public function getAccountCreationPage(Request $request): Response
     {
-        return $this->getRenderResponse(
-            'accountCreationPage',
-            ['userAlreadyExists' => $request->query->has('userAlreadyExists')]
-        );
+        return $this->getRenderResponse('accountCreationPage', [
+            'userAlreadyExists' => $request->query->has('userAlreadyExists'),
+        ]);
     }
 
     #[Route('/account/create', name: 'account_create')]
@@ -51,25 +54,28 @@ class IdentificationController extends GenericController
         DocumentManager $documentManager,
         UserPasswordHasherInterface $passwordHasher,
         Request $request
-    ): Response
-    {
+    ): Response {
         $user = new User();
         $user->setEmail($request->query->get('email'));
         $user->setPassword(
-            $passwordHasher->hashPassword($user, $request->query->get('password'))
+            $passwordHasher->hashPassword(
+                $user,
+                $request->query->get('password')
+            )
         );
 
-        $existingUser = $documentManager->getRepository(User::class)
+        $existingUser = $documentManager
+            ->getRepository(User::class)
             ->findOneBy(['email' => $user->getUserIdentifier()]);
         if ($existingUser) {
-          return $this->redirectToRoute('account_creation', [
+            return $this->redirectToRoute('account_creation', [
                 'userAlreadyExists' => true,
             ]);
         }
         $documentManager->persist($user);
         $documentManager->flush();
         return $this->redirectToRoute('identification', [
-            'fromAccountCreation' => true
+            'fromAccountCreation' => true,
         ]);
     }
 
@@ -77,6 +83,8 @@ class IdentificationController extends GenericController
     public function logout(): void
     {
         // controller can be blank: it will never be called!
-        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+        throw new \Exception(
+            'Don\'t forget to activate logout in security.yaml'
+        );
     }
 }

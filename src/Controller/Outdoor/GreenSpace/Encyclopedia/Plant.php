@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 namespace App\Controller\Outdoor\GreenSpace\Encyclopedia;
 
 use App\Controller\Core\GenericController;
@@ -28,12 +28,13 @@ class Plant extends GenericController
     #[Route('/outdoor/green-space/encyclopedia/plant/save')]
     public function save(
         Request $request,
-        DocumentManager $documentManager,
+        DocumentManager $documentManager
     ): Response {
         $plantToSave = $request->request->all();
         $plantId = $plantToSave['id'] ?? null;
         if ($plantId) {
-            $plantDocument = $documentManager->getRepository(PlantDocument::class)
+            $plantDocument = $documentManager
+                ->getRepository(PlantDocument::class)
                 ->find($plantId);
             $plantDocument->setPhoto(null);
         } else {
@@ -58,18 +59,20 @@ class Plant extends GenericController
         $plantDocument->setSunshine(
             Sunshine::from((string) $plantToSave['sunshine'])
         );
-        $plantDocument->setWatering(Watering::from((int) $plantToSave['watering']));
+        $plantDocument->setWatering(
+            Watering::from((int) $plantToSave['watering'])
+        );
         $plantDocument->setRusticity((int) $plantToSave['rusticity']);
         $plantDocument->setType(Type::from($plantToSave['type']));
-        $encyclopedia = $documentManager->getRepository(
-            Encyclopedia::class)
+        $encyclopedia = $documentManager
+            ->getRepository(Encyclopedia::class)
             ->findOneBy(['type' => 'PLANT']);
         $photo = $_FILES['photo'] ?? null;
         $plantDocument->setEncyclopedia($encyclopedia);
         $encyclopedia->setPlant($plantDocument);
         $documentManager->persist($encyclopedia);
         $documentManager->flush();
-        if($photo) {
+        if ($photo) {
             $uploadOptions = new UploadOptions();
             $uploadOptions->metadata = new PhotoMetadata();
             $uploadOptions->metadata->setPlantId($plantDocument->getId());
@@ -92,10 +95,10 @@ class Plant extends GenericController
     #[Route('/outdoor/green-space/encyclopedia/plant/delete/{plantId}')]
     public function delete(
         string $plantId,
-        DocumentManager $documentManager,
+        DocumentManager $documentManager
     ): Response {
-        $plant = $documentManager->getRepository(
-            PlantDocument::class)
+        $plant = $documentManager
+            ->getRepository(PlantDocument::class)
             ->find($plantId);
         $documentManager->remove($plant);
         $documentManager->flush();
@@ -112,7 +115,10 @@ class Plant extends GenericController
         $repository = $documentManager->getRepository(Photo::class);
         $file = $repository->findOneBy(['metadata.plantId' => $plantId]);
         if (!$file) {
-            $content = file_get_contents($kernel->getProjectDir() . '/src/Ressources/Images/defaultPlant.png');
+            $content = file_get_contents(
+                $kernel->getProjectDir() .
+                    '/src/Ressources/Images/defaultPlant.png'
+            );
             $filename = 'defaultPlant.png';
         } else {
             try {
@@ -124,7 +130,10 @@ class Plant extends GenericController
                     fclose($stream);
                 }
             } catch (\Exception $e) {
-                $content = file_get_contents($kernel->getProjectDir() . '/src/Ressources/Images/defaultPlant.png');
+                $content = file_get_contents(
+                    $kernel->getProjectDir() .
+                        '/src/Ressources/Images/defaultPlant.png'
+                );
                 $filename = 'defaultPlant.png';
             }
         }

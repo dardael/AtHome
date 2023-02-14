@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from 'antd';
 import {SortAscendingOutlined, SortDescendingOutlined} from '@ant-design/icons';
 import PlantsSorterEntity from '../lib/PlantsSorter';

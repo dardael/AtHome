@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useReducer, useState} from 'react';
 import LayoutWithToolbar from '../../../../core/components/layoutWithToolbar';
 import {Button, Col, message, Row} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
@@ -6,20 +6,56 @@ import axios from 'axios';
 import {Plant} from '../entity/Plant';
 import PlantCard from './plantCard';
 import PlantModal from './plantModal';
-import PlantsSorterEntity from '../lib/PlantsSorter';
+import PlantsFilterer from './plantsFilterer';
 import PlantsSorter from './plantsSorter';
 
 const EncyclopediaContent: React.FunctionComponent<{
     initialPlants: Plant[];
 }> = ({initialPlants}) => {
-    const initialSortedPlants = new PlantsSorterEntity(
-        initialPlants
-    ).sortByNameAsc();
     const [messageApi, contextHolder] = message.useMessage();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editedPlant, setEditedPlant] = useState(null);
-    const [plants, setPlants] = useState(initialSortedPlants);
+    const [state, dispatch] = useReducer(
+        (state, action) => {
+            let plants;
+            switch (action.type) {
+                case 'add':
+                    plants = state.plants.concat([action.plant]);
+                    return {
+                        ...state,
+                        plants: plants,
+                    };
+                case 'update':
+                    plants = state.plants.map((displayedPlant) =>
+                        action.plant.id === displayedPlant.id
+                            ? action.plant
+                            : displayedPlant
+                    );
+                    return {
+                        ...state,
+                        plants: plants,
+                    };
+                case 'delete':
+                    plants = state.plants.filter(
+                        (displayedPlant: Plant) =>
+                            displayedPlant.id !== action.plant.id
+                    );
+                    return {
+                        ...state,
+                        plants: plants,
+                    };
+                case 'sort-and-filter':
+                    return {
+                        ...state,
+                        displayedPlants: action.displayedPlants,
+                    };
+                default:
+                    return state;
+            }
+        },
+        {plants: initialPlants, displayedPlants: initialPlants}
+    );
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -33,21 +69,13 @@ const EncyclopediaContent: React.FunctionComponent<{
         setIsModalOpen(false);
         setEditedPlant(null);
         if (!isEditing) {
-            setPlants(plants.concat([plant]));
+            dispatch({type: 'add', plant: plant});
         } else {
-            setPlants(
-                plants.map((displayedPlant) =>
-                    plant.id === displayedPlant.id ? plant : displayedPlant
-                )
-            );
+            dispatch({type: 'update', plant: plant});
         }
     };
     const deletePlant = async (plant: Plant) => {
-        setPlants(
-            plants.filter(
-                (displayedPlant: Plant) => displayedPlant.id !== plant.id
-            )
-        );
+        dispatch({type: 'delete', plant: plant});
         await axios.post(
             '/outdoor/green-space/encyclopedia/plant/delete/' + plant.id
         );
@@ -80,9 +108,24 @@ const EncyclopediaContent: React.FunctionComponent<{
                         >
                             Ajouter
                         </Button>
+                        <PlantsFilterer
+                            onFilter={(sortedAndFilteredPlants) =>
+                                dispatch({
+                                    type: 'sort-and-filter',
+                                    displayedPlants: sortedAndFilteredPlants,
+                                })
+                            }
+                            plants={state.plants}
+                            style={{float: 'right', marginRight: 5}}
+                        />
                         <PlantsSorter
-                            onSort={setPlants}
-                            plants={plants}
+                            onSort={(sortedAndFilteredPlants) =>
+                                dispatch({
+                                    type: 'sort-and-filter',
+                                    displayedPlants: sortedAndFilteredPlants,
+                                })
+                            }
+                            plants={state.displayedPlants}
                             style={{float: 'right', marginRight: 5}}
                         />
                     </>
@@ -94,7 +137,7 @@ const EncyclopediaContent: React.FunctionComponent<{
                         gutter={[16, 16]}
                         style={{marginLeft: 'unset', marginRight: 'unset'}}
                     >
-                        {plants.map((plant) => {
+                        {state.displayedPlants.map((plant) => {
                             return (
                                 <Col
                                     key={plant.id}

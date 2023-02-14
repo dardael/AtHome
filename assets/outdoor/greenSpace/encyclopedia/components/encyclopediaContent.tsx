@@ -10,14 +10,17 @@ import axios from "axios";
 import {Plant} from "../entity/Plant";
 import PlantCard from "./plantCard";
 import PlantModal from "./plantModal";
+import PlantsSorterEntity from "../lib/PlantsSorter";
+import PlantsSorter from "./plantsSorter";
 
 const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
     = ({initialPlants}) => {
+    const initialSortedPlants = new PlantsSorterEntity(initialPlants).sortByNameAsc();
     const [messageApi, contextHolder] = message.useMessage();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editedPlant, setEditedPlant] = useState(null);
-    const [plants, setPlants] = useState(initialPlants);
+    const [plants, setPlants] = useState(initialSortedPlants);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -56,9 +59,19 @@ const EncyclopediaContent:React.FunctionComponent<{initialPlants: Plant[]}>
     return <>
         {contextHolder}
         <LayoutWithToolbar toolbar={
-            <Button onClick={showModal} size={'large'} type="primary" icon={<PlusOutlined />}  style={{float: 'right'}}>
-                Ajouter
-            </Button>
+            <>
+                <Button onClick={showModal}
+                        size={'large'}
+                        type="primary"
+                        icon={<PlusOutlined />}
+                        style={{float: 'right'}}
+                >
+                    Ajouter
+                </Button>
+                <PlantsSorter onSort={setPlants} plants={plants}
+                        style={{float: 'right', marginRight: 5}}
+                />
+            </>
         }>
             <>
                 <Row justify={"start"} gutter={[16,16]} style={{marginLeft:"unset", marginRight:'unset'}}>

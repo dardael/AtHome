@@ -4,6 +4,7 @@ import PlantsFiltererEntity from '../lib/PlantsFilterer';
 import {Plant} from '../entity/Plant';
 import PlantsSorterEntity from '../lib/PlantsSorter';
 import RusticityInput from './rusticityInput';
+import FoliageSelect from './foliageSelect';
 
 const PlantsFilterer: React.FunctionComponent<{
     onFilter: Function;
@@ -20,11 +21,16 @@ const PlantsFilterer: React.FunctionComponent<{
                         ...state,
                         rusticity: action.rusticity,
                     };
+                case 'filter-by-foliage':
+                    return {
+                        ...state,
+                        foliage: action.foliage,
+                    };
                 default:
                     return state;
             }
         },
-        {name: '', rusticity: null}
+        {name: '', rusticity: null, foliage: null}
     );
     const filterPlants = (): void => {
         let filteredPlants = plants;
@@ -37,6 +43,11 @@ const PlantsFilterer: React.FunctionComponent<{
             filteredPlants = new PlantsFiltererEntity(
                 filteredPlants
             ).filterByRusticitySuperiorTo(state.rusticity);
+        }
+        if (state.foliage) {
+            filteredPlants = new PlantsFiltererEntity(
+                filteredPlants
+            ).filterByFoliage(state.foliage);
         }
         onFilter(filteredPlants);
     };
@@ -66,6 +77,7 @@ const PlantsFilterer: React.FunctionComponent<{
                 style={{
                     ...style,
                     marginLeft: 5,
+                    marginRight: 5,
                     width: 100,
                     verticalAlign: 'middle',
                 }}
@@ -73,6 +85,20 @@ const PlantsFilterer: React.FunctionComponent<{
                 size={'large'}
                 placeholder={'Rusticité'}
                 title={'Rusticité'}
+            />
+            <FoliageSelect
+                defaultValue={state.foliage}
+                allowClear
+                onChange={(value) => {
+                    console.log(value);
+                    dispatch({
+                        foliage: value,
+                        type: 'filter-by-foliage',
+                    });
+                }}
+                size={'large'}
+                style={{...style, width: 200, verticalAlign: 'middle'}}
+                placeholder={'Feuillage'}
             />
         </>
     );

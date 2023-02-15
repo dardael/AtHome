@@ -1,5 +1,6 @@
 import {Plant} from '../entity/Plant';
 import rusticityInput from '../components/rusticityInput';
+import {Foliage} from '../entity/plant/Foliage';
 
 class PlantsFilterer {
     plants: Plant[];
@@ -19,6 +20,9 @@ class PlantsFilterer {
 
     filterByRusticitySuperiorTo(rusticity: number): Plant[] {
         return this.plants.filter((plant) => plant.rusticity >= rusticity);
+    }
+    filterByFoliage(foliage: Foliage): Plant[] {
+        return this.plants.filter((plant) => plant.foliage === foliage);
     }
 }
 

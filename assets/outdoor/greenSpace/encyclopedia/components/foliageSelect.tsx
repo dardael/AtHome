@@ -1,12 +1,25 @@
 import React from 'react';
 import {Select} from 'antd';
 import {Foliage} from '../entity/plant/Foliage';
+import {SizeType} from 'antd/lib/config-provider/SizeContext';
 
 const FoliageSelect: React.FunctionComponent<{
     defaultValue?: number;
     value?;
     onChange?;
-}> = ({defaultValue, value, onChange}) => {
+    allowClear?: boolean;
+    style?;
+    size?: SizeType;
+    placeholder?: string;
+}> = ({
+    defaultValue,
+    value,
+    onChange,
+    allowClear = false,
+    style,
+    size,
+    placeholder,
+}) => {
     const {Option} = Select;
     return (
         <>
@@ -14,6 +27,10 @@ const FoliageSelect: React.FunctionComponent<{
                 defaultValue={defaultValue}
                 value={value}
                 onChange={onChange}
+                allowClear={allowClear}
+                style={style}
+                size={size}
+                placeholder={placeholder}
             >
                 {Foliage.getLabels().map((label) => (
                     <Option key={label.key} value={label.key}>

@@ -10,12 +10,13 @@ describe('PlantsFilterer', () => {
     const getPlant = (
         name: string,
         scientificName: string,
-        rusticity?: number
+        rusticity?: number,
+        foliage?: Foliage
     ): Plant => {
         return {
             name: name,
             type: Type.ORNAMENTAL_PLANT,
-            foliage: Foliage.PERSISTENT,
+            foliage: foliage ? foliage : Foliage.PERSISTENT,
             id: '1',
             description: '',
             pruningPeriods: [],
@@ -66,6 +67,23 @@ describe('PlantsFilterer', () => {
                     grass,
                 ]).filterByRusticitySuperiorTo(-5.5)
             ).toStrictEqual([rose, grass]);
+        });
+    });
+    describe('filterByFoliage', () => {
+        test('works with no plants', () => {
+            expect(
+                new PlantsFilterer([]).filterByFoliage(Foliage.PERSISTENT)
+            ).toStrictEqual([]);
+        });
+        test('filters by foliage', () => {
+            const albizia = getPlant('albizia', '', -10, Foliage.PERSISTENT);
+            const rose = getPlant('rose', '', -5.5, Foliage.DECIDUOUS);
+            const grass = getPlant('grass', '', 0, Foliage.PERSISTENT);
+            expect(
+                new PlantsFilterer([albizia, rose, grass]).filterByFoliage(
+                    Foliage.DECIDUOUS
+                )
+            ).toStrictEqual([rose]);
         });
     });
 });

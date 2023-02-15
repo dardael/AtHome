@@ -26,6 +26,7 @@ import SunshineRate from './sunshineRate';
 import WateringRate from './wateringRate';
 import {PlusOutlined} from '@ant-design/icons';
 import RusticityInput from './rusticityInput';
+import FoliageSelect from './foliageSelect';
 
 const PlantModal: React.FunctionComponent<{
     plant?: Plant;
@@ -273,22 +274,13 @@ const PlantModal: React.FunctionComponent<{
                                     plant ? plant.foliage : Foliage.DECIDUOUS
                                 }
                             >
-                                <Select
+                                <FoliageSelect
                                     value={
                                         plant
                                             ? plant.foliage
                                             : Foliage.DECIDUOUS
                                     }
-                                >
-                                    {Foliage.getLabels().map((label) => (
-                                        <Option
-                                            key={label.key}
-                                            value={label.key}
-                                        >
-                                            {label.label}
-                                        </Option>
-                                    ))}
-                                </Select>
+                                />
                             </Form.Item>
                         </Col>
                     </Row>

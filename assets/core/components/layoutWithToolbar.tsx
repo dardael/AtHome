@@ -14,6 +14,7 @@ const LayoutWithToolbar: React.FunctionComponent<{
                     style={{
                         backgroundColor: 'transparent',
                         paddingTop: '12px',
+                        paddingLeft: '33px',
                         height: 'auto',
                     }}
                 >

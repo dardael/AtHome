@@ -8,7 +8,21 @@ const TypeSelect: React.FunctionComponent<{
     defaultValue?: number;
     value?;
     onChange?;
-}> = ({defaultValue, value, onChange}) => {
+    allowClear?: boolean;
+    multiple?: boolean;
+    style?;
+    size?;
+    placeholder?;
+}> = ({
+    defaultValue,
+    value,
+    onChange,
+    allowClear = false,
+    multiple = false,
+    style,
+    size,
+    placeholder,
+}) => {
     const {Option} = Select;
     return (
         <>
@@ -16,6 +30,11 @@ const TypeSelect: React.FunctionComponent<{
                 value={value}
                 defaultValue={defaultValue}
                 onChange={onChange}
+                allowClear={allowClear}
+                mode={multiple ? 'multiple' : null}
+                style={style}
+                size={size}
+                placeholder={placeholder}
             >
                 {Type.getLabels().map((label) => (
                     <Option key={label.key} value={label.key}>

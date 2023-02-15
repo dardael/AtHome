@@ -1,6 +1,7 @@
 import {Plant} from '../entity/Plant';
 import rusticityInput from '../components/rusticityInput';
 import {Foliage} from '../entity/plant/Foliage';
+import {Type} from '../entity/plant/Type';
 
 class PlantsFilterer {
     plants: Plant[];
@@ -23,6 +24,9 @@ class PlantsFilterer {
     }
     filterByFoliage(foliage: Foliage): Plant[] {
         return this.plants.filter((plant) => plant.foliage === foliage);
+    }
+    filterByTypes(types: Type[]): Plant[] {
+        return this.plants.filter((plant) => types.includes(plant.type));
     }
 }
 

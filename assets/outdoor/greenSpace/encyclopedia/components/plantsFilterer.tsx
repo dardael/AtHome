@@ -5,6 +5,7 @@ import {Plant} from '../entity/Plant';
 import PlantsSorterEntity from '../lib/PlantsSorter';
 import RusticityInput from './rusticityInput';
 import FoliageSelect from './foliageSelect';
+import TypeSelect from './typeSelect';
 
 const PlantsFilterer: React.FunctionComponent<{
     onFilter: Function;
@@ -26,11 +27,16 @@ const PlantsFilterer: React.FunctionComponent<{
                         ...state,
                         foliage: action.foliage,
                     };
+                case 'filter-by-types':
+                    return {
+                        ...state,
+                        types: action.types,
+                    };
                 default:
                     return state;
             }
         },
-        {name: '', rusticity: null, foliage: null}
+        {name: '', rusticity: null, foliage: null, types: []}
     );
     const filterPlants = (): void => {
         let filteredPlants = plants;
@@ -49,6 +55,11 @@ const PlantsFilterer: React.FunctionComponent<{
                 filteredPlants
             ).filterByFoliage(state.foliage);
         }
+        if ((state.types ? state.types : []).length > 0) {
+            filteredPlants = new PlantsFiltererEntity(
+                filteredPlants
+            ).filterByTypes(state.types);
+        }
         onFilter(filteredPlants);
     };
     useEffect(() => filterPlants(), [plants, state]);
@@ -62,7 +73,12 @@ const PlantsFilterer: React.FunctionComponent<{
                     });
                 }}
                 size={'large'}
-                style={{...style, width: 200, verticalAlign: 'middle'}}
+                style={{
+                    ...style,
+                    marginRight: 5,
+                    width: 200,
+                    verticalAlign: 'middle',
+                }}
                 placeholder={'Nom de la plante'}
                 defaultValue={state.name}
                 title={'Nom ou nom scientifique de la plante'}
@@ -76,7 +92,6 @@ const PlantsFilterer: React.FunctionComponent<{
                 }}
                 style={{
                     ...style,
-                    marginLeft: 5,
                     marginRight: 5,
                     width: 100,
                     verticalAlign: 'middle',
@@ -90,15 +105,33 @@ const PlantsFilterer: React.FunctionComponent<{
                 defaultValue={state.foliage}
                 allowClear
                 onChange={(value) => {
-                    console.log(value);
                     dispatch({
                         foliage: value,
                         type: 'filter-by-foliage',
                     });
                 }}
                 size={'large'}
-                style={{...style, width: 200, verticalAlign: 'middle'}}
+                style={{
+                    ...style,
+                    width: 200,
+                    verticalAlign: 'middle',
+                    marginRight: 5,
+                }}
                 placeholder={'Feuillage'}
+            />
+            <TypeSelect
+                defaultValue={state.types}
+                allowClear
+                multiple
+                onChange={(value) => {
+                    dispatch({
+                        types: value,
+                        type: 'filter-by-types',
+                    });
+                }}
+                size={'large'}
+                style={{...style, width: 200, verticalAlign: 'middle'}}
+                placeholder={'Types'}
             />
         </>
     );

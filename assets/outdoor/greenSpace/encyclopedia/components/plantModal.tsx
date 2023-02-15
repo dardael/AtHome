@@ -25,6 +25,7 @@ import {Watering} from '../entity/plant/Watering';
 import SunshineRate from './sunshineRate';
 import WateringRate from './wateringRate';
 import {PlusOutlined} from '@ant-design/icons';
+import RusticityInput from './rusticityInput';
 
 const PlantModal: React.FunctionComponent<{
     plant?: Plant;
@@ -322,10 +323,9 @@ const PlantModal: React.FunctionComponent<{
                                 label={'Rusticité'}
                                 initialValue={plant ? plant.rusticity : 0}
                             >
-                                <InputNumber
-                                    addonAfter='°C'
+                                <RusticityInput
                                     value={plant ? plant.rusticity : 0}
-                                ></InputNumber>
+                                />
                             </Form.Item>
                         </Col>
                         <Col md={12}>

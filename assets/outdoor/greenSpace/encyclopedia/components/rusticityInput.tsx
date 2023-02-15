@@ -1,26 +1,20 @@
 import React from 'react';
-import {Rate} from 'antd';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faDroplet} from '@fortawesome/free-solid-svg-icons';
+import {InputNumber, Rate} from 'antd';
 
-const WateringRate: React.FunctionComponent<{
+const RusticityInput: React.FunctionComponent<{
     defaultValue?: number;
-    disabled?: boolean;
     value?: number;
     onChange?;
-}> = ({defaultValue, disabled, value, onChange}) => {
+}> = ({defaultValue, value, onChange}) => {
     return (
         <>
-            <Rate
-                disabled={disabled}
+            <InputNumber
+                addonAfter='°C'
                 defaultValue={defaultValue}
                 value={value}
                 onChange={onChange}
-                count={3}
-                character={<FontAwesomeIcon icon={faDroplet} />}
-                style={{color: '#0e7aff'}}
-            />
+            ></InputNumber>
         </>
     );
 };
-export default WateringRate;
+export default RusticityInput;

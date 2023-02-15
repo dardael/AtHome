@@ -11,7 +11,11 @@ const LayoutWithToolbar: React.FunctionComponent<{
         <>
             <Layout>
                 <Header
-                    style={{backgroundColor: 'transparent', paddingTop: '12px'}}
+                    style={{
+                        backgroundColor: 'transparent',
+                        paddingTop: '12px',
+                        height: 'auto',
+                    }}
                 >
                     {toolbar}
                 </Header>

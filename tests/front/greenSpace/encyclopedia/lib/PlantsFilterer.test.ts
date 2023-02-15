@@ -7,7 +7,11 @@ import {Unit} from '../../../../../assets/outdoor/greenSpace/encyclopedia/entity
 import PlantsFilterer from '../../../../../assets/outdoor/greenSpace/encyclopedia/lib/PlantsFilterer';
 
 describe('PlantsFilterer', () => {
-    const getPlant = (name: string, scientificName: string): Plant => {
+    const getPlant = (
+        name: string,
+        scientificName: string,
+        rusticity?: number
+    ): Plant => {
         return {
             name: name,
             type: Type.ORNAMENTAL_PLANT,
@@ -15,7 +19,7 @@ describe('PlantsFilterer', () => {
             id: '1',
             description: '',
             pruningPeriods: [],
-            rusticity: -1,
+            rusticity: rusticity ? rusticity : -1,
             scientificName: scientificName,
             sunshine: Sunshine.SHADOW,
             watering: Watering.NO,
@@ -42,6 +46,25 @@ describe('PlantsFilterer', () => {
             const grass = getPlant('grass', 'etRo');
             expect(
                 new PlantsFilterer([albizia, rose, grass]).filterByName('ro')
+            ).toStrictEqual([rose, grass]);
+        });
+    });
+    describe('filterByRusticitySuperiorTo', () => {
+        test('works with no plants', () => {
+            expect(
+                new PlantsFilterer([]).filterByRusticitySuperiorTo(0)
+            ).toStrictEqual([]);
+        });
+        test('filters by rusticity', () => {
+            const albizia = getPlant('albizia', '', -10);
+            const rose = getPlant('rose', '', -5.5);
+            const grass = getPlant('grass', '', 0);
+            expect(
+                new PlantsFilterer([
+                    albizia,
+                    rose,
+                    grass,
+                ]).filterByRusticitySuperiorTo(-5.5)
             ).toStrictEqual([rose, grass]);
         });
     });

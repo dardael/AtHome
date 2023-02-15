@@ -7,7 +7,7 @@ import {Plant} from '../entity/Plant';
 const PlantsSorter: React.FunctionComponent<{
     onSort: Function;
     plants: Plant[];
-    style;
+    style?;
 }> = ({onSort, plants, style}) => {
     const [sortType, setSortType] = useState('ASC');
 

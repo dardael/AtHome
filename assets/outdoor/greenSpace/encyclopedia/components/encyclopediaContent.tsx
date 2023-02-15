@@ -105,35 +105,44 @@ const EncyclopediaContent: React.FunctionComponent<{
             <LayoutWithToolbar
                 toolbar={
                     <>
-                        <Button
-                            onClick={showModal}
-                            size={'large'}
-                            type='primary'
-                            icon={<PlusOutlined />}
-                            style={{float: 'right'}}
-                        >
-                            Ajouter
-                        </Button>
-                        <PlantsFilterer
-                            onFilter={(sortedAndFilteredPlants) =>
-                                dispatch({
-                                    type: 'sort-and-filter',
-                                    displayedPlants: sortedAndFilteredPlants,
-                                })
-                            }
-                            plants={state.plants}
-                            style={{float: 'right', marginRight: 5}}
-                        />
-                        <PlantsSorter
-                            onSort={(sortedAndFilteredPlants) =>
-                                dispatch({
-                                    type: 'sort-and-filter',
-                                    displayedPlants: sortedAndFilteredPlants,
-                                })
-                            }
-                            plants={state.displayedPlants}
-                            style={{float: 'right', marginRight: 5}}
-                        />
+                        <Row gutter={[5, 0]}>
+                            <Col flex={'auto'}>
+                                <PlantsFilterer
+                                    onFilter={(sortedAndFilteredPlants) =>
+                                        dispatch({
+                                            type: 'sort-and-filter',
+                                            displayedPlants:
+                                                sortedAndFilteredPlants,
+                                        })
+                                    }
+                                    plants={state.plants}
+                                />
+                            </Col>
+                            <Col flex={'40px'}>
+                                <PlantsSorter
+                                    onSort={(sortedAndFilteredPlants) =>
+                                        dispatch({
+                                            type: 'sort-and-filter',
+                                            displayedPlants:
+                                                sortedAndFilteredPlants,
+                                        })
+                                    }
+                                    plants={state.displayedPlants}
+                                    style={{verticalAlign: 'middle'}}
+                                />
+                            </Col>
+                            <Col flex={'110px'}>
+                                <Button
+                                    onClick={showModal}
+                                    size={'large'}
+                                    type='primary'
+                                    icon={<PlusOutlined />}
+                                    style={{verticalAlign: 'middle'}}
+                                >
+                                    Ajouter
+                                </Button>
+                            </Col>
+                        </Row>
                     </>
                 }
             >

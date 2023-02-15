@@ -8,6 +8,7 @@ import PlantCard from './plantCard';
 import PlantModal from './plantModal';
 import PlantsFilterer from './plantsFilterer';
 import PlantsSorter from './plantsSorter';
+import PlantsSorterEntity from '../lib/PlantsSorter';
 
 const EncyclopediaContent: React.FunctionComponent<{
     initialPlants: Plant[];
@@ -54,7 +55,12 @@ const EncyclopediaContent: React.FunctionComponent<{
                     return state;
             }
         },
-        {plants: initialPlants, displayedPlants: initialPlants}
+        {
+            plants: initialPlants,
+            displayedPlants: new PlantsSorterEntity(
+                initialPlants
+            ).sortByNameAsc(),
+        }
     );
 
     const showModal = () => {

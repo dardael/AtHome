@@ -34,6 +34,18 @@ describe('PlantsSorter', () => {
                 new PlantsSorter([albizia, rose, grass]).sortByNameAsc()
             ).toStrictEqual([albizia, grass, rose]);
         });
+        test('works with capital letter', () => {
+            const albizia = getPlant('albizia');
+            const rose = getPlant('rose');
+            const albiziaChocolate = getPlant('Albizia chocolate');
+            expect(
+                new PlantsSorter([
+                    albizia,
+                    rose,
+                    albiziaChocolate,
+                ]).sortByNameAsc()
+            ).toStrictEqual([albizia, albiziaChocolate, rose]);
+        });
     });
     describe('sortByNameDesc', () => {
         test('works with no plants', () => {
@@ -46,6 +58,18 @@ describe('PlantsSorter', () => {
             expect(
                 new PlantsSorter([albizia, rose, grass]).sortByNameDesc()
             ).toStrictEqual([rose, grass, albizia]);
+        });
+        test('works with capital letter', () => {
+            const albizia = getPlant('albizia');
+            const rose = getPlant('rose');
+            const albiziaChocolate = getPlant('Albizia chocolate');
+            expect(
+                new PlantsSorter([
+                    albizia,
+                    rose,
+                    albiziaChocolate,
+                ]).sortByNameDesc()
+            ).toStrictEqual([rose, albiziaChocolate, albizia]);
         });
     });
 });

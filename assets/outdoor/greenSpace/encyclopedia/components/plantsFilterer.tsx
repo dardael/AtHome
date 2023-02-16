@@ -1,5 +1,5 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import {Input} from 'antd';
+import {Button, Input} from 'antd';
 import PlantsFiltererEntity from '../lib/PlantsFilterer';
 import {Plant} from '../entity/Plant';
 import PlantsSorterEntity from '../lib/PlantsSorter';
@@ -31,6 +31,13 @@ const PlantsFilterer: React.FunctionComponent<{
                     return {
                         ...state,
                         types: action.types,
+                    };
+                case 'clear-filters':
+                    return {
+                        name: '',
+                        rusticity: null,
+                        foliage: null,
+                        types: [],
                     };
                 default:
                     return state;
@@ -80,7 +87,7 @@ const PlantsFilterer: React.FunctionComponent<{
                     verticalAlign: 'middle',
                 }}
                 placeholder={'Nom de la plante'}
-                defaultValue={state.name}
+                value={state.name}
                 title={'Nom ou nom scientifique de la plante'}
             />
             <RusticityInput
@@ -96,13 +103,13 @@ const PlantsFilterer: React.FunctionComponent<{
                     width: 100,
                     verticalAlign: 'middle',
                 }}
-                defaultValue={state.rusticity}
+                value={state.rusticity}
                 size={'large'}
                 placeholder={'Rusticité'}
                 title={'Rusticité'}
             />
             <FoliageSelect
-                defaultValue={state.foliage}
+                value={state.foliage}
                 allowClear
                 onChange={(value) => {
                     dispatch({
@@ -120,7 +127,7 @@ const PlantsFilterer: React.FunctionComponent<{
                 placeholder={'Feuillage'}
             />
             <TypeSelect
-                defaultValue={state.types}
+                value={state.types}
                 allowClear
                 multiple
                 onChange={(value) => {
@@ -130,9 +137,21 @@ const PlantsFilterer: React.FunctionComponent<{
                     });
                 }}
                 size={'large'}
-                style={{...style, width: 200, verticalAlign: 'middle'}}
+                style={{
+                    ...style,
+                    width: 200,
+                    verticalAlign: 'middle',
+                    marginRight: 5,
+                }}
                 placeholder={'Types'}
             />
+            <Button
+                style={{verticalAlign: 'middle'}}
+                size={'large'}
+                onClick={() => dispatch({type: 'clear-filters'})}
+            >
+                Nettoyer les filtres
+            </Button>
         </>
     );
 };

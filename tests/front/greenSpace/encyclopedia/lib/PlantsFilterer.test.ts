@@ -12,7 +12,8 @@ describe('PlantsFilterer', () => {
         scientificName: string,
         rusticity?: number,
         foliage?: Foliage,
-        type?: Type
+        type?: Type,
+        sunshine?: Sunshine
     ): Plant => {
         return {
             name: name,
@@ -23,7 +24,7 @@ describe('PlantsFilterer', () => {
             pruningPeriods: [],
             rusticity: rusticity ? rusticity : -1,
             scientificName: scientificName,
-            sunshine: Sunshine.SHADOW,
+            sunshine: sunshine ? sunshine : Sunshine.SHADOW,
             watering: Watering.NO,
             size: {min: 0, max: 0, unit: Unit.CENTIMETER},
         };
@@ -119,6 +120,48 @@ describe('PlantsFilterer', () => {
                 new PlantsFilterer([albizia, rose, grass]).filterByTypes([
                     Type.AROMATIC,
                     Type.ORNAMENTAL_PLANT,
+                ])
+            ).toStrictEqual([albizia, grass]);
+        });
+    });
+    describe('filterBySunshine', () => {
+        test('works with no plants', () => {
+            expect(
+                new PlantsFilterer([]).filterBySunshine([
+                    Sunshine.SUN,
+                    Sunshine.SHADOW,
+                ])
+            ).toStrictEqual([]);
+        });
+        test('filters by types', () => {
+            const albizia = getPlant(
+                'albizia',
+                '',
+                -10,
+                Foliage.PERSISTENT,
+                Type.AROMATIC,
+                Sunshine.SUN
+            );
+            const rose = getPlant(
+                'rose',
+                '',
+                -5.5,
+                Foliage.DECIDUOUS,
+                Type.TREE,
+                Sunshine.PARTIAL_SHADE
+            );
+            const grass = getPlant(
+                'grass',
+                '',
+                0,
+                Foliage.PERSISTENT,
+                Type.ORNAMENTAL_PLANT,
+                Sunshine.SHADOW
+            );
+            expect(
+                new PlantsFilterer([albizia, rose, grass]).filterBySunshine([
+                    Sunshine.SUN,
+                    Sunshine.SHADOW,
                 ])
             ).toStrictEqual([albizia, grass]);
         });

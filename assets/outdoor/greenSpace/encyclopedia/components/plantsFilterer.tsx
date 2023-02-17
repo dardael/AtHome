@@ -1,17 +1,20 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import {Button, Input} from 'antd';
+import {Button, Input, Select} from 'antd';
 import PlantsFiltererEntity from '../lib/PlantsFilterer';
 import {Plant} from '../entity/Plant';
 import PlantsSorterEntity from '../lib/PlantsSorter';
 import RusticityInput from './rusticityInput';
 import FoliageSelect from './foliageSelect';
 import TypeSelect from './typeSelect';
+import {Type} from '../entity/plant/Type';
+import {Sunshine} from '../entity/plant/Sunshine';
 
 const PlantsFilterer: React.FunctionComponent<{
     onFilter: Function;
     plants: Plant[];
     style?;
 }> = ({onFilter, plants, style}) => {
+    const {Option} = Select;
     const [state, dispatch] = useReducer(
         (state, action) => {
             switch (action.type) {
@@ -32,18 +35,24 @@ const PlantsFilterer: React.FunctionComponent<{
                         ...state,
                         types: action.types,
                     };
+                case 'filter-by-sunshine':
+                    return {
+                        ...state,
+                        sunshine: action.sunshine,
+                    };
                 case 'clear-filters':
                     return {
                         name: '',
                         rusticity: null,
                         foliage: null,
                         types: [],
+                        sunshine: [],
                     };
                 default:
                     return state;
             }
         },
-        {name: '', rusticity: null, foliage: null, types: []}
+        {name: '', rusticity: null, foliage: null, types: [], sunshine: []}
     );
     const filterPlants = (): void => {
         let filteredPlants = plants;
@@ -66,6 +75,11 @@ const PlantsFilterer: React.FunctionComponent<{
             filteredPlants = new PlantsFiltererEntity(
                 filteredPlants
             ).filterByTypes(state.types);
+        }
+        if ((state.sunshine ? state.sunshine : []).length > 0) {
+            filteredPlants = new PlantsFiltererEntity(
+                filteredPlants
+            ).filterBySunshine(state.sunshine);
         }
         onFilter(filteredPlants);
     };
@@ -145,6 +159,31 @@ const PlantsFilterer: React.FunctionComponent<{
                 }}
                 placeholder={'Types'}
             />
+            <Select
+                value={state.sunshine}
+                onChange={(value) => {
+                    dispatch({
+                        sunshine: value,
+                        type: 'filter-by-sunshine',
+                    });
+                }}
+                allowClear
+                mode={'multiple'}
+                style={{
+                    ...style,
+                    width: 200,
+                    verticalAlign: 'middle',
+                    marginRight: 5,
+                }}
+                size={'large'}
+                placeholder={'Ensoleillement'}
+            >
+                {Sunshine.getLabels().map((label) => (
+                    <Option key={label.key} value={label.key}>
+                        {label.label}
+                    </Option>
+                ))}
+            </Select>
             <Button
                 style={{verticalAlign: 'middle'}}
                 size={'large'}

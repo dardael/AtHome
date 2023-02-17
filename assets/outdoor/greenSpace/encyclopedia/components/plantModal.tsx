@@ -29,6 +29,7 @@ import RusticityInput from './rusticityInput';
 import FoliageSelect from './foliageSelect';
 import TypeSelect from './typeSelect';
 import SizeValueInput from './sizeValueInput';
+import UnitSelect from './unitSelect';
 
 const PlantModal: React.FunctionComponent<{
     plant?: Plant;
@@ -214,22 +215,13 @@ const PlantModal: React.FunctionComponent<{
                                                 : Unit.CENTIMETER
                                         }
                                     >
-                                        <Select
+                                        <UnitSelect
                                             value={
                                                 plant
                                                     ? plant.size.unit
                                                     : Unit.CENTIMETER
                                             }
-                                        >
-                                            {Unit.getLabels().map((label) => (
-                                                <Option
-                                                    key={label.key}
-                                                    value={label.key}
-                                                >
-                                                    {label.label}
-                                                </Option>
-                                            ))}
-                                        </Select>
+                                        />
                                     </Form.Item>
                                 </Input.Group>
                             </Form.Item>

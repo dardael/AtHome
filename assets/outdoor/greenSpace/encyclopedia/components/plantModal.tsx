@@ -28,6 +28,7 @@ import {PlusOutlined} from '@ant-design/icons';
 import RusticityInput from './rusticityInput';
 import FoliageSelect from './foliageSelect';
 import TypeSelect from './typeSelect';
+import SizeValueInput from './sizeValueInput';
 
 const PlantModal: React.FunctionComponent<{
     plant?: Plant;
@@ -179,11 +180,8 @@ const PlantModal: React.FunctionComponent<{
                                             plant ? plant.size.min : 0
                                         }
                                     >
-                                        <InputNumber
-                                            style={{width: 60}}
+                                        <SizeValueInput
                                             value={plant ? plant.size.min : 0}
-                                            precision={2}
-                                            min={0}
                                             placeholder={'Minimum'}
                                         />
                                     </Form.Item>
@@ -203,11 +201,8 @@ const PlantModal: React.FunctionComponent<{
                                             plant ? plant.size.max : 0
                                         }
                                     >
-                                        <InputNumber
-                                            style={{width: 60}}
+                                        <SizeValueInput
                                             value={plant ? plant.size.max : 0}
-                                            precision={2}
-                                            min={0}
                                             placeholder={'Maximum'}
                                         />
                                     </Form.Item>

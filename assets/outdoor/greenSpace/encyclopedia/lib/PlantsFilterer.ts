@@ -3,6 +3,7 @@ import rusticityInput from '../components/rusticityInput';
 import {Foliage} from '../entity/plant/Foliage';
 import {Type} from '../entity/plant/Type';
 import {Sunshine} from '../entity/plant/Sunshine';
+import {Watering} from '../entity/plant/Watering';
 
 class PlantsFilterer {
     plants: Plant[];
@@ -32,6 +33,12 @@ class PlantsFilterer {
     filterBySunshine(sunshine: Sunshine[]): Plant[] {
         return this.plants.filter((plant) =>
             sunshine.includes(+plant.sunshine)
+        );
+    }
+
+    filterByWatering(watering: Watering[]): Plant[] {
+        return this.plants.filter((plant) =>
+            watering.includes(+plant.watering)
         );
     }
 }

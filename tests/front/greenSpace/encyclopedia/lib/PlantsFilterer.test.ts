@@ -13,7 +13,8 @@ describe('PlantsFilterer', () => {
         rusticity?: number,
         foliage?: Foliage,
         type?: Type,
-        sunshine?: Sunshine
+        sunshine?: Sunshine,
+        watering?: Watering
     ): Plant => {
         return {
             name: name,
@@ -25,7 +26,7 @@ describe('PlantsFilterer', () => {
             rusticity: rusticity ? rusticity : -1,
             scientificName: scientificName,
             sunshine: sunshine ? sunshine : Sunshine.SHADOW,
-            watering: Watering.NO,
+            watering: watering ? watering : Watering.NO,
             size: {min: 0, max: 0, unit: Unit.CENTIMETER},
         };
     };
@@ -133,7 +134,7 @@ describe('PlantsFilterer', () => {
                 ])
             ).toStrictEqual([]);
         });
-        test('filters by types', () => {
+        test('filters by sunshine', () => {
             const albizia = getPlant(
                 'albizia',
                 '',
@@ -162,6 +163,51 @@ describe('PlantsFilterer', () => {
                 new PlantsFilterer([albizia, rose, grass]).filterBySunshine([
                     Sunshine.SUN,
                     Sunshine.SHADOW,
+                ])
+            ).toStrictEqual([albizia, grass]);
+        });
+    });
+    describe('filterByWatering', () => {
+        test('works with no plants', () => {
+            expect(
+                new PlantsFilterer([]).filterByWatering([
+                    Watering.A_LOT,
+                    Watering.A_LITTLE,
+                ])
+            ).toStrictEqual([]);
+        });
+        test('filters by watering', () => {
+            const albizia = getPlant(
+                'albizia',
+                '',
+                -10,
+                Foliage.PERSISTENT,
+                Type.AROMATIC,
+                Sunshine.SUN,
+                Watering.A_LITTLE
+            );
+            const rose = getPlant(
+                'rose',
+                '',
+                -5.5,
+                Foliage.DECIDUOUS,
+                Type.TREE,
+                Sunshine.PARTIAL_SHADE,
+                Watering.A_LOT
+            );
+            const grass = getPlant(
+                'grass',
+                '',
+                0,
+                Foliage.PERSISTENT,
+                Type.ORNAMENTAL_PLANT,
+                Sunshine.SHADOW,
+                Watering.NORMAL
+            );
+            expect(
+                new PlantsFilterer([albizia, rose, grass]).filterByWatering([
+                    Watering.A_LITTLE,
+                    Watering.NORMAL,
                 ])
             ).toStrictEqual([albizia, grass]);
         });

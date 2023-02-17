@@ -8,6 +8,7 @@ import FoliageSelect from './foliageSelect';
 import TypeSelect from './typeSelect';
 import {Type} from '../entity/plant/Type';
 import {Sunshine} from '../entity/plant/Sunshine';
+import {Watering} from '../entity/plant/Watering';
 
 const PlantsFilterer: React.FunctionComponent<{
     onFilter: Function;
@@ -40,6 +41,11 @@ const PlantsFilterer: React.FunctionComponent<{
                         ...state,
                         sunshine: action.sunshine,
                     };
+                case 'filter-by-watering':
+                    return {
+                        ...state,
+                        watering: action.watering,
+                    };
                 case 'clear-filters':
                     return {
                         name: '',
@@ -47,12 +53,20 @@ const PlantsFilterer: React.FunctionComponent<{
                         foliage: null,
                         types: [],
                         sunshine: [],
+                        watering: [],
                     };
                 default:
                     return state;
             }
         },
-        {name: '', rusticity: null, foliage: null, types: [], sunshine: []}
+        {
+            name: '',
+            rusticity: null,
+            foliage: null,
+            types: [],
+            sunshine: [],
+            watering: [],
+        }
     );
     const filterPlants = (): void => {
         let filteredPlants = plants;
@@ -80,6 +94,11 @@ const PlantsFilterer: React.FunctionComponent<{
             filteredPlants = new PlantsFiltererEntity(
                 filteredPlants
             ).filterBySunshine(state.sunshine);
+        }
+        if ((state.watering ? state.watering : []).length > 0) {
+            filteredPlants = new PlantsFiltererEntity(
+                filteredPlants
+            ).filterByWatering(state.watering);
         }
         onFilter(filteredPlants);
     };
@@ -179,6 +198,31 @@ const PlantsFilterer: React.FunctionComponent<{
                 placeholder={'Ensoleillement'}
             >
                 {Sunshine.getLabels().map((label) => (
+                    <Option key={label.key} value={label.key}>
+                        {label.label}
+                    </Option>
+                ))}
+            </Select>
+            <Select
+                value={state.watering}
+                onChange={(value) => {
+                    dispatch({
+                        watering: value,
+                        type: 'filter-by-watering',
+                    });
+                }}
+                allowClear
+                mode={'multiple'}
+                style={{
+                    ...style,
+                    width: 200,
+                    verticalAlign: 'middle',
+                    marginRight: 5,
+                }}
+                size={'large'}
+                placeholder={'Arrosage'}
+            >
+                {Watering.getLabels().map((label) => (
                     <Option key={label.key} value={label.key}>
                         {label.label}
                     </Option>

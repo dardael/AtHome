@@ -30,6 +30,7 @@ import FoliageSelect from './foliageSelect';
 import TypeSelect from './typeSelect';
 import SizeValueInput from './sizeValueInput';
 import UnitSelect from './unitSelect';
+import SizeInput from './sizeInput';
 
 const PlantModal: React.FunctionComponent<{
     plant?: Plant;
@@ -174,56 +175,17 @@ const PlantModal: React.FunctionComponent<{
                                           }
                                 }
                             >
-                                <Input.Group compact>
-                                    <Form.Item
-                                        name={['size', 'min']}
-                                        initialValue={
-                                            plant ? plant.size.min : 0
-                                        }
-                                    >
-                                        <SizeValueInput
-                                            value={plant ? plant.size.min : 0}
-                                            placeholder={'Minimum'}
-                                        />
-                                    </Form.Item>
-                                    <Input
-                                        style={{
-                                            width: 30,
-                                            borderLeft: 0,
-                                            borderRight: 0,
-                                            pointerEvents: 'none',
-                                        }}
-                                        placeholder='~'
-                                        disabled
-                                    />
-                                    <Form.Item
-                                        name={['size', 'max']}
-                                        initialValue={
-                                            plant ? plant.size.max : 0
-                                        }
-                                    >
-                                        <SizeValueInput
-                                            value={plant ? plant.size.max : 0}
-                                            placeholder={'Maximum'}
-                                        />
-                                    </Form.Item>
-                                    <Form.Item
-                                        name={['size', 'unit']}
-                                        initialValue={
-                                            plant
-                                                ? plant.size.unit
-                                                : Unit.CENTIMETER
-                                        }
-                                    >
-                                        <UnitSelect
-                                            value={
-                                                plant
-                                                    ? plant.size.unit
-                                                    : Unit.CENTIMETER
-                                            }
-                                        />
-                                    </Form.Item>
-                                </Input.Group>
+                                <SizeInput
+                                    initialValue={
+                                        plant
+                                            ? plant.size
+                                            : {
+                                                  min: 0,
+                                                  max: 0,
+                                                  unit: Unit.CENTIMETER,
+                                              }
+                                    }
+                                />
                             </Form.Item>
                         </Col>
                     </Row>

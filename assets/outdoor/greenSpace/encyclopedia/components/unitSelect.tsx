@@ -6,7 +6,7 @@ import {Type} from '../entity/plant/Type';
 import {Unit} from '../entity/plant/Unit';
 
 const UnitSelect: React.FunctionComponent<{
-    defaultValue?: number;
+    defaultValue?: Unit;
     value?;
     onChange?;
 }> = ({defaultValue, value, onChange}) => {

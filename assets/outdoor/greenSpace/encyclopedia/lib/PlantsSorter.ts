@@ -8,13 +8,13 @@ class PlantsSorter {
 
     sortByNameAsc(): Plant[] {
         return this.plants.sort((aPlant, anotherPlant) =>
-            aPlant.name.toUpperCase() > anotherPlant.name.toUpperCase() ? 1 : -1
+            aPlant.name.localeCompare(anotherPlant.name)
         );
     }
 
     sortByNameDesc(): Plant[] {
         return this.plants.sort((aPlant, anotherPlant) =>
-            aPlant.name.toUpperCase() > anotherPlant.name.toUpperCase() ? -1 : 1
+            anotherPlant.name.localeCompare(aPlant.name)
         );
     }
 }

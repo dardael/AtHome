@@ -46,6 +46,13 @@ describe('PlantsSorter', () => {
                 ]).sortByNameAsc()
             ).toStrictEqual([albizia, albiziaChocolate, rose]);
         });
+        test('works with capital letter and accent', () => {
+            const rudbeckia = getPlant('Rudbeckia ');
+            const erable = getPlant('Érable ');
+            expect(
+                new PlantsSorter([rudbeckia, erable]).sortByNameAsc()
+            ).toStrictEqual([erable, rudbeckia]);
+        });
     });
     describe('sortByNameDesc', () => {
         test('works with no plants', () => {
@@ -70,6 +77,13 @@ describe('PlantsSorter', () => {
                     albiziaChocolate,
                 ]).sortByNameDesc()
             ).toStrictEqual([rose, albiziaChocolate, albizia]);
+        });
+        test('works with capital letter and accent', () => {
+            const rudbeckia = getPlant('Rudbeckia ');
+            const erable = getPlant('Érable ');
+            expect(
+                new PlantsSorter([rudbeckia, erable]).sortByNameDesc()
+            ).toStrictEqual([rudbeckia, erable]);
         });
     });
 });

@@ -5,6 +5,7 @@ import {Sunshine} from '../../../../../assets/outdoor/greenSpace/encyclopedia/en
 import {Watering} from '../../../../../assets/outdoor/greenSpace/encyclopedia/entity/plant/Watering';
 import {Unit} from '../../../../../assets/outdoor/greenSpace/encyclopedia/entity/plant/Unit';
 import PlantsFilterer from '../../../../../assets/outdoor/greenSpace/encyclopedia/lib/PlantsFilterer';
+import {Size} from '../../../../../assets/outdoor/greenSpace/encyclopedia/entity/plant/Size';
 
 describe('PlantsFilterer', () => {
     const getPlant = (
@@ -14,7 +15,8 @@ describe('PlantsFilterer', () => {
         foliage?: Foliage,
         type?: Type,
         sunshine?: Sunshine,
-        watering?: Watering
+        watering?: Watering,
+        size?: Size
     ): Plant => {
         return {
             name: name,
@@ -27,7 +29,7 @@ describe('PlantsFilterer', () => {
             scientificName: scientificName,
             sunshine: sunshine ? sunshine : Sunshine.SHADOW,
             watering: watering ? watering : Watering.NO,
-            size: {min: 0, max: 0, unit: Unit.CENTIMETER},
+            size: size ? size : {min: 0, max: 0, unit: Unit.CENTIMETER},
         };
     };
     describe('filterByName', () => {
@@ -211,5 +213,211 @@ describe('PlantsFilterer', () => {
                 ])
             ).toStrictEqual([albizia, grass]);
         });
+    });
+    describe('filterBySize', () => {
+        test('works with no plants', () => {
+            expect(
+                new PlantsFilterer([]).filterBySize({
+                    min: 12,
+                    max: 15.5,
+                    unit: Unit.METER,
+                })
+            ).toStrictEqual([]);
+        });
+        test('filters by min size in centimeter', () => {
+            const albizia = getPlant(
+                'albizia',
+                '',
+                -10,
+                Foliage.PERSISTENT,
+                Type.AROMATIC,
+                Sunshine.SUN,
+                Watering.A_LITTLE,
+                {min: 15.5, max: 27.5, unit: Unit.CENTIMETER}
+            );
+            const rose = getPlant(
+                'rose',
+                '',
+                -5.5,
+                Foliage.DECIDUOUS,
+                Type.TREE,
+                Sunshine.PARTIAL_SHADE,
+                Watering.A_LOT,
+                {min: 17.5, max: 27.5, unit: Unit.CENTIMETER}
+            );
+            const grass = getPlant(
+                'grass',
+                '',
+                0,
+                Foliage.PERSISTENT,
+                Type.ORNAMENTAL_PLANT,
+                Sunshine.SHADOW,
+                Watering.NORMAL,
+                {min: 19.5, max: 27.5, unit: Unit.CENTIMETER}
+            );
+            expect(
+                new PlantsFilterer([albizia, rose, grass]).filterBySize({
+                    min: 17.5,
+                    max: null,
+                    unit: Unit.CENTIMETER,
+                })
+            ).toStrictEqual([rose, grass]);
+        });
+        test('filters by min size in meter', () => {
+            const albizia = getPlant(
+                'albizia',
+                '',
+                -10,
+                Foliage.PERSISTENT,
+                Type.AROMATIC,
+                Sunshine.SUN,
+                Watering.A_LITTLE,
+                {min: 15.5, max: 27.5, unit: Unit.CENTIMETER}
+            );
+            const rose = getPlant(
+                'rose',
+                '',
+                -5.5,
+                Foliage.DECIDUOUS,
+                Type.TREE,
+                Sunshine.PARTIAL_SHADE,
+                Watering.A_LOT,
+                {min: 17.5, max: 27.5, unit: Unit.METER}
+            );
+            const grass = getPlant(
+                'grass',
+                '',
+                0,
+                Foliage.PERSISTENT,
+                Type.ORNAMENTAL_PLANT,
+                Sunshine.SHADOW,
+                Watering.NORMAL,
+                {min: 19.5, max: 27.5, unit: Unit.CENTIMETER}
+            );
+            expect(
+                new PlantsFilterer([albizia, rose, grass]).filterBySize({
+                    min: 17.5,
+                    max: null,
+                    unit: Unit.METER,
+                })
+            ).toStrictEqual([rose]);
+        });
+        test('filters by max size in centimeter', () => {
+            const albizia = getPlant(
+                'albizia',
+                '',
+                -10,
+                Foliage.PERSISTENT,
+                Type.AROMATIC,
+                Sunshine.SUN,
+                Watering.A_LITTLE,
+                {min: 15.5, max: 27.5, unit: Unit.CENTIMETER}
+            );
+            const rose = getPlant(
+                'rose',
+                '',
+                -5.5,
+                Foliage.DECIDUOUS,
+                Type.TREE,
+                Sunshine.PARTIAL_SHADE,
+                Watering.A_LOT,
+                {min: 17.5, max: 29.5, unit: Unit.CENTIMETER}
+            );
+            const grass = getPlant(
+                'grass',
+                '',
+                0,
+                Foliage.PERSISTENT,
+                Type.ORNAMENTAL_PLANT,
+                Sunshine.SHADOW,
+                Watering.NORMAL,
+                {min: 19.5, max: 30.5, unit: Unit.CENTIMETER}
+            );
+            expect(
+                new PlantsFilterer([albizia, rose, grass]).filterBySize({
+                    min: null,
+                    max: 29.5,
+                    unit: Unit.CENTIMETER,
+                })
+            ).toStrictEqual([albizia, rose]);
+        });
+        test('filters by max size in meter', () => {
+            const albizia = getPlant(
+                'albizia',
+                '',
+                -10,
+                Foliage.PERSISTENT,
+                Type.AROMATIC,
+                Sunshine.SUN,
+                Watering.A_LITTLE,
+                {min: 15.5, max: 27.5, unit: Unit.CENTIMETER}
+            );
+            const rose = getPlant(
+                'rose',
+                '',
+                -5.5,
+                Foliage.DECIDUOUS,
+                Type.TREE,
+                Sunshine.PARTIAL_SHADE,
+                Watering.A_LOT,
+                {min: 17.5, max: 29.5, unit: Unit.METER}
+            );
+            const grass = getPlant(
+                'grass',
+                '',
+                0,
+                Foliage.PERSISTENT,
+                Type.ORNAMENTAL_PLANT,
+                Sunshine.SHADOW,
+                Watering.NORMAL,
+                {min: 19.5, max: 30.5, unit: Unit.CENTIMETER}
+            );
+            expect(
+                new PlantsFilterer([albizia, rose, grass]).filterBySize({
+                    min: null,
+                    max: 28.5,
+                    unit: Unit.METER,
+                })
+            ).toStrictEqual([albizia, grass]);
+        });
+    });
+    test('filters by min and max size', () => {
+        const albizia = getPlant(
+            'albizia',
+            '',
+            -10,
+            Foliage.PERSISTENT,
+            Type.AROMATIC,
+            Sunshine.SUN,
+            Watering.A_LITTLE,
+            {min: 15.5, max: 27.5, unit: Unit.CENTIMETER}
+        );
+        const rose = getPlant(
+            'rose',
+            '',
+            -5.5,
+            Foliage.DECIDUOUS,
+            Type.TREE,
+            Sunshine.PARTIAL_SHADE,
+            Watering.A_LOT,
+            {min: 17.5, max: 29.5, unit: Unit.METER}
+        );
+        const grass = getPlant(
+            'grass',
+            '',
+            0,
+            Foliage.PERSISTENT,
+            Type.ORNAMENTAL_PLANT,
+            Sunshine.SHADOW,
+            Watering.NORMAL,
+            {min: 19.5, max: 20.5, unit: Unit.CENTIMETER}
+        );
+        expect(
+            new PlantsFilterer([albizia, rose, grass]).filterBySize({
+                min: 18.5,
+                max: 28.5,
+                unit: Unit.CENTIMETER,
+            })
+        ).toStrictEqual([grass]);
     });
 });

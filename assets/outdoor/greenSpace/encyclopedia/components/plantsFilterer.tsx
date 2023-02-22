@@ -9,6 +9,8 @@ import TypeSelect from './typeSelect';
 import {Type} from '../entity/plant/Type';
 import {Sunshine} from '../entity/plant/Sunshine';
 import {Watering} from '../entity/plant/Watering';
+import {Unit} from '../entity/plant/Unit';
+import SizeInput from './sizeInput';
 
 const PlantsFilterer: React.FunctionComponent<{
     onFilter: Function;
@@ -46,6 +48,11 @@ const PlantsFilterer: React.FunctionComponent<{
                         ...state,
                         watering: action.watering,
                     };
+                case 'filter-by-size':
+                    return {
+                        ...state,
+                        size: action.size,
+                    };
                 case 'clear-filters':
                     return {
                         name: '',
@@ -54,6 +61,11 @@ const PlantsFilterer: React.FunctionComponent<{
                         types: [],
                         sunshine: [],
                         watering: [],
+                        size: {
+                            min: null,
+                            max: null,
+                            unit: Unit.METER,
+                        },
                     };
                 default:
                     return state;
@@ -66,6 +78,11 @@ const PlantsFilterer: React.FunctionComponent<{
             types: [],
             sunshine: [],
             watering: [],
+            size: {
+                min: null,
+                max: null,
+                unit: Unit.METER,
+            },
         }
     );
     const filterPlants = (): void => {
@@ -99,6 +116,11 @@ const PlantsFilterer: React.FunctionComponent<{
             filteredPlants = new PlantsFiltererEntity(
                 filteredPlants
             ).filterByWatering(state.watering);
+        }
+        if (state.size.min || state.size.max) {
+            filteredPlants = new PlantsFiltererEntity(
+                filteredPlants
+            ).filterBySize(state.size);
         }
         onFilter(filteredPlants);
     };
@@ -228,6 +250,21 @@ const PlantsFilterer: React.FunctionComponent<{
                     </Option>
                 ))}
             </Select>
+            <SizeInput
+                componentSize={'large'}
+                style={{
+                    ...style,
+                    verticalAlign: 'middle',
+                    marginRight: 5,
+                }}
+                initialValue={state.size}
+                onChange={(value) => {
+                    dispatch({
+                        size: value,
+                        type: 'filter-by-size',
+                    });
+                }}
+            />
             <Button
                 style={{verticalAlign: 'middle'}}
                 size={'large'}

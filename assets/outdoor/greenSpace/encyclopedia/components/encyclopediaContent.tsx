@@ -106,7 +106,7 @@ const EncyclopediaContent: React.FunctionComponent<{
                 toolbar={
                     <>
                         <Row gutter={[5, 0]}>
-                            <Col flex={'auto'}>
+                            <Col flex={'auto'} style={{width: 'min-content'}}>
                                 <PlantsFilterer
                                     onFilter={(sortedAndFilteredPlants) =>
                                         dispatch({
@@ -118,7 +118,7 @@ const EncyclopediaContent: React.FunctionComponent<{
                                     plants={state.plants}
                                 />
                             </Col>
-                            <Col flex={'40px'}>
+                            <Col flex={'45px'}>
                                 <PlantsSorter
                                     onSort={(sortedAndFilteredPlants) =>
                                         dispatch({
@@ -131,7 +131,7 @@ const EncyclopediaContent: React.FunctionComponent<{
                                     style={{verticalAlign: 'middle'}}
                                 />
                             </Col>
-                            <Col flex={'110px'}>
+                            <Col flex={'115px'}>
                                 <Button
                                     onClick={showModal}
                                     size={'large'}

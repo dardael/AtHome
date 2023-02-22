@@ -1,5 +1,5 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import {Button, Input, Select} from 'antd';
+import {Button, Col, Input, Row, Select} from 'antd';
 import PlantsFiltererEntity from '../lib/PlantsFilterer';
 import {Plant} from '../entity/Plant';
 import PlantsSorterEntity from '../lib/PlantsSorter';
@@ -15,8 +15,7 @@ import SizeInput from './sizeInput';
 const PlantsFilterer: React.FunctionComponent<{
     onFilter: Function;
     plants: Plant[];
-    style?;
-}> = ({onFilter, plants, style}) => {
+}> = ({onFilter, plants}) => {
     const {Option} = Select;
     const [state, dispatch] = useReducer(
         (state, action) => {
@@ -127,151 +126,152 @@ const PlantsFilterer: React.FunctionComponent<{
     useEffect(() => filterPlants(), [plants, state]);
     return (
         <>
-            <Input
-                onChange={(event) => {
-                    dispatch({
-                        name: event.target.value,
-                        type: 'filter-by-name',
-                    });
-                }}
-                size={'large'}
-                style={{
-                    ...style,
-                    marginRight: 5,
-                    width: 200,
-                    verticalAlign: 'middle',
-                }}
-                placeholder={'Nom de la plante'}
-                value={state.name}
-                title={'Nom ou nom scientifique de la plante'}
-            />
-            <RusticityInput
-                onChange={(value) => {
-                    dispatch({
-                        rusticity: value,
-                        type: 'filter-by-rusticity',
-                    });
-                }}
-                style={{
-                    ...style,
-                    marginRight: 5,
-                    width: 100,
-                    verticalAlign: 'middle',
-                }}
-                value={state.rusticity}
-                size={'large'}
-                placeholder={'Rusticité'}
-                title={'Rusticité'}
-            />
-            <FoliageSelect
-                value={state.foliage}
-                allowClear
-                onChange={(value) => {
-                    dispatch({
-                        foliage: value,
-                        type: 'filter-by-foliage',
-                    });
-                }}
-                size={'large'}
-                style={{
-                    ...style,
-                    width: 200,
-                    verticalAlign: 'middle',
-                    marginRight: 5,
-                }}
-                placeholder={'Feuillage'}
-            />
-            <TypeSelect
-                value={state.types}
-                allowClear
-                multiple
-                onChange={(value) => {
-                    dispatch({
-                        types: value,
-                        type: 'filter-by-types',
-                    });
-                }}
-                size={'large'}
-                style={{
-                    ...style,
-                    width: 200,
-                    verticalAlign: 'middle',
-                    marginRight: 5,
-                }}
-                placeholder={'Types'}
-            />
-            <Select
-                value={state.sunshine}
-                onChange={(value) => {
-                    dispatch({
-                        sunshine: value,
-                        type: 'filter-by-sunshine',
-                    });
-                }}
-                allowClear
-                mode={'multiple'}
-                style={{
-                    ...style,
-                    width: 200,
-                    verticalAlign: 'middle',
-                    marginRight: 5,
-                }}
-                size={'large'}
-                placeholder={'Ensoleillement'}
-            >
-                {Sunshine.getLabels().map((label) => (
-                    <Option key={label.key} value={label.key}>
-                        {label.label}
-                    </Option>
-                ))}
-            </Select>
-            <Select
-                value={state.watering}
-                onChange={(value) => {
-                    dispatch({
-                        watering: value,
-                        type: 'filter-by-watering',
-                    });
-                }}
-                allowClear
-                mode={'multiple'}
-                style={{
-                    ...style,
-                    width: 200,
-                    verticalAlign: 'middle',
-                    marginRight: 5,
-                }}
-                size={'large'}
-                placeholder={'Arrosage'}
-            >
-                {Watering.getLabels().map((label) => (
-                    <Option key={label.key} value={label.key}>
-                        {label.label}
-                    </Option>
-                ))}
-            </Select>
-            <SizeInput
-                componentSize={'large'}
-                style={{
-                    ...style,
-                    verticalAlign: 'middle',
-                    marginRight: 5,
-                }}
-                initialValue={state.size}
-                onChange={(value) => {
-                    dispatch({
-                        size: value,
-                        type: 'filter-by-size',
-                    });
-                }}
-            />
-            <Button
-                style={{verticalAlign: 'middle'}}
-                size={'large'}
-                onClick={() => dispatch({type: 'clear-filters'})}
-            >
-                Nettoyer les filtres
-            </Button>
+            <Row align={'middle'} gutter={[5, 0]}>
+                <Col flex={'215px'}>
+                    <Input
+                        onChange={(event) => {
+                            dispatch({
+                                name: event.target.value,
+                                type: 'filter-by-name',
+                            });
+                        }}
+                        size={'large'}
+                        style={{
+                            width: 215,
+                        }}
+                        placeholder={'Nom de la plante'}
+                        value={state.name}
+                        title={'Nom ou nom scientifique de la plante'}
+                    />
+                </Col>
+                <Col flex={'215px'}>
+                    <RusticityInput
+                        onChange={(value) => {
+                            dispatch({
+                                rusticity: value,
+                                type: 'filter-by-rusticity',
+                            });
+                        }}
+                        style={{
+                            width: 215,
+                            display: 'inline-block',
+                            paddingTop: '12px',
+                        }}
+                        value={state.rusticity}
+                        size={'large'}
+                        placeholder={'Rusticité'}
+                        title={'Rusticité'}
+                    />
+                </Col>
+                <Col flex={'215px'}>
+                    <FoliageSelect
+                        value={state.foliage}
+                        allowClear
+                        onChange={(value) => {
+                            dispatch({
+                                foliage: value,
+                                type: 'filter-by-foliage',
+                            });
+                        }}
+                        size={'large'}
+                        style={{
+                            width: 215,
+                        }}
+                        placeholder={'Feuillage'}
+                    />
+                </Col>
+                <Col flex={'215px'}>
+                    <TypeSelect
+                        value={state.types}
+                        allowClear
+                        multiple
+                        onChange={(value) => {
+                            dispatch({
+                                types: value,
+                                type: 'filter-by-types',
+                            });
+                        }}
+                        size={'large'}
+                        style={{
+                            width: 215,
+                        }}
+                        placeholder={'Types'}
+                    />
+                </Col>
+                <Col flex={'215px'}>
+                    <Select
+                        value={state.sunshine}
+                        onChange={(value) => {
+                            dispatch({
+                                sunshine: value,
+                                type: 'filter-by-sunshine',
+                            });
+                        }}
+                        allowClear
+                        mode={'multiple'}
+                        style={{
+                            width: 215,
+                        }}
+                        size={'large'}
+                        placeholder={'Ensoleillement'}
+                    >
+                        {Sunshine.getLabels().map((label) => (
+                            <Option key={label.key} value={label.key}>
+                                {label.label}
+                            </Option>
+                        ))}
+                    </Select>
+                </Col>
+                <Col flex={'215px'}>
+                    <Select
+                        value={state.watering}
+                        onChange={(value) => {
+                            dispatch({
+                                watering: value,
+                                type: 'filter-by-watering',
+                            });
+                        }}
+                        allowClear
+                        mode={'multiple'}
+                        style={{
+                            width: 215,
+                        }}
+                        size={'large'}
+                        placeholder={'Arrosage'}
+                    >
+                        {Watering.getLabels().map((label) => (
+                            <Option key={label.key} value={label.key}>
+                                {label.label}
+                            </Option>
+                        ))}
+                    </Select>
+                </Col>
+                <Col flex={'215px'}>
+                    <SizeInput
+                        componentSize={'large'}
+                        initialValue={state.size}
+                        onChange={(value) => {
+                            dispatch({
+                                size: value,
+                                type: 'filter-by-size',
+                            });
+                        }}
+                        style={{
+                            display: 'inline-block',
+                            lineHeight: '40px',
+                            width: '215px',
+                        }}
+                    />
+                </Col>
+                <Col flex={'220px'}>
+                    <Button
+                        size={'large'}
+                        onClick={() => dispatch({type: 'clear-filters'})}
+                    >
+                        Nettoyer les filtres
+                    </Button>
+                </Col>
+            </Row>
         </>
     );
 };

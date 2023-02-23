@@ -263,7 +263,7 @@ const PlantsFilterer: React.FunctionComponent<{
                         }}
                     />
                 </Col>
-                <Col flex={'220px'}>
+                <Col flex={'220px'} style={{marginTop: '1px'}}>
                     <Button
                         size={'large'}
                         onClick={() => dispatch({type: 'clear-filters'})}

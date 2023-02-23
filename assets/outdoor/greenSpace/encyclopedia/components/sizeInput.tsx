@@ -29,6 +29,7 @@ const SizeInput: React.FunctionComponent<{
                     borderLeft: 0,
                     borderRight: 0,
                     pointerEvents: 'none',
+                    height: componentSize === 'large' ? '40px' : '',
                 }}
                 placeholder='~'
                 disabled

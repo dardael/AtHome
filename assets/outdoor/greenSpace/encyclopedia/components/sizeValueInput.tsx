@@ -12,7 +12,7 @@ const SizeValueInput: React.FunctionComponent<{
     return (
         <>
             <InputNumber
-                style={{width: 60}}
+                style={{width: 60, height: size === 'large' ? '40px' : ''}}
                 defaultValue={defaultValue}
                 value={value}
                 onChange={onChange}

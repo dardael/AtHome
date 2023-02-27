@@ -85,12 +85,12 @@ const PlantModal: React.FunctionComponent<{
                 destroyOnClose={true}
                 forceRender
                 centered
-                title='Ajouter une plante'
+                title={plant ? 'Modifier une plante' : 'Ajouter une plante'}
                 open={mustShow}
                 onOk={addPlant}
                 onCancel={() => onCancel()}
                 cancelText={'Annuler'}
-                okText={'Ajouter'}
+                okText={plant ? 'Modifier' : 'Ajouter'}
             >
                 <Form
                     form={plantForm}

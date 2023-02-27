@@ -59,11 +59,22 @@ const MainLayout: React.FunctionComponent<{children: ReactNode}> = ({
                 <Header
                     style={{
                         display: 'flex',
-                        justifyContent: 'flex-end',
                         alignItems: 'center',
                         backgroundColor: 'rgb(1 122 71)',
                     }}
                 >
+                    <h1
+                        style={{
+                            flex: 'auto',
+                            color: 'white',
+                            fontStyle: 'normal',
+                            fontWeight: '500',
+                            fontSize: '18px',
+                            lineHeight: '32px',
+                        }}
+                    >
+                        AtHome
+                    </h1>
                     <Dropdown menu={{items: dropdownItems}} trigger={['click']}>
                         <Avatar
                             style={{cursor: 'pointer'}}

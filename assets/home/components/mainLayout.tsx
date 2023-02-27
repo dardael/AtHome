@@ -4,6 +4,7 @@ import React, {ReactNode} from 'react';
 import type {MenuProps} from 'antd';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTree, faBookAtlas} from '@fortawesome/free-solid-svg-icons';
+const logo = require('/assets/ressources/images/garden.png');
 
 const MainLayout: React.FunctionComponent<{children: ReactNode}> = ({
     children,
@@ -63,6 +64,7 @@ const MainLayout: React.FunctionComponent<{children: ReactNode}> = ({
                         backgroundColor: 'rgb(1 122 71)',
                     }}
                 >
+                    <Avatar src={logo} style={{marginRight: '10px'}} />
                     <h1
                         style={{
                             flex: 'auto',

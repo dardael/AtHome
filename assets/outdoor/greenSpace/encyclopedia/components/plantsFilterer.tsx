@@ -145,22 +145,21 @@ const PlantsFilterer: React.FunctionComponent<{
                     />
                 </Col>
                 <Col flex={'215px'}>
-                    <RusticityInput
+                    <TypeSelect
+                        value={state.types}
+                        allowClear
+                        multiple
                         onChange={(value) => {
                             dispatch({
-                                rusticity: value,
-                                type: 'filter-by-rusticity',
+                                types: value,
+                                type: 'filter-by-types',
                             });
                         }}
+                        size={'large'}
                         style={{
                             width: 215,
-                            display: 'inline-block',
-                            paddingTop: '12px',
                         }}
-                        value={state.rusticity}
-                        size={'large'}
-                        placeholder={'Rusticité'}
-                        title={'Rusticité'}
+                        placeholder={'Types'}
                     />
                 </Col>
                 <Col flex={'215px'}>
@@ -181,21 +180,22 @@ const PlantsFilterer: React.FunctionComponent<{
                     />
                 </Col>
                 <Col flex={'215px'}>
-                    <TypeSelect
-                        value={state.types}
-                        allowClear
-                        multiple
+                    <RusticityInput
                         onChange={(value) => {
                             dispatch({
-                                types: value,
-                                type: 'filter-by-types',
+                                rusticity: value,
+                                type: 'filter-by-rusticity',
                             });
                         }}
-                        size={'large'}
                         style={{
                             width: 215,
+                            display: 'inline-block',
+                            paddingTop: '12px',
                         }}
-                        placeholder={'Types'}
+                        value={state.rusticity}
+                        size={'large'}
+                        placeholder={'Rusticité'}
+                        title={'Rusticité'}
                     />
                 </Col>
                 <Col flex={'215px'}>

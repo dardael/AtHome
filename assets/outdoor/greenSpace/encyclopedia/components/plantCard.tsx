@@ -93,7 +93,11 @@ const PlantCard: React.FunctionComponent<{
                             }
                         />
                     }
-                    title={initialPlant.name}
+                    title={
+                        <Tooltip title={initialPlant.name}>
+                            {initialPlant.name}
+                        </Tooltip>
+                    }
                     description={
                         <Tooltip title={initialPlant.scientificName}>
                             <span

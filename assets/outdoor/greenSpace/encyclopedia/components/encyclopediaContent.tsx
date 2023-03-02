@@ -106,7 +106,13 @@ const EncyclopediaContent: React.FunctionComponent<{
                 toolbar={
                     <>
                         <Row gutter={[5, 0]}>
-                            <Col flex={'auto'} style={{width: 'min-content'}}>
+                            <Col
+                                flex={'auto'}
+                                style={{
+                                    paddingTop: '1px',
+                                    width: 'min-content',
+                                }}
+                            >
                                 <PlantsFilterer
                                     onFilter={(sortedAndFilteredPlants) =>
                                         dispatch({

@@ -2,21 +2,21 @@ import React, {useEffect, useReducer, useState} from 'react';
 import {Button, Col, Input, Row, Select} from 'antd';
 import PlantsFiltererEntity from '../lib/PlantsFilterer';
 import {Plant} from '../entity/Plant';
-import PlantsSorterEntity from '../lib/PlantsSorter';
 import RusticityInput from './rusticityInput';
 import FoliageSelect from './foliageSelect';
 import TypeSelect from './typeSelect';
-import {Type} from '../entity/plant/Type';
 import {Sunshine} from '../entity/plant/Sunshine';
 import {Watering} from '../entity/plant/Watering';
 import {Unit} from '../entity/plant/Unit';
 import SizeInput from './sizeInput';
+import {Collapse} from 'antd';
 
 const PlantsFilterer: React.FunctionComponent<{
     onFilter: Function;
     plants: Plant[];
 }> = ({onFilter, plants}) => {
     const {Option} = Select;
+    const {Panel} = Collapse;
     const [state, dispatch] = useReducer(
         (state, action) => {
             switch (action.type) {
@@ -182,92 +182,101 @@ const PlantsFilterer: React.FunctionComponent<{
                             />
                         </Col>
                     </Row>
-                    <Row align={'middle'} gutter={[5, 0]}>
-                        <Col flex={'215px'}>
-                            <RusticityInput
-                                onChange={(value) => {
-                                    dispatch({
-                                        rusticity: value,
-                                        type: 'filter-by-rusticity',
-                                    });
-                                }}
-                                style={{
-                                    width: 215,
-                                    display: 'inline-block',
-                                    paddingTop: '12px',
-                                }}
-                                value={state.rusticity}
-                                size={'large'}
-                                placeholder={'Rusticité'}
-                                title={'Rusticité'}
-                            />
-                        </Col>
-                        <Col flex={'215px'}>
-                            <Select
-                                value={state.sunshine}
-                                onChange={(value) => {
-                                    dispatch({
-                                        sunshine: value,
-                                        type: 'filter-by-sunshine',
-                                    });
-                                }}
-                                allowClear
-                                mode={'multiple'}
-                                style={{
-                                    width: 215,
-                                }}
-                                size={'large'}
-                                placeholder={'Ensoleillement'}
-                            >
-                                {Sunshine.getLabels().map((label) => (
-                                    <Option key={label.key} value={label.key}>
-                                        {label.label}
-                                    </Option>
-                                ))}
-                            </Select>
-                        </Col>
-                        <Col flex={'215px'}>
-                            <Select
-                                value={state.watering}
-                                onChange={(value) => {
-                                    dispatch({
-                                        watering: value,
-                                        type: 'filter-by-watering',
-                                    });
-                                }}
-                                allowClear
-                                mode={'multiple'}
-                                style={{
-                                    width: 215,
-                                }}
-                                size={'large'}
-                                placeholder={'Arrosage'}
-                            >
-                                {Watering.getLabels().map((label) => (
-                                    <Option key={label.key} value={label.key}>
-                                        {label.label}
-                                    </Option>
-                                ))}
-                            </Select>
-                        </Col>
-                        <Col flex={'215px'}>
-                            <SizeInput
-                                componentSize={'large'}
-                                initialValue={state.size}
-                                onChange={(value) => {
-                                    dispatch({
-                                        size: value,
-                                        type: 'filter-by-size',
-                                    });
-                                }}
-                                style={{
-                                    display: 'inline-block',
-                                    lineHeight: '40px',
-                                    width: '215px',
-                                }}
-                            />
-                        </Col>
-                    </Row>
+                    <Collapse ghost>
+                        <Panel header='Filtres avancés' key='1'>
+                            <Row align={'middle'} gutter={[5, 10]}>
+                                <Col flex={'215px'}>
+                                    <RusticityInput
+                                        onChange={(value) => {
+                                            dispatch({
+                                                rusticity: value,
+                                                type: 'filter-by-rusticity',
+                                            });
+                                        }}
+                                        style={{
+                                            width: 215,
+                                            display: 'inline-block',
+                                        }}
+                                        value={state.rusticity}
+                                        size={'large'}
+                                        placeholder={'Rusticité'}
+                                        title={'Rusticité'}
+                                    />
+                                </Col>
+                                <Col flex={'215px'}>
+                                    <Select
+                                        value={state.sunshine}
+                                        onChange={(value) => {
+                                            dispatch({
+                                                sunshine: value,
+                                                type: 'filter-by-sunshine',
+                                            });
+                                        }}
+                                        allowClear
+                                        mode={'multiple'}
+                                        style={{
+                                            width: 215,
+                                        }}
+                                        size={'large'}
+                                        placeholder={'Ensoleillement'}
+                                    >
+                                        {Sunshine.getLabels().map((label) => (
+                                            <Option
+                                                key={label.key}
+                                                value={label.key}
+                                            >
+                                                {label.label}
+                                            </Option>
+                                        ))}
+                                    </Select>
+                                </Col>
+                                <Col flex={'215px'}>
+                                    <Select
+                                        value={state.watering}
+                                        onChange={(value) => {
+                                            dispatch({
+                                                watering: value,
+                                                type: 'filter-by-watering',
+                                            });
+                                        }}
+                                        allowClear
+                                        mode={'multiple'}
+                                        style={{
+                                            width: 215,
+                                        }}
+                                        size={'large'}
+                                        placeholder={'Arrosage'}
+                                    >
+                                        {Watering.getLabels().map((label) => (
+                                            <Option
+                                                key={label.key}
+                                                value={label.key}
+                                            >
+                                                {label.label}
+                                            </Option>
+                                        ))}
+                                    </Select>
+                                </Col>
+                                <Col flex={'215px'}>
+                                    <SizeInput
+                                        componentSize={'large'}
+                                        initialValue={state.size}
+                                        onChange={(value) => {
+                                            dispatch({
+                                                size: value,
+                                                type: 'filter-by-size',
+                                            });
+                                        }}
+                                        style={{
+                                            display: 'inline-block',
+                                            lineHeight: '40px',
+                                            width: '215px',
+                                        }}
+                                    />
+                                </Col>
+                            </Row>
+                        </Panel>
+                    </Collapse>
                 </Col>
                 <Col flex={'170px'} style={{marginTop: '1px'}}>
                     <Button

@@ -1,14 +1,12 @@
-FROM php:8.1.0-fpm-alpine
-RUN apk --update --no-cache add git
+FROM php:8.2-fpm
+RUN apt-get update &&  apt-get install -y git
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www
 CMD composer install ;  php-fpm
 EXPOSE 9000
 
-RUN apk add --update linux-headers
 # XDebug extension
-RUN apk --update --no-cache add pcre-dev ${PHPIZE_DEPS} \
-    && pecl install xdebug \
+RUN pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && echo 'xdebug.mode=develop,debug,profile,trace,coverage' >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini \
     && echo 'xdebug.start_with_request=trigger' >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini \
@@ -21,12 +19,12 @@ RUN apk --update --no-cache add pcre-dev ${PHPIZE_DEPS} \
     && echo 'xdebug.debug.output_dir=/usr/local/logs/php' >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini
 
 #mongoDb
-RUN apk add libressl-dev \
+RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb \
     && echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongodb.ini
 
-RUN apk add shadow
+#RUN apt-get update && apt-get install shadow
 RUN groupmod -g 1000 www-data
 RUN usermod -g www-data -u 1000 www-data
 USER www-data

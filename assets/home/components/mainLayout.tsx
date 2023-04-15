@@ -3,29 +3,31 @@ import {UserOutlined} from '@ant-design/icons';
 import React, {ReactNode} from 'react';
 import type {MenuProps} from 'antd';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTree, faBookAtlas} from '@fortawesome/free-solid-svg-icons';
+import {faTree, faBookAtlas, faUser} from '@fortawesome/free-solid-svg-icons';
+import {MenuItem} from '../entity/MenuItem';
 const logo = require('/assets/ressources/images/garden.png');
 
-const MainLayout: React.FunctionComponent<{children: ReactNode}> = ({
-    children,
-}) => {
+const MainLayout: React.FunctionComponent<{
+    children: ReactNode;
+    initialMenuItem: MenuItem;
+}> = ({children, initialMenuItem}) => {
     const {Header, Content, Footer, Sider} = Layout;
-    type MenuItem = Required<MenuProps>['items'][number];
+    type MenuItemType = Required<MenuProps>['items'][number];
 
     const getItem = (
         label: React.ReactNode,
         key: React.Key,
         icon?: React.ReactNode,
-        children?: MenuItem[],
+        children?: MenuItemType[],
         type?: 'group'
-    ): MenuItem => {
+    ): MenuItemType => {
         return {
             key,
             icon,
             children,
             label,
             type,
-        } as MenuItem;
+        } as MenuItemType;
     };
     const dropdownItems: MenuProps['items'] = [
         getItem(<a href='/logout'>Se déconnecter</a>, 'logout'),
@@ -43,8 +45,10 @@ const MainLayout: React.FunctionComponent<{children: ReactNode}> = ({
                     <FontAwesomeIcon icon={faTree} />,
                     [
                         getItem(
-                            'Encyclopédie',
-                            'encyclopedia',
+                            <a href='/outdoor/green-space/encyclopedia/display'>
+                                Encyclopédie
+                            </a>,
+                            MenuItem.ENCYCLOPEDIA,
                             <FontAwesomeIcon icon={faBookAtlas} />
                         ),
                     ]
@@ -53,6 +57,19 @@ const MainLayout: React.FunctionComponent<{children: ReactNode}> = ({
             'group'
         ),
         getItem('Intérieur', 'indoor', null, [], 'group'),
+        getItem(
+            'Paramètres',
+            'settings',
+            null,
+            [
+                getItem(
+                    <a href='/account/admin/display'>Compte</a>,
+                    MenuItem.ACCOUNT_ADMIN,
+                    <FontAwesomeIcon icon={faUser} />
+                ),
+            ],
+            'group'
+        ),
     ];
     return (
         <>
@@ -88,8 +105,10 @@ const MainLayout: React.FunctionComponent<{children: ReactNode}> = ({
                     <Sider theme={'dark'} collapsible>
                         <Menu
                             theme={'dark'}
-                            defaultOpenKeys={['greenSpace']}
-                            defaultSelectedKeys={['encyclopedia']}
+                            defaultOpenKeys={[
+                                MenuItem.getMenuData(initialMenuItem).parent,
+                            ]}
+                            defaultSelectedKeys={[initialMenuItem]}
                             mode='inline'
                             items={menuItems}
                         ></Menu>

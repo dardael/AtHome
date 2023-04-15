@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Controller\Outdoor\GreenSpace;
 
 use App\Controller\Core\GenericController;
+use App\Document\Home\MenuItem;
 use App\Document\Outdoor\GreenSpace\Encyclopedia as EncyclopediaDocument;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,7 @@ class Encyclopedia extends GenericController
                 ->getPlants()
         );
         return $this->getRenderResponse('homePage', [
+            'menuItem' => MenuItem::ENCYCLOPEDIA,
             'plants' => $this->serializer->serialize($plants, 'json'),
         ]);
     }

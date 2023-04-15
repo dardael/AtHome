@@ -169,6 +169,8 @@
             "mailchimp-mailer": "symfony/mailchimp-mailer",
             "mailchimpmailer": "symfony/mailchimp-mailer",
             "mailer": "symfony/mailer",
+            "mailer-send-mailer": "symfony/mailer-send-mailer",
+            "mailersendmailer": "symfony/mailer-send-mailer",
             "mailgun-mailer": "symfony/mailgun-mailer",
             "mailgunmailer": "symfony/mailgun-mailer",
             "mailjet-mailer": "symfony/mailjet-mailer",
@@ -194,6 +196,8 @@
             "messagebirdnotifier": "symfony/message-bird-notifier",
             "messagemedianotifier": "symfony/message-media-notifier",
             "messenger": "symfony/messenger",
+            "messenger-test": "zenstruck/messenger-test",
+            "messengertest": "zenstruck/messenger-test",
             "microsoft-teams-notifier": "symfony/microsoft-teams-notifier",
             "microsoftteamsnotifier": "symfony/microsoft-teams-notifier",
             "migrations": "doctrine/doctrine-migrations-bundle",
@@ -256,12 +260,16 @@
             "psr-17": "symfony/psr7-pack",
             "psr7": "symfony/psr7-pack",
             "psr17": "symfony/psr7-pack",
+            "pushover-notifier": "symfony/pushover-notifier",
+            "pushovernotifier": "symfony/pushover-notifier",
             "rate-limiter": "symfony/rate-limiter",
             "ratelimiter": "symfony/rate-limiter",
             "react-admin": "api-platform/admin-pack",
             "reactadmin": "api-platform/admin-pack",
             "redis-messenger": "symfony/redis-messenger",
             "redismessenger": "symfony/redis-messenger",
+            "remote-event": "symfony/remote-event",
+            "remoteevent": "symfony/remote-event",
             "req-check": "symfony/requirements-checker",
             "req-checker": "symfony/requirements-checker",
             "req-checks": "symfony/requirements-checker",
@@ -281,6 +289,7 @@
             "router": "symfony/routing",
             "routing": "symfony/routing",
             "runtime": "symfony/runtime",
+            "scheduler": "symfony/scheduler",
             "sec-check": "sensiolabs/security-checker",
             "sec-checker": "sensiolabs/security-checker",
             "sec-checks": "sensiolabs/security-checker",
@@ -315,7 +324,9 @@
             "serializer": "symfony/serializer-pack",
             "server": "symfony/web-server-bundle",
             "simple-phpunit": "symfony/phpunit-bridge",
+            "simple-textin-notifier": "symfony/simple-textin-notifier",
             "simplephpunit": "symfony/phpunit-bridge",
+            "simpletextinnotifier": "symfony/simple-textin-notifier",
             "sinch-notifier": "symfony/sinch-notifier",
             "sinchnotifier": "symfony/sinch-notifier",
             "slack-notifier": "symfony/slack-notifier",
@@ -388,6 +399,7 @@
             "web-server": "symfony/web-server-bundle",
             "web-server-bundle": "symfony/web-server-bundle",
             "webapp": "symfony/webapp-pack",
+            "webhook": "symfony/webhook",
             "weblink": "symfony/web-link",
             "webpack": "symfony/webpack-encore-bundle",
             "webpack-encore": "symfony/webpack-encore-bundle",
@@ -533,6 +545,7 @@
             "symfony/sendgrid-mailer": ["4.3", "4.4"],
             "symfony/sendinblue-mailer": ["5.2"],
             "symfony/sendinblue-notifier": ["5.2"],
+            "symfony/simple-textin-notifier": ["6.3"],
             "symfony/sinch-notifier": ["5.1"],
             "symfony/slack-notifier": ["5.0", "5.1", "5.2"],
             "symfony/sms-biuras-notifier": ["5.3"],
@@ -558,6 +571,7 @@
             "symfony/web-profiler-bundle": ["3.3", "5.3", "6.1"],
             "symfony/web-server-bundle": ["3.3"],
             "symfony/webapp-pack": ["1.0"],
+            "symfony/webhook": ["6.3"],
             "symfony/webpack-encore-bundle": ["1.0", "1.6", "1.9", "1.10"],
             "symfony/workflow": ["3.3"],
             "symfony/yunpian-notifier": ["5.4"],
@@ -570,7 +584,8 @@
             "twig/inky-extension": ["1.0"],
             "twig/markdown-extension": ["1.0"],
             "willdurand/js-translation-bundle": ["2.0"],
-            "zenstruck/foundry": ["1.9", "1.10"]
+            "zenstruck/foundry": ["1.9", "1.10"],
+            "zenstruck/messenger-test": ["1.7"]
         },
         "recipe-conflicts": {
             "doctrine/annotations": {"1.10": {"symfony/routing": "<6.0"}},
@@ -1309,6 +1324,7 @@
                     "6.2",
                     "6.3"
                 ],
+                "symfony/mailer-send-mailer": ["6.3"],
                 "symfony/mailgun-mailer": [
                     "4.3",
                     "4.4",
@@ -1581,6 +1597,7 @@
                     "6.2",
                     "6.3"
                 ],
+                "symfony/pushover-notifier": ["6.3"],
                 "symfony/rate-limiter": [
                     "5.2",
                     "5.3",
@@ -1600,6 +1617,7 @@
                     "6.2",
                     "6.3"
                 ],
+                "symfony/remote-event": ["6.3"],
                 "symfony/ring-central-notifier": ["6.3"],
                 "symfony/rocket-chat-notifier": [
                     "5.1",
@@ -1629,6 +1647,7 @@
                     "6.3"
                 ],
                 "symfony/runtime": ["5.3", "5.4", "6.0", "6.1", "6.2", "6.3"],
+                "symfony/scheduler": ["6.3"],
                 "symfony/security": [
                     "3.4",
                     "4.0",
@@ -1785,6 +1804,7 @@
                     "6.2",
                     "6.3"
                 ],
+                "symfony/simple-textin-notifier": ["6.3"],
                 "symfony/sinch-notifier": [
                     "5.1",
                     "5.2",
@@ -2006,20 +2026,7 @@
                     "6.2",
                     "6.3"
                 ],
-                "symfony/var-exporter": [
-                    "4.2",
-                    "4.3",
-                    "4.4",
-                    "5.0",
-                    "5.1",
-                    "5.2",
-                    "5.3",
-                    "5.4",
-                    "6.0",
-                    "6.1",
-                    "6.2",
-                    "6.3"
-                ],
+                "symfony/var-exporter": ["6.2", "6.3"],
                 "symfony/vonage-notifier": ["5.4", "6.0", "6.1", "6.2", "6.3"],
                 "symfony/web-link": [
                     "3.4",
@@ -2063,6 +2070,7 @@
                     "4.3",
                     "4.4"
                 ],
+                "symfony/webhook": ["6.3"],
                 "symfony/workflow": [
                     "3.4",
                     "4.0",
@@ -2122,27 +2130,27 @@
         }
     },
     "headers": {
-        "content-length": ["5696"],
-        "source-age": ["88"],
-        "expires": ["Sat, 04 Feb 2023 09:48:08 GMT"],
-        "x-fastly-request-id": ["7c173cb202968b203ca8a7f2b38e99e7d7e87cf2"],
+        "content-length": ["5849"],
+        "source-age": ["260"],
+        "expires": ["Fri, 14 Apr 2023 21:41:30 GMT"],
+        "x-fastly-request-id": ["a85d5d7e025bc0dbd7001e9d70b9c1bacdacdc2b"],
         "access-control-allow-origin": ["*"],
         "vary": ["Authorization,Accept-Encoding,Origin"],
-        "x-timer": ["S1675503788.447724,VS0,VE1"],
-        "x-cache-hits": ["1"],
+        "x-timer": ["S1681508190.406248,VS0,VE0"],
+        "x-cache-hits": ["2"],
         "x-cache": ["HIT"],
-        "x-served-by": ["cache-cdg20724-CDG"],
+        "x-served-by": ["cache-par-lfpg1960083-PAR"],
         "via": ["1.1 varnish"],
-        "date": ["Sat, 04 Feb 2023 09:43:08 GMT"],
+        "date": ["Fri, 14 Apr 2023 21:36:30 GMT"],
         "accept-ranges": ["bytes"],
         "content-encoding": ["gzip"],
-        "x-github-request-id": ["5AD0:E936:63D82B:6A9352:63DA207D"],
+        "x-github-request-id": ["E0D0:C509:3C2C7D:3DF9B9:642D9231"],
         "x-xss-protection": ["1; mode=block"],
         "x-frame-options": ["deny"],
         "x-content-type-options": ["nosniff"],
         "strict-transport-security": ["max-age=31536000"],
         "etag": [
-            "W/\"473aed9e77fadb44a43e8848e7ffe2f222f17c0b1c5a51f087a33c45beb06895\""
+            "W/\"c66ce8d9892fc4b0fbdacd4575b0685d94530cf21d6b2037617bf801cb1f737a\""
         ],
         "content-type": ["text/plain; charset=utf-8"],
         "content-security-policy": [

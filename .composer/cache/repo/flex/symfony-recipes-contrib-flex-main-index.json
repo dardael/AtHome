@@ -58,6 +58,7 @@
             "broadway/event-store-mongodb": ["0.2"],
             "broadway/read-model-elasticsearch": ["0.3"],
             "broadway/read-model-mongodb": ["0.2"],
+            "bugsnag/bugsnag-symfony": ["1.13"],
             "bukashk0zzz/filter-bundle": ["2.0"],
             "bukashk0zzz/liip-imagine-serialization-bundle": ["2.0"],
             "byte-artist/menu-bundle": ["0.1"],
@@ -180,7 +181,7 @@
             "friendsofsymfony/elastica-bundle": ["5.0"],
             "friendsofsymfony/jsrouting-bundle": ["2.0", "2.3"],
             "friendsofsymfony/oauth-server-bundle": ["1.6"],
-            "friendsofsymfony/rest-bundle": ["2.2"],
+            "friendsofsymfony/rest-bundle": ["2.2", "3.0"],
             "fsi/files": ["1.5"],
             "geosocio/http-serializer-bundle": ["2.0"],
             "gesdinet/jwt-refresh-token-bundle": ["1.0"],
@@ -230,6 +231,7 @@
             "jolicode/gif-exception-bundle": ["1.0"],
             "jolicode/jolitypo": ["1.0"],
             "jonathankablan/fast-entity-bundle": ["2.0"],
+            "jrmgx/interactive-bundle": ["1.0"],
             "jsor/doctrine-postgis": ["1.7"],
             "jupi/prestashop-webservice-bundle": ["1.0"],
             "jurry/amqp-symfony-bundle": ["1.0"],
@@ -307,6 +309,7 @@
             "mcfedr/awspushbundle": ["6.11"],
             "mediamonks/rest-api-bundle": ["3.0"],
             "mediamonks/sonata-media-bundle": ["2.0"],
+            "meilisearch/search-bundle": ["0.10"],
             "merceslab/spreadsheet-client-bundle": ["1.0"],
             "meritoo/common-bundle": ["0.1"],
             "meteo-concept/hcaptcha-bundle": ["1.0"],
@@ -330,7 +333,7 @@
             "monsieurbiz/sylius-coliship-plugin": ["0.1"],
             "monsieurbiz/sylius-homepage-plugin": ["1.0"],
             "monsieurbiz/sylius-menu-plugin": ["1.0"],
-            "monsieurbiz/sylius-no-commerce-plugin": ["0.1"],
+            "monsieurbiz/sylius-no-commerce-plugin": ["0.1", "1.0"],
             "monsieurbiz/sylius-rich-editor-plugin": ["1.0", "2.0"],
             "monsieurbiz/sylius-sales-reports-plugin": ["1.0"],
             "monsieurbiz/sylius-search-plugin": ["1.0"],
@@ -350,6 +353,7 @@
             "nedac/sylius-minimum-order-value-plugin": ["1.0"],
             "nedac/sylius-order-now-plugin": ["1.0"],
             "nedac/sylius-temporarily-out-of-stock-plugin": ["1.0"],
+            "neimheadh/sonata-annotation-bundle": ["2.0"],
             "nella/monolog-tracy-bundle": ["2.0"],
             "nelmio/api-doc-bundle": ["2.13", "3.0"],
             "nelmio/solarium-bundle": ["2.4"],
@@ -378,6 +382,7 @@
             "oneup/flysystem-bundle": ["3.0", "4.0"],
             "oneup/uploader-bundle": ["2.0"],
             "onurb/doctrine-yuml-bundle": ["1.1"],
+            "openai-php/symfony": ["0.3"],
             "orbitale/cms-bundle": ["3.0"],
             "orbitale/easyimpress-bundle": ["1.0"],
             "oskarstark/env-var-extension": ["1.0"],
@@ -449,7 +454,7 @@
             "secit-pl/imap-bundle": ["1.0"],
             "seferov/aws-bundle": ["3.0"],
             "sensiolabs/connect-bundle": ["4.0"],
-            "sentry/sentry-symfony": ["1.0", "3.0", "4.0"],
+            "sentry/sentry-symfony": ["1.0", "3.0", "4.0", "4.6"],
             "sg/datatablesbundle": ["1.0"],
             "siganushka/generic-bundle": ["0.3"],
             "siganushka/region-bundle": ["0.1"],
@@ -471,6 +476,7 @@
             "sonata-project/translation-bundle": ["2.3"],
             "sonata-project/twig-extensions": ["1.2"],
             "spatie/symfony-ignition-bundle": ["0.0"],
+            "specshaper/encrypt-bundle": ["3.0"],
             "spiechu/symfony-commons-bundle": ["0.1"],
             "spomky-labs/jose-bundle": ["2.2"],
             "spomky-labs/lexik-jose-bridge": ["1.0", "2.0"],
@@ -546,6 +552,7 @@
             "webylum/puppeteer-server-client-bundle": ["1.2"],
             "weglot/translate-bundle": ["0.6"],
             "wemakecustom/doctrine-naming-strategy-bundle": ["1.0"],
+            "wemxo/dynamic-form-bundle": ["1.0"],
             "wiet-at/symfony-dev": ["1.0"],
             "willdurand/geocoder-bundle": ["4.1", "5.0"],
             "willdurand/hateoas-bundle": ["1.4", "2.0"],
@@ -555,6 +562,7 @@
             "xcore/inline-editing-bundle": ["1.2"],
             "xiidea/easy-audit": ["1.4", "2.0"],
             "yamilovs/sms-bundle": ["1.0"],
+            "youritservices/mock-server-bundle": ["1.0"],
             "ywh/cvss-bundle": ["1.0"],
             "ywh/doctrine-encryption-bundle": ["1.0"],
             "zendesk/zendesk_api_client_php": ["2.2"],
@@ -571,15 +579,29 @@
                 }
             },
             "jane-php/json-schema": {
-                "6.0": {"symfony/symfony": "<5.0"},
-                "7.0": {"symfony/symfony": "<5.0"}
+                "6.0": {
+                    "symfony/symfony": "<5.0"
+                },
+                "7.0": {
+                    "symfony/symfony": "<5.0"
+                }
             },
             "jane-php/open-api-common": {
-                "6.0": {"symfony/symfony": "<5.0"},
-                "7.0": {"symfony/symfony": "<5.0"}
+                "6.0": {
+                    "symfony/symfony": "<5.0"
+                },
+                "7.0": {
+                    "symfony/symfony": "<5.0"
+                }
             },
             "sentry/sentry-symfony": {
-                "4.0": {"symfony/framework-bundle": "<5.4"}
+                "4.0": {
+                    "symfony/framework-bundle": "<5.4"
+                },
+                "4.6": {
+                    "symfony/framework-bundle": "<5.4",
+                    "symfony/monolog-bundle": "<3.7"
+                }
             }
         },
         "versions": [],
@@ -595,27 +617,27 @@
         }
     },
     "headers": {
-        "content-length": ["7407"],
-        "source-age": ["164"],
-        "expires": ["Sat, 04 Feb 2023 09:48:08 GMT"],
-        "x-fastly-request-id": ["b8ff46ae9b6c673ac5a39432a6508b7a9a7f1b47"],
+        "content-length": ["7546"],
+        "source-age": ["176"],
+        "expires": ["Fri, 14 Apr 2023 21:41:30 GMT"],
+        "x-fastly-request-id": ["b8b681b08665fefd1817622318a548cf42a66cc7"],
         "access-control-allow-origin": ["*"],
         "vary": ["Authorization,Accept-Encoding,Origin"],
-        "x-timer": ["S1675503788.450409,VS0,VE1"],
-        "x-cache-hits": ["1"],
+        "x-timer": ["S1681508190.427651,VS0,VE0"],
+        "x-cache-hits": ["2"],
         "x-cache": ["HIT"],
-        "x-served-by": ["cache-cdg20746-CDG"],
+        "x-served-by": ["cache-par-lfpg1960058-PAR"],
         "via": ["1.1 varnish"],
-        "date": ["Sat, 04 Feb 2023 09:43:08 GMT"],
+        "date": ["Fri, 14 Apr 2023 21:36:30 GMT"],
         "accept-ranges": ["bytes"],
         "content-encoding": ["gzip"],
-        "x-github-request-id": ["67BE:0493:25ED5C:280475:63DBD1F4"],
+        "x-github-request-id": ["F49A:747B:19B7385:1AB6098:6437CFE0"],
         "x-xss-protection": ["1; mode=block"],
         "x-frame-options": ["deny"],
         "x-content-type-options": ["nosniff"],
         "strict-transport-security": ["max-age=31536000"],
         "etag": [
-            "W/\"0e68977f45cd90fb8d10caa52142a8ad262b23aa92335d81e6cc0639c996a12d\""
+            "W/\"1fd84d5a3d18225630bf01a15171540f7a48ceee0590b66aae4be196ff47f5f7\""
         ],
         "content-type": ["text/plain; charset=utf-8"],
         "content-security-policy": [

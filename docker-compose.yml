@@ -54,13 +54,6 @@ services:
             - '8081:8081'
         restart: unless-stopped
 
-    composer:
-        image: composer
-        build:
-            context: ./infra/composer
-        container_name: composer_AtHome
-        volumes:
-            - ${APP_FOLDER}:/var/www
     node:
         image: node
         build:

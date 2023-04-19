@@ -63,7 +63,7 @@ const MainLayout: React.FunctionComponent<{
             null,
             [
                 getItem(
-                    <a href='/account/admin/display'>Compte</a>,
+                    <a href='/settings/account/admin/display'>Compte</a>,
                     MenuItem.ACCOUNT_ADMIN,
                     <FontAwesomeIcon icon={faUser} />
                 ),

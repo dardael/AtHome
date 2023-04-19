@@ -4,6 +4,7 @@ import Theme from '../../core/theme/theme';
 import MainLayout from '../components/mainLayout';
 import EncyclopediaContent from '../../outdoor/greenSpace/encyclopedia/components/encyclopediaContent';
 import {MenuItem} from '../entity/MenuItem';
+import Admin from '../../settings/accountAdmin/components/admin';
 
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.getElementById('root');
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         initialPlants={JSON.parse(atHome.plants)}
                     ></EncyclopediaContent>
                 ) : (
-                    <div>coucou</div>
+                    <Admin></Admin>
                 )}
             </MainLayout>
         </Theme>
